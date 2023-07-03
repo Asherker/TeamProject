@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"> 
+ <head> 
+  <meta charset="UTF-8"> 
+  <title>CodePen - Animated Login Form using Html &amp; CSS Only</title> 
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> 
+ </head>
+ <body id="app"> <!-- partial:index.partial.html --> 
+  <section> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> 
+   <div class="signin"> 
+    <div class="content"> 
+     <h2>登入您的駭客帳號</h2> 
+     <form class="form" method="post" action="\login\abc" ref="form"> 
+      <div class="inputBox"> 
+       <input type="text" name="username"  v-model="username" required> <i>帳號</i>
+       <div v-if="showWarning" class="warning">請自律不要隱碼攻擊</div> 
+      </div> 
+      <div class="inputBox"> 
+       <input type="password" name="password" required> <i>密碼</i> 
+      </div> 
+      <div class="links"> <a href="#">您失憶了嗎？</a> <a href="#">快來加入我們！</a> 
+
+      </div> 
+
+      <div class="inputBox"> 
+
+       <input type="button" value="進入駭客的世界！" @click="checkAccount"> 
+
+      </div> 
+
+     </form> 
+
+    </div> 
+
+   </div> 
+
+  </section> <!-- partial --> 
+
+ </body>
+
+ <script lang="javascript">
+    const {createApp} = Vue
+    //建立Vue物件
+    createApp({
+        data() {
+            //這裡出現的變數才可以在網頁內使用
+            return {
+                showWarning: false, //開關警告訊息用
+                username:'', //存放帳號的變數
+            }
+        },
+        watch: {
+            //監看username變數
+            username(newVal,oldVal) {
+                if(newVal.includes('\'')) {
+                    //帳號名稱不再有單引號時則隱藏紅字
+                    this.showWarning = false;
+                }
+            }
+        },
+        //Vue的方法寫在這裡
+        methods: {
+            //檢查帳號有沒有包含不允許的字元
+            checkAccount() {
+                console.log('checkAccount');
+                //如果帳號名稱出現單引號，就顯示警告訊息
+                if(this.username.includes('\'')){
+                this.showWarning = true;
+                } else if (this.username.includes(' ') || this.username.includes('\%') || this.username.includes('\*')) {
+                this.showWarning = true;
+                    //送出表單
+                }else{
+                this.$refs.form.submit();                    
+                }
+
+            }
+        }        
+    }).mount('#app');
+ </script>
+
+</html>
