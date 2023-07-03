@@ -4,6 +4,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>登入介面</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <link rel="stylesheet" href="css/bootstrap.css">
 <link href="iconfont/style.css" type="text/css" rel="stylesheet">
@@ -25,10 +27,11 @@
 	  background: -moz-linear-gradient(#4990c1, #52a3d2, #6186a3); /* Firefox 3.6 - 15 */
 	  background: linear-gradient(#4990c1, #52a3d2, #6186a3); /* 标准的语法 */
 	}
+    .warning{color: rgb(231, 5, 5);}
 </style>
 
 </head>
-<body style="background:url(images/bg.jpg) no-repeat;">
+<body id="app" style="background:url(images/bg.jpg) no-repeat;">
     
     <div class="container wrap1" style="height:450px;">
             <h2 class="mg-b20 text-center">庫存管理系統</h2>
@@ -37,15 +40,17 @@
                 <form>
                     <div class="form-group mg-t20">
                         <i class="icon-user icon_font"></i>
-                        <input type="email" class="login_input" id="Email1" placeholder="請輸入員工帳號" />
+                        <input type="email" class="login_input" id="Email1" v-model="username" placeholder="請輸入員工帳號" required />
                     </div>
                     <div class="form-group mg-t20">
                         <i class="icon-lock icon_font"></i>
-                        <input type="password" class="login_input" id="Password1" placeholder="請輸入員工密碼" />
+                        <input type="password" class="login_input" id="Password1" v-model="password" placeholder="請輸入員工密碼" required />
                     </div>
                     <div class="checkbox mg-b25">
                         <label>
                             <br>
+                            <div v-if="showWarning1" class="warning">帳號錯誤</div>
+                            <div v-if="showWarning2" class="warning">密碼錯誤</div>
                             <input type="checkbox" />是否記住登陸訊息
                         </label>
                     </div>
@@ -62,17 +67,20 @@
     createApp({
         data() {
             //這裡出現的變數才可以在網頁內使用
-            return {
-                showWarning: false, //開關警告訊息用
+            return {//開關警告訊息用
+                showWarning1: false, //帳號錯
+                showWarning2: false, //密碼錯
+                showWarning3: false, //有隱碼
                 username:'', //存放帳號的變數
+                password:''
             }
         },
         watch: {
             //監看username變數
             username(newVal,oldVal) {
-                if(newVal.includes('\'')) {
-                    //帳號名稱不再有單引號時則隱藏紅字
-                    this.showWarning = false;
+                if(newVal.includes('\'') || newVal.includes(' ') || newVal.includes('\%') || newVal.includes('\*')) {
+                    //帳號名稱不再有上述文字時則隱藏警告
+                    this.showWarning3 = false;
                 }
             }
         },
@@ -83,12 +91,28 @@
                 console.log('checkAccount');
                 //如果帳號名稱出現單引號，就顯示警告訊息
                 if(this.username.includes('\'')){
-                this.showWarning = true;
+                this.showWarning3 = true;
                 } else if (this.username.includes(' ') || this.username.includes('\%') || this.username.includes('\*')) {
-                this.showWarning = true;
+                this.showWarning3 = true;
                     //送出表單
                 }else{
-                this.$refs.form.submit();                    
+                //this.$refs.form.submit();  這裡不送表單
+                axios.get("/login?username=" + this.username + "&password=" + this.password)
+                .then( (response) =>{
+                    //get完成後收到的資料在這裡處理
+                    console.log(response);
+
+                    if(response.data.code == 0)
+                    location.href = '/table.html';
+                    else if(response.data.code == 2)
+                    this.showWarning1 = true;
+                    else if(response.data.code == 3)
+                    this.showWarning2 = true;
+                    //location.href = 'loginResult.html?message=' + response.data.message;
+                })
+                .catch( (error) => {
+                    console.log(error);
+                });
                 }
 
             }

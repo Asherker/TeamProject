@@ -9,8 +9,6 @@ import java.sql.Statement;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.uch.vueproject.model.BaseResponse;
 import com.uch.vueproject.model.LoginResponse;
 
 @RestController

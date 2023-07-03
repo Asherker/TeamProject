@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - NFT Card Component</title>
+  <link rel="stylesheet" href="card.style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- 引入Vue.js -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+
+  <!--  設定id=app 給Vue的框架來用  -->  
+<body id="app">
+  <div class="bg">
+    <h1>{{ message }}</h1>
+  </div>
+  <div class="nft" v-for="item in products">
+    <div class='main'>
+      <img class='tokenImage' :src="item.imageUrl" alt="NFT" />
+      <h2>{{ item.name }}</h2>
+      <p class='description'>{{ item.description }}</p>
+      <div class='tokenInfo'>
+        <div class="price">
+          <ins>＄</ins>
+          <p>{{ item.price }}</p>
+        </div>
+        <div class="duration">
+          <ins>◷</ins>
+          <p>{{ item.category }}</p>
+        </div>
+      </div>
+      <hr />
+      <div class='creator'>
+        <div class='wrapper'>
+          <img src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80" alt="Creator" />
+        </div>
+        <p>{{ item.storeName }}</p>
+      </div>
+    </div>
+  </div>
+  
+</body>
+<script lang="javascript">
+  // Vue初始化
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        message: 'We  Are Hackers',
+        products: [], //定義陣列用以存放所有產品資料
+      }
+    },
+    //當網頁載入完成後會被Vue框架呼叫
+    mounted(){
+    axios.get("http://localhost:8080/login/product").then(  (response) => {
+    //get完成後收到的資料可以在此處處理
+    console.log(response);
+    //將API的商品資料存到Vue建立的products變數
+    this.products = response.data.data;
+  })
+  .catch ((error) =>{
+    console.log(error);
+  });
+    }
+
+  }).mount('#app')
+
+</script>
+</html>
