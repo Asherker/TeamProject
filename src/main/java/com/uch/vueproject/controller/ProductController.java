@@ -1,4 +1,4 @@
-package com.uch.vueproject;
+package com.uch.vueproject.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,13 +44,14 @@ public class ProductController {
             //將每一筆商品資料讀出來存放到ArrayList內
             while(rs.next()) {
                 ProductEntity productEntity = new ProductEntity();
-                productEntity.setId(rs.getInt("ID"));
+                productEntity.setId(rs.getInt("id"));
                 productEntity.setName(rs.getString("name"));
-                productEntity.setDescription(rs.getString("description"));
-                productEntity.setPrice(rs.getInt("price"));
-                productEntity.setImageUrl(rs.getString("image_url"));
-                productEntity.setStoreName(rs.getString("store_name"));
                 productEntity.setCategory(rs.getString("category"));
+                productEntity.setPrice(rs.getInt("price"));
+                productEntity.setQuantity(rs.getString("quantity"));
+                productEntity.setDeveloper(rs.getString("developer"));
+                productEntity.setInchange(rs.getString("inchange"));
+                productEntity.setOutchange(rs.getString("outchange"));
                 //將取的商品資料存在ArrayList
                 products.add(productEntity);
             }

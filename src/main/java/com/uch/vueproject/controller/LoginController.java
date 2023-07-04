@@ -1,4 +1,4 @@
-package com.uch.vueproject;
+package com.uch.vueproject.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
