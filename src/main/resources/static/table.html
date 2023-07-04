@@ -67,34 +67,34 @@
 						</thead>
 						<tbody class="bg-gray-800">
 							
-							<tr class="bg-black bg-opacity-20">
+							<tr v-for="item in games" class="bg-black bg-opacity-20">
 								<td class="pl-4">
-									1
+									{{ item.id }}
 								</td>
 								<td class="flex px-6 py-4 whitespace-nowrap">
-									<img class="w-5" src="https://ssl.gstatic.com/onebox/media/sports/logos/udQ6ns69PctCv143h-GeYw_48x48.png" alt="">
-									<span class="ml-2 font-medium">Man United</span>
+									<!--<img class="w-5" src="https://ssl.gstatic.com/onebox/media/sports/logos/udQ6ns69PctCv143h-GeYw_48x48.png" alt="">-->
+									<!--<span class="ml-2 font-medium">Man United</span>-->
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
-									17
+									{{ item.name }}
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
-									11
+									{{ item.category }}
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
-									3
+									{{ item.developer }}
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
-									3
+									{{ item.price }}
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
-									34
+									{{ item.quantity }}
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
-									24
+									{{ item.inchange }}
 								</td>
 								<td class="px-6 py-4 whitespace-nowrap">
-									10
+									{{ item.outchange }}
 								</td>
 								<td class="flex px-6 py-4 whitespace-nowrap">
 									<svg class="w-4 fill-current text-green-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -127,4 +127,41 @@
 <!-- partial -->
   
 </body>
+<script>
+	// Vue初始化
+	const { createApp } = Vue
+  
+	createApp({
+	  data() {
+		// 網頁要使用的變數放這裡
+		return {
+		  message: 'Hello Vue!',
+		  games: [],
+		}
+	  },
+	  // 當網頁載入完成後會被Vue框架呼叫
+	  mounted() {
+		//打API
+		axios.get("/games")
+		.then( (response) =>{
+			console.log(response);
+        // 將API的商品資料存到Vue建立的products變數
+        if(response.data.code == 0) {
+          // 將API拿到的data存到Vue變數
+        	this.foods = response.data.data;
+        }
+		})
+		.catch( (error) =>{
+			console.log(error);
+		})
+	  },
+	  // 網頁要用的方法寫在這裡
+	  methods: {
+		//新增資料
+		onAdd(){
+			alter("新增資料");
+		} 
+	  }
+	}).mount('#app')
+  </script>
 </html>
