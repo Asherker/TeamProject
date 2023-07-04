@@ -22,7 +22,7 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 </head>
-<body>
+<body id="app">
 <!-- partial:index.partial.html -->
 <div class="flex flex-col items-center justify-center w-screen min-h-screen bg-gray-900 py-10">
 
@@ -148,7 +148,7 @@
         // 將API的商品資料存到Vue建立的products變數
         if(response.data.code == 0) {
           // 將API拿到的data存到Vue變數
-        	this.foods = response.data.data;
+        	this.games = response.data.data;
         }
 		})
 		.catch( (error) =>{

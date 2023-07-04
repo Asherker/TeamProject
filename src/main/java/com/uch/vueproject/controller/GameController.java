@@ -29,7 +29,7 @@ public class GameController {
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/shopping?user=root&password=4581196");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/projectdata?user=root&password=4581196");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from storesystem");
 
