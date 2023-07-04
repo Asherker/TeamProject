@@ -4,8 +4,8 @@ body {
 }
 body {
   margin: 0;
-  background: -webkit-linear-gradient(45deg, #49a09d, #5f2c82);
-  background: linear-gradient(45deg, #49a09d, #5f2c82);
+  background: -webkit-linear-gradient(45deg, #375caa, #0b1749);
+  background: linear-gradient(45deg, #0A1728,#221130, #18314D);
   font-family: sans-serif;
   font-weight: 100;
 }
@@ -25,10 +25,12 @@ body {
 }
 
 table {
-  width: 800px;
+  
+  width: 1200px;
   border-collapse: collapse;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px rgba(49, 41, 85, 0.685);
+  border-radius: 10px;
 }
 th,
 td {
