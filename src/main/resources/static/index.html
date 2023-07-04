@@ -47,10 +47,11 @@
                         <input type="password" class="login_input" id="Password1" v-model="password" placeholder="請輸入員工密碼" required />
                     </div>
                     <div class="checkbox mg-b25">
+                        <div v-if="showWarning1" class="warning">帳號錯誤</div>
+                        <div v-if="showWarning2" class="warning">密碼錯誤</div>
+                        <div v-if="showWarning3" class="warning">請勿輸入錯誤字元</div>
                         <label>
                             <br>
-                            <div v-if="showWarning1" class="warning">帳號錯誤</div>
-                            <div v-if="showWarning2" class="warning">密碼錯誤</div>
                             <input type="checkbox" />是否記住登陸訊息
                         </label>
                     </div>
