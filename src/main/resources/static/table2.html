@@ -60,7 +60,7 @@
 				imited Email SupportLimited Email Support
 				Limited Email Support</li>
 		</ul>
-		<p @click="showFoodDetailModal = false" class="button">關 閉</p>
+		<p @click="showDetail = false" class="button">關 閉</p>
 	</div>
 </div>
 </body>
@@ -105,6 +105,17 @@
 		onShowDetail(id) {
         // 顯示食品詳細資訊的對話盒
         this.showDetail = true;
+
+		axios.get("/gameDetail?id=" + id)
+		.then((response) => {
+			console.log(response);
+			if (response.data.code == 0) {
+				this.gameDetail = response.data.data;
+			}
+		})
+		.catch((error) => {
+			console.log(error);
+		});
 		} 
 	  }
 	}).mount('#app')
