@@ -53,6 +53,9 @@
 					<table class="min-w-full text-sm text-gray-400">
 						<thead class="bg-gray-800 text-xs uppercase font-medium">
 							<tr>
+								<span class="material-symbols-outlined">
+									add
+								</span>
 								<th></th>
 								<th scope="col" class="px-6 py-3 text-left tracking-wider">
 									編號
@@ -81,19 +84,9 @@
 								<th scope="col" class="px-6 py-3 text-left tracking-wider">
 									功能
 								</th>
-								<th><span class="material-symbols-outlined">
-									add
-								</span>
-								</th>
-								<th><span class="material-symbols-outlined">
-									settings
-									</span>
-								</th>
-								<th><span class="material-symbols-outlined">
-									delete
-									</span>
-								</th>
-								<th><span class="material-symbols-outlined">
+	
+								<th scope="col" class="px-3 py-3 text-left tracking-wider">
+									<span class="material-symbols-outlined">
 									search
 									</span>
 								</th>
@@ -131,9 +124,14 @@
 								<td class="px-6 py-4 whitespace-nowrap">
 									{{ item.outchange }}
 								</td>
-								<td class="flex px-6 py-4 whitespace-nowrap">
+								<td class="flex px-2 py-2 whitespace-nowrap">
 									<span class="material-symbols-outlined">
-										add
+										edit_note
+									</span>
+								</td>
+								<td class="flex px-2 py-2 whitespace-nowrap">
+									<span class="material-symbols-outlined">
+										delete
 									</span>
 								</td>
 							</tr>
