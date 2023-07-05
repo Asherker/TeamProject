@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <title>庫存管理系統</title>
+<meta charset="UTF-8">
+<title>庫存管理系統</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/gameDetail.css">
 <!-- 這是按鍵的CSS -->
@@ -11,7 +11,7 @@
 
 <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	  
+
 	<!-- 引入Vue.js -->
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
@@ -43,7 +43,12 @@
 				<td>{{ item.inchange }}</td>
 				<td>{{ item.outchange }}</td>
 				<td>
-					<span class="material-symbols-outlined">add</span>
+				<span class="material-symbols-outlined">
+				edit_note
+				</span>
+				<span class="material-symbols-outlined">
+				delete
+				</span>
 				</td>
 			</tr>
 		</tbody>
