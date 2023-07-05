@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>庫存管理系統</title>
 <link rel="stylesheet" href="css/style.css">
+<!--<link rel="stylesheet" href="css/gameDetail.css">*/ -->
 <!-- 這是按鍵的CSS -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
@@ -33,7 +34,7 @@
 		</thead>
 		<tbody>
 			<tr v-for="item in games">
-				<td>{{ item.id }}</td>
+				<td @click="onShowDetail(item.id)">{{ item.id }}</td>
 				<td>{{ item.name }}</td>
 				<td>{{ item.category }}</td>
 				<td>{{ item.developer }}</td>
@@ -49,8 +50,43 @@
 	</table>
 </div>
 
-
-
+<div class="pricingTable">
+	<h2 class="pricingTable-title">Find a plan that's right for you.</h2>
+	<h3 class="pricingTable-subtitle">Every plan comes with a 30-day   free trial.</h3>
+	
+	<ul class="pricingTable-firstTable">
+	  <li class="pricingTable-firstTable_table">
+		<h1 class="pricingTable-firstTable_table__header">Bronze Packege</h1>
+		<p class="pricingTable-firstTable_table__pricing"><span>$</span><span>10</span><span>Month</span></p>
+		<ul class="pricingTable-firstTable_table__options">
+		  <li>Unlimited Listing</li>
+		  <li>Edit Your Listing</li>
+		  <li>Approve Reviews</li>
+		</ul>
+		<button class="pricingTable-firstTable_table__getstart">Get Started Now</button>
+	  </li><li class="pricingTable-firstTable_table">
+		<h1 class="pricingTable-firstTable_table__header">Gold Packege</h1>
+		<p class="pricingTable-firstTable_table__pricing"><span>$</span><span>19</span><span>Month</span></p>
+		<ul class="pricingTable-firstTable_table__options">
+		  <li>Unlimited Listing</li>
+		  <li>Edit Your Listing</li>
+		  <li>Approve Reviews</li>
+		  <li>Take Booking Online</li>
+		  <li>24/7 Support Service</li>
+		</ul>
+		<button class="pricingTable-firstTable_table__getstart">Get Started Now</button>
+	  </li><li class="pricingTable-firstTable_table">
+		<h1 class="pricingTable-firstTable_table__header">Platinum Packege</h1>
+		<p class="pricingTable-firstTable_table__pricing"><span>$</span><span>49</span><span>Month</span></p>
+		<ul class="pricingTable-firstTable_table__options">
+		  <li>Unlimited Listing</li>
+		  <li>Edit Your Listing</li>
+		  <li>Approve Reviews</li>
+		</ul>
+		<button class="pricingTable-firstTable_table__getstart">Get Started Now</button>
+	  </li>
+	</ul>
+  </div>
 
 </body>
 </html>
@@ -66,6 +102,7 @@
 		return {
 		  message: 'Hello Vue!',
 		  games: [],
+		  showDetail: true,
 		}
 	  },
 	  // 當網頁載入完成後會被Vue框架呼叫
@@ -89,6 +126,10 @@
 		//新增資料
 		onAdd(){
 			alter("新增資料");
+		},
+		onShowDetail(id) {
+        // 顯示食品詳細資訊的對話盒
+        this.showDetail = true;
 		} 
 	  }
 	}).mount('#app')

@@ -31,7 +31,7 @@ public class GameController {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/projectdata?user=root&password=4581196");
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from storesystem");
+            rs = stmt.executeQuery("select * from storesystem");//這裡後續要修改資料庫路徑以及要修改的項目
 
             ArrayList<GameEntity> games = new ArrayList<>();
             while(rs.next()){
