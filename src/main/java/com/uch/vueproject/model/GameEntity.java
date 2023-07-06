@@ -13,4 +13,5 @@ public class GameEntity {
     Date outchange;
     int quantity;
     String developer;
+    
 }
