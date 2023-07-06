@@ -5,7 +5,7 @@ import java.sql.Date;
 import lombok.Data;
 @Data
 public class GameEntity {
-    int id;
+    String id;
     String name;
     String category;
     int price;

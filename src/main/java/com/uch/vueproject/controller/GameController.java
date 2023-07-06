@@ -29,20 +29,19 @@ public class GameController {
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/projectdata?user=root&password=4581196");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from storesystem");//這裡後續要修改資料庫路徑以及要修改的項目
+            rs = stmt.executeQuery("select * from gameinfo");//這裡後續要修改資料庫路徑以及要修改的項目
 
             ArrayList<GameEntity> games = new ArrayList<>();
             while(rs.next()){
                 GameEntity gameEntity = new GameEntity();
-                gameEntity.setId(rs.getInt("id"));
+                gameEntity.setId(rs.getString("id"));
                 gameEntity.setName(rs.getString("name"));
                 gameEntity.setCategory(rs.getString("category"));
                 gameEntity.setPrice(rs.getInt("price"));
                 gameEntity.setQuantity(rs.getInt("quantity"));
                 gameEntity.setDeveloper(rs.getString("developer"));
-                
                 gameEntity.setInchange(rs.getDate("inchange"));
                 gameEntity.setOutchange(rs.getDate("outchange"));
 
