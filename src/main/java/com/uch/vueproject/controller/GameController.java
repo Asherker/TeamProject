@@ -42,7 +42,6 @@ public class GameController {
                 gameEntity.setPrice(rs.getInt("price"));
                 gameEntity.setQuantity(rs.getInt("quantity"));
                 gameEntity.setDeveloper(rs.getString("developer"));
-                
                 gameEntity.setInchange(rs.getDate("inchange"));
                 gameEntity.setOutchange(rs.getDate("outchange"));
 
