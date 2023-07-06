@@ -17,15 +17,16 @@ body {
           transform: translate(-50%, -50%);
 }
 .material-symbols-outlined {
+
 	cursor: pointer;
 	border: 2px solid #55608f;	
-  	background-color:  #55608f;
-  	color: white; 
-  	font-variation-settings:
-  	'FILL' 0,
-  	'wght' 400,
-  	'GRAD' 0,
-  	'opsz' 24
+  background-color:  #55608f;
+  color: white; 
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 	}
 
 .material-symbols-outlined:hover {
