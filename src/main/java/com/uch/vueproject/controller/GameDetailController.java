@@ -29,12 +29,12 @@ private GameDetailResponse getGameDetail(int id) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/shopping?user=root&password=0000");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
 
             stmt = conn.createStatement();
 
             // ToDo: 改query:  select name, category, buy_date, exp_date, quantity  from foods f join food_detail fd where f.food_id = fd.id;
-            rs = stmt.executeQuery("select * from detail d where id = " + id);//這裡是要加入查的資料庫
+            rs = stmt.executeQuery("select * from game_description where id = " + id);//這裡是要加入查的資料庫
 
             boolean isDataExist = rs.next();
 
@@ -43,7 +43,7 @@ private GameDetailResponse getGameDetail(int id) {
                 return new GameDetailResponse(2, "無此資料, id=" + id, null);
             } else {
                 GameDetailEntity gameDetailEntity = new GameDetailEntity();
-                gameDetailEntity.setId(rs.getInt("id"));
+                gameDetailEntity.setId(rs.getString("id"));
                 gameDetailEntity.setChname(rs.getString("ch_name"));
                 gameDetailEntity.setEnname(rs.getString("en_name"));
                 gameDetailEntity.setDevyear(rs.getInt("dev_year"));

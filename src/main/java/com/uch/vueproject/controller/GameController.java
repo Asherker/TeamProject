@@ -36,13 +36,12 @@ public class GameController {
             ArrayList<GameEntity> games = new ArrayList<>();
             while(rs.next()){
                 GameEntity gameEntity = new GameEntity();
-                gameEntity.setId(rs.getInt("id"));
+                gameEntity.setId(rs.getString("id"));
                 gameEntity.setName(rs.getString("name"));
                 gameEntity.setCategory(rs.getString("category"));
                 gameEntity.setPrice(rs.getInt("price"));
                 gameEntity.setQuantity(rs.getInt("quantity"));
                 gameEntity.setDeveloper(rs.getString("developer"));
-                
                 gameEntity.setInchange(rs.getDate("inchange"));
                 gameEntity.setOutchange(rs.getDate("outchange"));
 
