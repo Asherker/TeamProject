@@ -75,161 +75,161 @@
 		<div class="button clickable" @click="showDetail = false">關 閉</div>
 	</div>
 
-		<!-- 新增遊戲的對話盒 -->
-		<div class="form" v-if="showAddGameModal">
-			<div class="title">新增遊戲資料</div>
-			<div class="input-container ic1">
-				<input id="firstname" class="input" type="text" v-model="newGameData.name" placeholder=" " />
-				<div class="cut"></div>
-				<label for="firstname" class="placeholder">遊戲名稱</label>
-			</div>
+	<!-- 新增遊戲的對話盒 -->
+	<div class="form" v-if="showAddGameModal">
+		<div class="title">新增遊戲資料</div>
+		<div class="input-container ic1">
+			<input id="firstname" class="input" type="text" v-model="newGameData.name" placeholder=" " />
+			<div class="cut"></div>
+			<label for="firstname" class="placeholder">遊戲名稱</label>
+		</div>
+		<div class="input-container ic2">
+			<input id="email" class="input" type="text" v-model="newGameData.category" placeholder=" " />
+			<div class="cut cut-short"></div>
+			<label for="email" class="placeholder">種類</label>
+		</div>
+		
+		<div class="input-container ic2">
+			<input id="email" class="input" type="text" v-model="newGameData.developer" placeholder=" " />
+			<div class="cut cut-short"></div>
+			<label for="email" class="placeholder">開發商</label>
+		</div>
+		<div class="btn-group">
 			<div class="input-container ic2">
-				<input id="email" class="input" type="text" v-model="newGameData.category" placeholder=" " />
+				<input id="email" class="input" type="number" v-model="newGameData.price" placeholder=" " />
 				<div class="cut cut-short"></div>
-				<label for="email" class="placeholder">種類</label>
+				<label for="email" class="placeholder">價格</label>
 			</div>
-			
 			<div class="input-container ic2">
-				<input id="email" class="input" type="text" v-model="newGameData.developer" placeholder=" " />
+				<input id="email" class="input" type="number" v-model="newGameData.quantity" placeholder=" " />
 				<div class="cut cut-short"></div>
-				<label for="email" class="placeholder">開發商</label>
-			</div>
-			<div class="btn-group">
-				<div class="input-container ic2">
-					<input id="email" class="input" type="number" v-model="newGameData.price" placeholder=" " />
-					<div class="cut cut-short"></div>
-					<label for="email" class="placeholder">價格</label>
-				</div>
-				<div class="input-container ic2">
-					<input id="email" class="input" type="number" v-model="newGameData.quantity" placeholder=" " />
-					<div class="cut cut-short"></div>
-					<label for="email" class="placeholder">庫存數量</label>
-				</div>
-			</div>
-			<div class="input-container ic2">
-				<span class="add-game-title">平台&nbsp;&nbsp;</span>
-				<el-select v-model="newGameData.platform" class="m-2" placeholder="Select" size="large">
-					<el-option
-					  v-for="item in options"
-					  :key="item.value"
-					  :label="item.label"
-					  :value="item.value"
-					/>
-				</el-select>
-			</div>
-			
-			<div class="input-container ic2">
-				<span class="add-game-title">最新進貨日&nbsp;&nbsp;</span>
-				<el-date-picker
-					v-model="newGameData.inchange"
-					type="date"
-					placeholder="Pick a day"
-					:size="size"
-				/>
-			</div>
-			<div class="input-container ic2">
-				<span class="add-game-title">最後出貨日&nbsp;&nbsp;</span>
-				<el-date-picker
-					v-model="newGameData.outchange"
-					type="date"
-					placeholder="Pick a day"
-					:size="size"
-				/>
-			</div>
-	
-			<div class="btn-group">
-				<button type="text" class="submit" @click="showAddGameModal = false">取消</button>
-				<button type="text" class="submit" @click="onAdd">送出</button>
+				<label for="email" class="placeholder">庫存數量</label>
 			</div>
 		</div>
-	
-	</body>
-	
-	</html>
-	
-	</body>
-	<script>
-		// Vue初始化
-		const { createApp } = Vue
-	
-		createApp({
-			data() {
-				// 網頁要使用的變數放這裡
-				return {
-					message: 'Hello Vue!',
-					games: [],
-					showDetail: false,
-					gameDetail: {},
-					showAddGameModal: false,
-	
-					options: [
-						{
-							value: 'PS4',
-							label: 'PS4',
-						},
-						{
-							value: 'Switch',
-							label: 'Switch',
-						},
-					],
-	
-					// 使用者的選擇種類會存在這邊
-					categoryValue: '種類',
-	
-					newGameData: {
-						name: '',
-						category: '',
-						developer: '',
-						platform: '',
-						price: 0,
-						quantity: 0,
-						inchange: null,
-						outchange: null,
-					}
+		<div class="input-container ic2">
+			<span class="add-game-title">平台&nbsp;&nbsp;</span>
+			<el-select v-model="newGameData.platform" class="m-2" placeholder="Select" size="large">
+				<el-option
+				  v-for="item in options"
+				  :key="item.value"
+				  :label="item.label"
+				  :value="item.value"
+				/>
+			</el-select>
+		</div>
+		
+		<div class="input-container ic2">
+			<span class="add-game-title">最新進貨日&nbsp;&nbsp;</span>
+			<el-date-picker
+				v-model="newGameData.inchange"
+				type="date"
+				placeholder="Pick a day"
+				:size="size"
+			/>
+		</div>
+		<div class="input-container ic2">
+			<span class="add-game-title">最後出貨日&nbsp;&nbsp;</span>
+			<el-date-picker
+				v-model="newGameData.outchange"
+				type="date"
+				placeholder="Pick a day"
+				:size="size"
+			/>
+		</div>
+
+		<div class="btn-group">
+			<button type="text" class="submit" @click="showAddGameModal = false">取消</button>
+			<button type="text" class="submit" @click="onAdd">送出</button>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+</body>
+<script>
+	// Vue初始化
+	const { createApp } = Vue
+
+	createApp({
+		data() {
+			// 網頁要使用的變數放這裡
+			return {
+				message: 'Hello Vue!',
+				games: [],
+				showDetail: false,
+				gameDetail: {},
+				showAddGameModal: false,
+
+				options: [
+					{
+						value: 'PS4',
+						label: 'PS4',
+					},
+					{
+						value: 'Switch',
+						label: 'Switch',
+					},
+				],
+
+				// 使用者的選擇種類會存在這邊
+				categoryValue: '種類',
+
+				newGameData: {
+					name: '',
+					category: '',
+					developer: '',
+					platform: '',
+					price: 0,
+					quantity: 0,
+					inchange: null,
+					outchange: null,
 				}
+			}
+		},
+		// 當網頁載入完成後會被Vue框架呼叫
+		mounted() {
+			//打API
+			axios.get("/games")
+				.then((response) => {
+					console.log(response);
+					// 將API的商品資料存到Vue建立的products變數
+					if (response.data.code == 0) {
+						// 將API拿到的data存到Vue變數
+						this.games = response.data.data;
+					}
+				})
+				.catch((error) => {
+					console.log(error);
+				})
+		},
+		// 網頁要用的方法寫在這裡
+		methods: {
+			//新增資料
+			onAdd() {
+				
+				// 將新增資料的對話盒顯示出來
+				console.log(JSON.stringify(this.newGameData));
+
 			},
-			// 當網頁載入完成後會被Vue框架呼叫
-			mounted() {
-				//打API
-				axios.get("/games")
+			onShowDetail(id) {
+				// 顯示食品詳細資訊的對話盒
+				this.showDetail = true;
+
+				axios.get("/gameDetail?id=" + id)
 					.then((response) => {
 						console.log(response);
-						// 將API的商品資料存到Vue建立的products變數
 						if (response.data.code == 0) {
-							// 將API拿到的data存到Vue變數
-							this.games = response.data.data;
+							this.gameDetail = response.data.data;
 						}
 					})
 					.catch((error) => {
 						console.log(error);
-					})
-			},
-			// 網頁要用的方法寫在這裡
-			methods: {
-				//新增資料
-				onAdd() {
-					
-					// 將新增資料的對話盒顯示出來
-					console.log(JSON.stringify(this.newGameData));
-	
-				},
-				onShowDetail(id) {
-					// 顯示食品詳細資訊的對話盒
-					this.showDetail = true;
-	
-					axios.get("/gameDetail?id=" + id)
-						.then((response) => {
-							console.log(response);
-							if (response.data.code == 0) {
-								this.gameDetail = response.data.data;
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-						});
-				}
+					});
 			}
-		}).use(ElementPlus).mount('#app')
-	</script>
-	
-	</html>
+		}
+	}).use(ElementPlus).mount('#app')
+</script>
+
+</html>
