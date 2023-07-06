@@ -58,12 +58,12 @@
 </div>
 	<!-- 遊戲彈窗 -->
 	<div v-if="showDetail" class="grid-1-5">
-		<h2>{{ gameDetail.enName }}</h2>
-		<h3><span class="uppercase">{{ gameDetail.chName }}</span></h3>
-		<p>發行年: {{ gameDetail.devYear }}</p>
+		<h3><span class="uppercase">{{ gameDetail.chname }}</span></h3>
+		<h2>{{ gameDetail.enname }}</h2>
+		<h2>發行年: {{ gameDetail.devyear }}</h2>
 		<h3>遊戲介紹</h3>
 		<p class="game-description">{{ gameDetail.description }}</p>
-		<p class="button clickable" @click="showDetail = false">關 閉</p>
+		<div class="button clickable" @click="showDetail = false">關 閉</div>
 	</div>
 
 </body>
@@ -122,6 +122,6 @@
 		});
 		} 
 	  }
-	}).mount('#app')
+	}).use(ElementPlus).mount('#app')
   </script>
 </html>
