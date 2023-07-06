@@ -44,7 +44,7 @@ public class GameController {
                 gameEntity.setDeveloper(rs.getString("developer"));
                 gameEntity.setInchange(rs.getDate("inchange"));
                 gameEntity.setOutchange(rs.getDate("outchange"));
-
+                gameEntity.setPlatform(rs.getString("platform"));
                 games.add(gameEntity);
             }
             return new GameResponse(0,"成功",games);
