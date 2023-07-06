@@ -11,4 +11,10 @@ public class ProductEntity {
     String category;
     int price;
     String storeName;
+    public void setDeveloper(String string) {
+    }
+    public void setQuantity(String string) {
+    }
+    public void setOutchange(String string) {
+    }
 }
