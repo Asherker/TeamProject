@@ -9,6 +9,15 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 
+<!-- 引入Element UI介面庫-->
+	<!-- Import style -->
+	<link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+	<!-- Import Vue 3 -->
+	<script src="//unpkg.com/vue@3"></script>
+	<!-- Import component library -->
+	<script src="//unpkg.com/element-plus"></script>
+
+
 <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -17,7 +26,8 @@
 </head>
 
 <body id="app">
-  <div class="contain">
+  <div class="container">
+	<el-button type="primary" class="add-btn">新增資料</el-button>
 	<table>
 		<thead>
 			<tr>
@@ -82,6 +92,20 @@
 		  games: [],
 		  showDetail: false,
 		  gameDetail:{},
+		  showAddGameModal: false,
+		  options: [
+					{
+						value: 'PS4',
+						label: 'PS4',
+					},
+					{
+						value: 'Switch',
+						label: 'Switch',
+					},
+				],
+
+				// 使用者的選擇種類會存在這邊
+				categoryValue: '種類'
 		}
 	  },
 	  // 當網頁載入完成後會被Vue框架呼叫

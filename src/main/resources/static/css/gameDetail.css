@@ -27,9 +27,14 @@ html {
 }*/
 
 .container {
+  padding: 70px;
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
+}
+
+.add-btn {
+  margin-bottom: 20px;
 }
 
 .group:after {
@@ -42,11 +47,12 @@ html {
   border: 2px solid #5d4e65;
   min-height: 400px;
   /* padding: 1.25em; */
-  /*background-color: #201d22;*/
+  background-color: #201d22;
+  
   width: 70%;
   display: block;
   position: fixed;
-  top: 200px;
+  top: 100px;
   left: 0;
   right: 0;
   margin-left: auto !important;
@@ -67,6 +73,7 @@ html {
   color: #fff;
   font-family: 'Lato', sans-serif;
   font-size: 100%;
+
   line-height: 1.5;
   padding: 2.5em 0;
 }
@@ -196,6 +203,7 @@ ul li {
 }
 
 .button {
+  /* background-color: #9c83aa; */
   background-color: #ee7a36;
   background-image: linear-gradient(to right, #ee7a36 0%, #eb495d 100%);
   border-radius: 20px;
