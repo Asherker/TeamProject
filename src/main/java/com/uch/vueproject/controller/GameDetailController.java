@@ -43,7 +43,7 @@ private GameDetailResponse getGameDetail(int id) {
                 return new GameDetailResponse(2, "無此資料, id=" + id, null);
             } else {
                 GameDetailEntity gameDetailEntity = new GameDetailEntity();
-                gameDetailEntity.setId(rs.getInt("id"));
+                gameDetailEntity.setId(rs.getString("id"));
                 gameDetailEntity.setChname(rs.getString("ch_name"));
                 gameDetailEntity.setEnname(rs.getString("en_name"));
                 gameDetailEntity.setDevyear(rs.getInt("dev_year"));

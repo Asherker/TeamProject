@@ -36,7 +36,7 @@
 		<tbody>
 			<tr v-for="item in games">
 				<td>{{ item.id }}</td>
-				<td class="clickable" @click="onShowDetail(item.name)">{{ item.name }}</td>
+				<td class="clickable" @click="onShowDetail(item.id)">{{ item.name }}</td>
 				<td>{{ item.category }}</td>
 				<td>{{ item.developer }}</td>
 				<td>{{ item.platform }}</td>
@@ -58,15 +58,12 @@
 </div>
 	<!-- 遊戲彈窗 -->
 	<div v-if="showDetail" class="grid-1-5">
-		<h2>英文名稱</h2>
-		<h3><span class="uppercase">中文名稱</span></h3>
-		<p>發行時間</p>
-		<ul>
-			<li>Limited Email SupportLimited Email SupportL
-				imited Email SupportLimited Email Support
-				Limited Email Support</li>
-		</ul>
-		<p @click="showDetail = false" class="button clickable" @click="showDetail = false">關 閉</p>
+		<h2>{{ gameDetail.enName }}</h2>
+		<h3><span class="uppercase">{{ gameDetail.chName }}</span></h3>
+		<p>發行年: {{ gameDetail.devYear }}</p>
+		<h3>遊戲介紹</h3>
+		<p class="game-description">{{ gameDetail.description }}</p>
+		<p class="button clickable" @click="showDetail = false">關 閉</p>
 	</div>
 
 </body>
@@ -84,6 +81,7 @@
 		  message: 'Hello Vue!',
 		  games: [],
 		  showDetail: false,
+		  gameDetail:{},
 		}
 	  },
 	  // 當網頁載入完成後會被Vue框架呼叫
@@ -108,11 +106,11 @@
 		onAdd(){
 			alter("新增資料");
 		},
-		onShowDetail(name) {
+		onShowDetail(id) {
         // 顯示食品詳細資訊的對話盒
         this.showDetail = true;
 
-		axios.get("/gameDetail?name=" + name)
+		axios.get("/gameDetail?id=" + id)
 		.then((response) => {
 			console.log(response);
 			if (response.data.code == 0) {
