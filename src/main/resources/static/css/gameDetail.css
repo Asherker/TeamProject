@@ -26,16 +26,12 @@ html {
   padding: 2.5em 0;
 }*/
 
-.container {
+/*.container {
   padding: 70px;
   margin: 0 auto;
   width: 100%;
   max-width: 1200px;
-}
-
-.add-btn {
-  margin-bottom: 20px;
-}
+}*/
 
 .group:after {
   content: "";
