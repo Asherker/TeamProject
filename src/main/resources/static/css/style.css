@@ -45,9 +45,7 @@ body {
   color: white;
 }
 
-.cloumn-title{
-  text-align: center;
-}
+
 
 table {
   width: 100%;
@@ -56,6 +54,7 @@ table {
   overflow: hidden;
   box-shadow: 0 0 20px rgba(49, 41, 85, 0.685);
   border-radius: 10px;
+  text-align: center;
 }
 th,
 td {
@@ -64,7 +63,7 @@ td {
   color: #fff;
 }
 th {
-  text-align: left;
+  text-align: center;
 }
 thead th {
   background-color: #55608f;
