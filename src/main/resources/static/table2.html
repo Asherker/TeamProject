@@ -27,9 +27,12 @@
 <body id="app">
   <div class="container">
 	<el-button type="primary" class="add-btn" @click="showAddGameModal = true">新增資料</el-button>
+	<span class="material-symbols-outlined">
+		add
+	</span>
 	<table>
 		<thead>
-			<tr>
+			<tr class="cloumn-title">
 				<th>編號</th>
 				<th>遊戲名稱</th>
 				<th>種類</th>
@@ -57,7 +60,7 @@
 				<td>
 				<span class="material-symbols-outlined">
 				edit_note
-				</span>
+				</span>&nbsp;
 				<span class="material-symbols-outlined">
 				delete
 				</span>
