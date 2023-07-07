@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uch.vueproject.model.BaseResponse;
 import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameResponse;
 
 @RestController
 public class GameController {
     @RequestMapping(value = "/games", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public GameResponse games() 
+    public GameResponse games(){
         return getGameList();
     }
 
@@ -28,6 +29,7 @@ public class GameController {
         produces = MediaType.APPLICATION_JSON_VALUE)
     public GameResponse addGame(@RequestBody GameEntity data) {
         return new GameResponse(999, data.toString(), null);
+    }
     
     private GameResponse getGameList() {
         Connection conn = null;
