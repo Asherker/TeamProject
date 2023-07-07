@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,10 +19,16 @@ import com.uch.vueproject.model.GameResponse;
 @RestController
 public class GameController {
     @RequestMapping(value = "/games", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public GameResponse games() {
+    public GameResponse games() 
         return getGameList();
     }
 
+    @RequestMapping(value = "/game", method = RequestMethod.POST,
+        consumes = MediaType.APPLICATION_JSON_VALUE,  // 傳入的資料格式
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public GameResponse addGame(@RequestBody GameEntity data) {
+        return new GameResponse(999, data.toString(), null);
+    
     private GameResponse getGameList() {
         Connection conn = null;
         Statement stmt = null;
