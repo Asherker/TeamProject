@@ -147,7 +147,7 @@ public class GameController {
     
     
 
-    private GameResponse getGameList() {
+        private GameResponse getGameList() {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
