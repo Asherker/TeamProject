@@ -25,7 +25,7 @@ public class GameController {
         return getGameList();
     }
 
-    @RequestMapping(value = "/game", method = RequestMethod.POST,
+    @RequestMapping(value = "/games", method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_JSON_VALUE,  // 傳入的資料格式
         produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse addGame(@RequestBody GameEntity data) {
