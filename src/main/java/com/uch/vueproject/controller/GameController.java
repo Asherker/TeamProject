@@ -70,15 +70,16 @@ public class GameController {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
 
-            stmt = conn.prepareStatement("UPDATE gameinfo SET name=?, category=?, developer=?, price=?, quantity=?, inchange=?, outchange=? where id=?");
+            stmt = conn.prepareStatement("UPDATE gameinfo SET name=?, platform=?, category=?, developer=?, price=?, quantity=?, inchange=?, outchange=? where id=?");
             stmt.setString(1, data.getName());
-            stmt.setString(2, data.getCategory());
-            stmt.setString(3, data.getDeveloper());
-            stmt.setInt(4, data.getPrice());
-            stmt.setInt(5, data.getQuantity());
-            stmt.setDate(6, data.getInchange());
-            stmt.setDate(7, data.getOutchange());
-            stmt.setString(8, data.getId());
+            stmt.setString(2, data.getPlatform());
+            stmt.setString(3, data.getCategory());
+            stmt.setString(4, data.getDeveloper());
+            stmt.setInt(5, data.getPrice());
+            stmt.setInt(6, data.getQuantity());
+            stmt.setDate(7, data.getInchange());
+            stmt.setDate(8, data.getOutchange());
+            stmt.setString(9, data.getId());
 
             stmt.executeUpdate();
 
