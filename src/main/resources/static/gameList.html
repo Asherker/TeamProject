@@ -61,7 +61,7 @@
 				<span @click="onInsert" class="material-symbols-outlined">
 				edit_note
 				</span>&nbsp;
-				<span @click="onDelete" class="material-symbols-outlined">
+				<span @click="onDelete(item.id)" class="material-symbols-outlined">
 				delete
 				</span>
 				</td>
@@ -170,7 +170,7 @@
 				showDetail: false,
 				gameDetail: {},
 				showAddGameModal: false,
-				showInsertGameModal:false,
+				// showInsertGameModal:false,
 
 				options: [
 					{
@@ -187,7 +187,6 @@
 				categoryValue: '種類',
 
 				newGameData: {
-					// id:'',
 					name: '',
 					category: '',
 					developer: '',
@@ -196,13 +195,22 @@
 					quantity: 0,
 					inchange: null,
 					outchange: null,
+				},
+
+				deleteDataIndex: {
+					id:'',
 				}
 			}
 		},
 		// 當網頁載入完成後會被Vue框架呼叫
 		mounted() {
-			//打API
-			axios.get("/games")
+			this.refresh();
+		},
+		// 網頁要用的方法寫在這裡
+		methods: {
+			refresh() {
+				//打API
+				axios.get("/games")
 				.then((response) => {
 					console.log(response);
 					// 將API的商品資料存到Vue建立的products變數
@@ -214,9 +222,7 @@
 				.catch((error) => {
 					console.log(error);
 				})
-		},
-		// 網頁要用的方法寫在這裡
-		methods: {
+			},
 			//新增資料
 			onAdd() {
 				
@@ -238,14 +244,19 @@
 					})
 			},
 
-			onDelete() {
+			onDelete(id) {
+				this.deleteDataIndex.id = id;
+				console.log(JSON.stringify(this.deleteDataIndex));
 				//打API將資料送到後端
-				axios.delete('/delgames', this.newGameData)
+				axios.delete('/delgames', {data: this.deleteDataIndex }, {
+					headers: {
+						'Content-Type': 'application/json',
+					}})
 					.then((response) => {
 						console.log(response);
 						if (response.data.code == 0) {
 							this.$message.success('刪除成功');
-							
+							this.refresh();
 						}
 					})
 					.catch((error) => {

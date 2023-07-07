@@ -34,7 +34,7 @@ public class GameController {
         
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
         
             stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, data.getId());
@@ -49,7 +49,7 @@ public class GameController {
 
             stmt.executeUpdate();
 
-            return new BaseResponse(0, "新增成功");
+            return new BaseResponse(0, "資料新增成功");
 
         }catch(SQLException e) {
             return new BaseResponse(e.getErrorCode(), e.getMessage());
@@ -68,7 +68,7 @@ public class GameController {
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
 
             stmt = conn.prepareStatement("UPDATE gameinfo SET name=?, platform=?, category=?, developer=?, price=?, quantity=?, inchange=?, outchange=? where id=?");
             stmt.setString(1, data.getName());
@@ -83,7 +83,7 @@ public class GameController {
 
             stmt.executeUpdate();
 
-            return new BaseResponse(9, "資料更新成功");
+            return new BaseResponse(0, "資料更新成功");
         }catch(SQLException e){
             return new BaseResponse(e.getErrorCode(), e.getMessage());
         }catch(ClassNotFoundException e){
@@ -107,7 +107,7 @@ public class GameController {
 
             stmt.executeUpdate();
 
-            return new BaseResponse(5, "資料刪除成功");
+            return new BaseResponse(0, "資料刪除成功");
         }catch(SQLException e){
             return new BaseResponse(e.getErrorCode(), e.getMessage());
         }catch(ClassNotFoundException e){
