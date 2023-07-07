@@ -2,6 +2,7 @@ package com.uch.vueproject.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,15 +28,40 @@ public class GameController {
     @RequestMapping(value = "/game", method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_JSON_VALUE,  // 傳入的資料格式
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public GameResponse addGame(@RequestBody GameEntity data) {
-        return new GameResponse(999, data.toString(), null);
-    }
-    
-    private GameResponse getGameList() {
+    public BaseResponse addGame(@RequestBody GameEntity data) {
         Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+        PreparedStatement stmt = null;
 
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+
+            
+            stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.setString(1, data.getName());
+            stmt.setString(2, data.getPlatform());
+            stmt.setString(3, data.getCategory());
+            stmt.setString(4, data.getDeveloper());
+            stmt.setInt(5, data.getPrice());
+            stmt.setInt(6, data.getQuantity());
+            stmt.setDate(7, data.getInchange());
+            stmt.setDate(8, data.getOutchange());
+
+            stmt.executeUpdate();
+
+            return new BaseResponse(0, "新增成功");
+        }catch(SQLException e) {
+            return new BaseResponse(e.getErrorCode(), e.getMessage());
+        }catch(ClassNotFoundException e) {
+            return new BaseResponse(1,"無法註冊驅動程式");
+        }
+    }
+
+
+        private GameResponse getGameList() {
+            Connection conn = null;
+            Statement stmt = null;
+            ResultSet rs = null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
