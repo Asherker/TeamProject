@@ -17,17 +17,17 @@ body {
   font-size: 100%;
   min-height: 100%;
   line-height: 1.5;
-  padding: 2.5em 0;
+  padding: 1.5em 0;
 }
  .container {
   width: 100%;
   margin: 0 auto;
   max-width: 1800px;
   flex-direction: column;
+  
 }
 
 .material-symbols-outlined {
-
 	cursor: pointer;
 	border: 2px solid #55608f;	
   background-color:  #55608f;
