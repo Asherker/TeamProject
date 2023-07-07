@@ -25,6 +25,30 @@
 </head>
 
 <body id="app">
+
+
+
+    <div class="m-4 remote-option">
+        <h2>遊戲產品搜尋引擎</h2>
+        <el-select v-model="value" filterable remote reserve-value placeholder="請輸入遊戲名稱" remote-show-suffix
+            :remote-method="remoteMethod" :loading="loading">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+        </el-select>
+
+        <el-button type="primary" @click="showResult = true">送出</el-button>
+
+        <el-dialog v-model="showResult" title="結果" width="30%" :before-close="handleClose">
+            <span>{{value}}</span>
+            <template #footer>
+                <span class="dialog-footer">
+                    <el-button type="primary" @click="showResult = false">
+                        關閉
+                    </el-button>
+                </span>
+            </template>
+        </el-dialog>
+    </div>
+
   <div class="container">
 	<!-- <el-button type="primary" class="add-btn" @click="showAddGameModal = true">新增資料</el-button> -->
 	<span @click="showAddGameModal = true" class="material-symbols-outlined">
@@ -119,7 +143,7 @@
 			<span class="add-game-title">平台&nbsp;&nbsp;</span>
 			<el-select v-model="newGameData.platform" class="m-2" placeholder="Select" size="large">
 				<el-option
-				  v-for="item in options"
+				  v-for="item in platformOptions"
 				  :key="item.value"
 				  :label="item.label"
 				  :value="item.value"
@@ -132,7 +156,7 @@
 			<el-date-picker
 				v-model="newGameData.inchange"
 				type="date"
-				placeholder="Pick a day"
+				placeholder="請選擇進貨日期"
 				:size="size"
 			/>
 		</div>
@@ -141,7 +165,7 @@
 			<el-date-picker
 				v-model="newGameData.outchange"
 				type="date"
-				placeholder="Pick a day"
+				placeholder="請選擇出貨日期"
 				:size="size"
 			/>
 		</div>
@@ -172,7 +196,7 @@
 				showAddGameModal: false,
 				// showInsertGameModal:false,
 
-				options: [
+				platformOptions: [
 					{
 						value: 'PS4',
 						label: 'PS4',
@@ -182,6 +206,11 @@
 						label: 'Switch',
 					},
 				],
+				//搜尋引擎用的
+				value: '',
+                options: [],
+				loading: false,
+                showResult: false,
 
 				// 使用者的選擇種類會存在這邊
 				categoryValue: '種類',
@@ -280,7 +309,40 @@
 					.catch((error) => {
 						console.log(error);
 					});
-			}
+			},
+
+
+			onShow(message) {
+			},
+			remoteMethod(query) {
+				console.log('call remoteMoethod: ' + query);
+
+			if (query) {
+				axios.get("/game/name?keyword=" + query)
+					.then((response) => {
+						this.options = [];
+						console.log(response.data);
+						if (response.data.code == 0) {
+						for (let v of response.data.data) {
+						this.options.push({
+							value: v,
+							label: v,
+						});
+					}
+
+					console.log(this.options);
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+
+
+	} else {
+		this.options = [];
+	}
+
+}
 		}
 	}).use(ElementPlus).mount('#app')
 </script>
