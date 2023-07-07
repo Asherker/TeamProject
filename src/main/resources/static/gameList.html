@@ -314,11 +314,11 @@
 
 			onShow(message) {
 			},
-			remoteMethod(query) {
+			remoteMethod(query) { 
 				console.log('call remoteMoethod: ' + query);
 
 			if (query) {
-				axios.get("/game/name?keyword=" + query)
+				axios.get("/gamesearch/name?keyword=" + query)
 					.then((response) => {
 						this.options = [];
 						console.log(response.data);
