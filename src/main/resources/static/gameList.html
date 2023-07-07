@@ -61,7 +61,7 @@
 				<span @click="onInsert" class="material-symbols-outlined">
 				edit_note
 				</span>&nbsp;
-				<span class="material-symbols-outlined">
+				<span @click="onDelete" class="material-symbols-outlined">
 				delete
 				</span>
 				</td>
@@ -187,6 +187,7 @@
 				categoryValue: '種類',
 
 				newGameData: {
+					// id:'',
 					name: '',
 					category: '',
 					developer: '',
@@ -235,6 +236,24 @@
 
 						this.$message.error('新增失敗');
 					})
+			},
+
+			onDelete() {
+				//打API將資料送到後端
+				axios.delete('/delgames', this.newGameData)
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							this.$message.success('刪除成功');
+							
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+
+						this.$message.error('刪除失敗');
+					})
+
 			},
 			onShowDetail(id) {
 				// 顯示食品詳細資訊的對話盒

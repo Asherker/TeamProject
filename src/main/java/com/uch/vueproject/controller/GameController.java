@@ -100,7 +100,7 @@ public class GameController {
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
 
             stmt = conn.prepareStatement("DELETE FROM gameinfo where id=?");
             stmt.setString(1, data.getId());
