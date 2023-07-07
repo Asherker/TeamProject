@@ -28,9 +28,37 @@ public class GameController {
     @RequestMapping(value = "/gameInList", method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_JSON_VALUE,  // 傳入的資料格式
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public GameResponse addGame(@RequestBody GameEntity data) {
-        return new GameResponse(999, data.toString(), null);
+    public BaseResponse addGame(@RequestBody GameEntity data) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+        
+            stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt.setString(1, data.getId());
+            stmt.setString(2, data.getName());
+            stmt.setString(3, data.getPlatform());
+            stmt.setString(4, data.getCategory());
+            stmt.setString(5, data.getDeveloper());
+            stmt.setInt(6, data.getPrice());
+            stmt.setInt(7, data.getQuantity());
+            stmt.setDate(8, data.getInchange());
+            stmt.setDate(9, data.getOutchange());
+
+            stmt.executeUpdate();
+
+            return new BaseResponse(0, "新增成功");
+
+        }catch(SQLException e) {
+            return new BaseResponse(e.getErrorCode(), e.getMessage());
+        }catch(ClassNotFoundException e) {
+            return new BaseResponse(1,"無法註冊驅動程式");
+        }
     }
+
+
     @RequestMapping(value = "/updategames", method = RequestMethod.PUT,
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
@@ -62,13 +90,15 @@ public class GameController {
         }
     }
     
+
     private GameResponse getGameList() {
         Connection conn = null;
-        PreparedStatement stmt = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from gameinfo");//這裡後續要修改資料庫路徑以及要修改的項目
 

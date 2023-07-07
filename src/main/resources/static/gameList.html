@@ -82,6 +82,11 @@
 	<!-- 新增遊戲的對話盒 -->
 	<div class="form" v-if="showAddGameModal">
 		<div class="title">新增遊戲資料</div>
+		<div class="input-container ic2">
+			<input id="email" class="input" type="text" v-model="newGameData.id" placeholder=" " />
+			<div class="cut cut-short"></div>
+			<label for="email" class="placeholder">產品編號</label>
+		</div>
 		<div class="input-container ic1">
 			<input id="firstname" class="input" type="text" v-model="newGameData.name" placeholder=" " />
 			<div class="cut"></div>
