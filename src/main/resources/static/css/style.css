@@ -45,6 +45,19 @@ body {
   color: white;
 }
 
+.remote-option {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+  text-align: center;
+  margin-top:50px ;
+  margin-bottom:50px;
+  left:0;
+  right:0;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 
 table {
