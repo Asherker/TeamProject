@@ -34,7 +34,7 @@ public class GameController {
         
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
         
             stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, data.getId());
@@ -83,6 +83,30 @@ public class GameController {
             stmt.executeUpdate();
 
             return new BaseResponse(9, "資料更新成功");
+        }catch(SQLException e){
+            return new BaseResponse(e.getErrorCode(), e.getMessage());
+        }catch(ClassNotFoundException e){
+            return new BaseResponse(99, "無法註冊驅動程式");
+        }
+    }
+
+     @RequestMapping(value = "/delgames", method = RequestMethod.DELETE,
+    consumes = MediaType.APPLICATION_JSON_VALUE, 
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse DelGame(@RequestBody GameEntity data){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+
+            stmt = conn.prepareStatement("DELETE FROM gameinfo where id=?");
+            stmt.setString(1, data.getId());
+
+            stmt.executeUpdate();
+
+            return new BaseResponse(5, "資料刪除成功");
         }catch(SQLException e){
             return new BaseResponse(e.getErrorCode(), e.getMessage());
         }catch(ClassNotFoundException e){
