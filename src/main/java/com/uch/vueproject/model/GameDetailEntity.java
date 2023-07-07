@@ -9,4 +9,5 @@ public class GameDetailEntity {
     String enname;
     int devyear;
     String description;
+    String value;
 }

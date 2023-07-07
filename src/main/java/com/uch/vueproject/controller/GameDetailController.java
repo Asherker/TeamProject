@@ -17,11 +17,11 @@ import com.uch.vueproject.model.GameDetailResponse;
 @RestController
 public class GameDetailController {
     @RequestMapping(value = "/gameDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public GameDetailResponse foodDetail(String id) {
-        return getGameDetail(id);
+    public GameDetailResponse gamesDetail(String value) {
+        return getGameDetail(value);
     }
 
-private GameDetailResponse getGameDetail(String id) {
+    private GameDetailResponse getGameDetail(String value) {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -34,13 +34,13 @@ private GameDetailResponse getGameDetail(String id) {
             stmt = conn.createStatement();
 
             // ToDo: 改query:  select name, category, buy_date, exp_date, quantity  from foods f join food_detail fd where f.food_id = fd.id;
-            rs = stmt.executeQuery("select * from game_description where id = '" + id + "'");//這裡是要加入查的資料庫
+            rs = stmt.executeQuery("select * from game_description where ch_name = '" +  value + "'");//這裡是要加入查的資料庫
 
             boolean isDataExist = rs.next();
 
             // 如果isDataExist == false代表一筆資料都沒有
             if(!isDataExist) {
-                return new GameDetailResponse(2, "無此資料, id=" + id, null);
+                return new GameDetailResponse(2, "無此資料, name=" + value, null);
             } else {
                 GameDetailEntity gameDetailEntity = new GameDetailEntity();
                 gameDetailEntity.setId(rs.getString("id"));

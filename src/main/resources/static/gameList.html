@@ -35,18 +35,17 @@
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
 
-        <el-button type="primary" @click="showResult = true">送出</el-button>
+        <el-button type="primary" @click="onShowDetail(value)">送出</el-button>
 
-        <el-dialog v-model="showResult" title="結果" width="30%" :before-close="handleClose">
-            <span>{{value}}</span>
-            <template #footer>
-                <span class="dialog-footer">
-                    <el-button type="primary" @click="showResult = false">
-                        關閉
-                    </el-button>
-                </span>
-            </template>
-        </el-dialog>
+		<!-- 遊戲彈窗 -->
+		<div v-if="showDetail" class="grid-1-5">
+		<h3><span class="uppercase">{{ gameDetail.chname }}</span></h3>
+		<h2>{{ gameDetail.enname }}</h2>
+		<h2>發行年: {{ gameDetail.devyear }}</h2>
+		<h3>遊戲介紹</h3>
+		<p class="game-description">{{ gameDetail.description }}</p>&nbsp;&nbsp;
+		<div class="button clickable" @click="showDetail = false">關 閉</div>
+		</div>
     </div>
 
   <div class="container">
@@ -73,7 +72,7 @@
 		<tbody>
 			<tr v-for="item in games">
 				<td>{{ item.id }}</td>
-				<td class="clickable" @click="onShowDetail(item.id)">{{ item.name }}</td>
+				<td>{{ item.name }}</td> <!-- class="clickable" @click="onShowDetail(item.name)"暫時作廢 -->
 				<td>{{ item.category }}</td>
 				<td>{{ item.developer }}</td>
 				<td>{{ item.platform }}</td>
@@ -93,15 +92,7 @@
 		</tbody>
 	</table>
 </div>
-	<!-- 遊戲彈窗 -->
-	<div v-if="showDetail" class="grid-1-5">
-		<h3><span class="uppercase">{{ gameDetail.chname }}</span></h3>
-		<h2>{{ gameDetail.enname }}</h2>
-		<h2>發行年: {{ gameDetail.devyear }}</h2>
-		<h3>遊戲介紹</h3>
-		<p class="game-description">{{ gameDetail.description }}</p>
-		<div class="button clickable" @click="showDetail = false">關 閉</div>
-	</div>
+
 
 	<!-- 新增遊戲的對話盒 -->
 	<div class="form" v-if="showAddGameModal">
@@ -295,11 +286,11 @@
 					})
 
 			},
-			onShowDetail(id) {
-				// 顯示食品詳細資訊的對話盒
+			onShowDetail(name) {
+				// 顯示詳細資訊的對話盒
 				this.showDetail = true;
 
-				axios.get("/gameDetail?id=" + id)
+				axios.get("/gameDetail?value=" + name)
 					.then((response) => {
 						console.log(response);
 						if (response.data.code == 0) {
@@ -311,14 +302,14 @@
 					});
 			},
 
-
+			//動態選項功能
 			onShow(message) {
 			},
 			remoteMethod(query) { 
 				console.log('call remoteMoethod: ' + query);
 
 			if (query) {
-				axios.get("/gamesearch/name?keyword=" + query)
+				axios.get("/gamesearch?keyword=" + query)
 					.then((response) => {
 						this.options = [];
 						console.log(response.data);

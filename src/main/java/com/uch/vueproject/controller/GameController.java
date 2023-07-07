@@ -125,7 +125,7 @@ public class GameController {
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
 
-                conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
                 stmt = conn.createStatement();
 
                 // ToDo: 改query:  select name, category, buy_date, exp_date, quantity  from foods f join food_detail fd where f.food_id = fd.id;
