@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uch.vueproject.model.BaseResponse;
 import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameResponse;
+import com.uch.vueproject.model.StringArrayResponse;
 
 @RestController
 public class GameController {
@@ -114,6 +115,36 @@ public class GameController {
             return new BaseResponse(99, "無法註冊驅動程式");
         }
     }
+
+        @RequestMapping(value = "/gamesearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+        public StringArrayResponse getGameName(String keyword){
+            Connection conn = null;
+            Statement stmt = null;
+            ResultSet rs = null;
+
+            try{
+                Class.forName("com.mysql.cj.jdbc.Driver");
+
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+                stmt = conn.createStatement();
+
+                // ToDo: 改query:  select name, category, buy_date, exp_date, quantity  from foods f join food_detail fd where f.food_id = fd.id;
+            rs = stmt.executeQuery("select name from gameinfo where name like '%" + keyword + "%'");
+
+            ArrayList<String> data = new ArrayList<>();
+            while(rs.next()){
+                data.add(rs.getString("name"));
+            }
+
+            return new StringArrayResponse(0, "搜尋成功", data);
+            }catch(SQLException e){
+                return new StringArrayResponse(e.getErrorCode(), e.getMessage(), null);
+            }catch(ClassNotFoundException e){
+                return new StringArrayResponse(1, "無法註冊驅動程式", null);
+            }
+        }
+
+    
     
 
     private GameResponse getGameList() {
