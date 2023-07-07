@@ -14,4 +14,5 @@ public class GameEntity {
     int quantity;
     String developer;
     String platform;
+    
 }
