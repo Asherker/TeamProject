@@ -22,7 +22,7 @@ body {
  .container {
   width: 100%;
   margin: 0 auto;
-  max-width: 1800px;
+  /* max-width: 1800px; */
   flex-direction: column;
   
 }
@@ -36,7 +36,7 @@ body {
   'FILL' 0,
   'wght' 400,
   'GRAD' 0,
-  'opsz' 24
+  'opsz' 40
 	}
 
 .material-symbols-outlined:hover {
@@ -68,6 +68,7 @@ table {
   box-shadow: 0 0 20px rgba(49, 41, 85, 0.685);
   border-radius: 10px;
   text-align: center;
+
 }
 th,
 td {

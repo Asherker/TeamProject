@@ -89,7 +89,7 @@
 				</td>
 				<td>
 					<div v-if="!showEditMode[index]">{{ item.platform }}</div>
-					<el-select v-else v-model="platformOptions.value" class="m-2" placeholder="請修改" size="large">
+					<el-select v-else v-model="games[index].platform" class="m-2" placeholder="請選擇平台" size="large">
 						<el-option
 						  v-for="item in platformOptions"
 						  :key="item.value"
@@ -121,11 +121,11 @@
 				<span @click="onDelete(item.id)" v-if="!showEditMode[index]" class="material-symbols-outlined">
 				delete
 				</span>
-				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
-					Ｏ
+				<span @click="onUpdate(index)" v-if="showEditMode[index]" class="material-symbols-outlined">
+					done
 				</span>
 				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
-					Ｘ
+					Close
 				</span>
 				</td>
 			</tr>
@@ -229,12 +229,12 @@
 
 				platformOptions: [
 					{
-						value: 'PS4',
-						label: 'PS4',
+						value: "PlayStation4/5",
+						label: "PlayStation4/5",
 					},
 					{
-						value: 'Switch',
-						label: 'Switch',
+						value: "Nintendo Switch",
+						label: "Nintendo Switch",
 					},
 				],
 				//搜尋引擎用的
@@ -344,6 +344,28 @@
 					});
 			},
 
+			onUpdate(index) {
+				// 將新增資料的對話盒顯示出來
+				console.log(JSON.stringify(this.games[index]));
+
+				// 打API將資料送到後端
+				axios.put('/updategames', this.games[index])
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							this.$message.success('更新成功');
+							this.showEditMode[index] = false;
+							this.refresh();
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+						// 新增失敗
+
+						this.$message.error('更新失敗');
+					});
+			},
+
 			//動態選項功能
 			onShow(message) {
 			},
@@ -369,14 +391,11 @@
 			.catch((error) => {
 				console.log(error);
 			});
-
-
-	} else {
-		this.options = [];
-	}
-
-}
+			} else {
+				this.options = [];
+			}
 		}
+	}
 	}).use(ElementPlus).mount('#app')
 </script>
 
