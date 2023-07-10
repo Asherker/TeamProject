@@ -61,6 +61,7 @@ body {
 
 .arrow-down {
   transform: rotate(180deg);
+  cursor: pointer;
 }
 
 table {

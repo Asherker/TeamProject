@@ -37,7 +37,7 @@ public class GamePageController {
 
             // ToDo: 改query
             rs = stmt.executeQuery("select * from gameinfo + " + (SortMode == 0 ? "" : (SortMode == 1 ? 
-                                   "order by calories ASC":"order by calories DESC")) 
+                                   "order by price ASC":"order by price DESC")) 
                                  + " limit " + count + " offset " + ((page-1) * count));
 
             ArrayList<GameEntity> games = new ArrayList<>();
