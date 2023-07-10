@@ -70,22 +70,62 @@
 		</thead>
 		<!-- 清單 -->
 		<tbody>
-			<tr v-for="item in games">
-				<td>{{ item.id }}</td>
-				<td>{{ item.name }}</td> <!-- class="clickable" @click="onShowDetail(item.name)"暫時作廢 -->
-				<td>{{ item.category }}</td>
-				<td>{{ item.developer }}</td>
-				<td>{{ item.platform }}</td>
-				<td>{{ item.price }}</td>
-				<td>{{ item.quantity }}</td>
-				<td>{{ item.inchange }}</td>
-				<td>{{ item.outchange }}</td>
+			<tr v-for="(item , index) in games">
 				<td>
-				<span @click="onInsert" class="material-symbols-outlined">
+					<div v-if="!showEditMode[index]">{{ item.id }}</div>
+					<el-input v-else v-model="games[index].id" placeholder="Please input" />
+				</td>
+				<td>
+					<div v-if="!showEditMode[index]">{{ item.name }}</div>
+					<el-input v-else v-model="games[index].name" placeholder="Please input" />
+				</td>
+				<td>
+					<div v-if="!showEditMode[index]">{{ item.category }}</div>
+					<el-input v-else v-model="games[index].category" placeholder="Please input" />
+				</td>
+				<td>
+					<div v-if="!showEditMode[index]">{{ item.developer }}</div>
+					<el-input v-else v-model="games[index].developer" placeholder="Please input" />
+				</td>
+				<td>
+					<div v-if="!showEditMode[index]">{{ item.platform }}</div>
+					<el-select v-else v-model="platformOptions.value" class="m-2" placeholder="請修改" size="large">
+						<el-option
+						  v-for="item in platformOptions"
+						  :key="item.value"
+						  :label="item.label"
+						  :value="item.value"
+						/>
+					</el-select>
+				</td>
+				<td>
+					<div v-if="!showEditMode[index]">{{ item.price }}</div>
+					<el-input-number v-else v-model="games[index].price" @change="handleChange" />
+				</td>
+				<td>
+					<div v-if="!showEditMode[index]">{{ item.quantity }}</div>
+					<el-input-number v-else v-model="games[index].quantity" @change="handleChange" />
+				</td>
+				<td>
+					<div v-if="!showEditMode[index]">{{ item.inchange }}</div>
+					<el-date-picker v-else v-model="games[index].inchange" type="date" placeholder="Pick a day" :size="size" />
+				</td>
+				<td>
+					<div v-if="!showEditMode[index]">{{ item.outchange }}</div>
+					<el-date-picker v-else v-model="games[index].outchange" type="date" placeholder="Pick a day" :size="size" />
+				</td>
+				<td>
+				<span @click="showEditMode[index] = true" v-if="!showEditMode[index]" class="material-symbols-outlined">
 				edit_note
 				</span>&nbsp;
-				<span @click="onDelete(item.id)" class="material-symbols-outlined">
+				<span @click="onDelete(item.id)" v-if="!showEditMode[index]" class="material-symbols-outlined">
 				delete
+				</span>
+				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
+					Ｏ
+				</span>
+				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
+					Ｘ
 				</span>
 				</td>
 			</tr>
@@ -216,6 +256,8 @@
 					inchange: null,
 					outchange: null,
 				},
+
+				showEditMode: [],
 
 				deleteDataIndex: {
 					id:'',
