@@ -26,6 +26,7 @@ public class GameController {
         return getGameList();
     }
 
+    //資料新增
     @RequestMapping(value = "/gameInList", method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_JSON_VALUE,  // 傳入的資料格式
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,11 +56,11 @@ public class GameController {
         }catch(SQLException e) {
             return new BaseResponse(e.getErrorCode(), e.getMessage());
         }catch(ClassNotFoundException e) {
-            return new BaseResponse(1,"無法註冊驅動程式");
+            return new BaseResponse(5,"資料新增失敗");
         }
     }
 
-
+    //資料修改
     @RequestMapping(value = "/updategames", method = RequestMethod.PUT,
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,11 +72,11 @@ public class GameController {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
 
-            stmt = conn.prepareStatement("UPDATE gameinfo SET name=?, platform=?, category=?, developer=?, price=?, quantity=?, inchange=?, outchange=? where id=?");
+            stmt = conn.prepareStatement("UPDATE gameinfo SET name=?, category=?, developer=?, platform=?, price=?, quantity=?, inchange=?, outchange=? WHERE id=?");
             stmt.setString(1, data.getName());
-            stmt.setString(2, data.getPlatform());
-            stmt.setString(3, data.getCategory());
-            stmt.setString(4, data.getDeveloper());
+            stmt.setString(2, data.getCategory());
+            stmt.setString(3, data.getDeveloper());
+            stmt.setString(4, data.getPlatform());
             stmt.setInt(5, data.getPrice());
             stmt.setInt(6, data.getQuantity());
             stmt.setDate(7, data.getInchange());
@@ -88,10 +89,11 @@ public class GameController {
         }catch(SQLException e){
             return new BaseResponse(e.getErrorCode(), e.getMessage());
         }catch(ClassNotFoundException e){
-            return new BaseResponse(99, "無法註冊驅動程式");
+            return new BaseResponse(4, "資料更新失敗");
         }
     }
 
+    //資料刪除
      @RequestMapping(value = "/delgames", method = RequestMethod.DELETE,
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
@@ -112,10 +114,11 @@ public class GameController {
         }catch(SQLException e){
             return new BaseResponse(e.getErrorCode(), e.getMessage());
         }catch(ClassNotFoundException e){
-            return new BaseResponse(99, "無法註冊驅動程式");
+            return new BaseResponse(3, "資料刪除失敗");
         }
     }
 
+        //資料搜尋
         @RequestMapping(value = "/gamesearch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
         public StringArrayResponse getGameName(String keyword){
             Connection conn = null;
@@ -140,7 +143,7 @@ public class GameController {
             }catch(SQLException e){
                 return new StringArrayResponse(e.getErrorCode(), e.getMessage(), null);
             }catch(ClassNotFoundException e){
-                return new StringArrayResponse(1, "無法註冊驅動程式", null);
+                return new StringArrayResponse(2, "搜尋失敗", null);
             }
         }
 
