@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>庫存管理系統</title>
+  <!-- 這是按鍵的CSS -->
+	<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- 引入Vue.js -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <!-- 引入Element UI介面庫-->
+  <!-- Import style -->
+  <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+  <!-- Import Vue 3 -->
+  <script src="//unpkg.com/vue@3"></script>
+  <!-- Import component library -->
+  <script src="//unpkg.com/element-plus"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/gameDetail2.css">
+  <link rel="stylesheet" href="css/addGame.css">
+
+</head>
+
+<body id="app">
+    <table>
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>遊戲名稱</th>
+                <th>種類</th>
+                <th>開發商</th>
+                <th>平台</th>
+                <th>價格</th>
+                <th>庫存數量</th>
+                <th>最新進貨日期</th>
+                <th>最後出貨日期</th>
+                <th>功能</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="item in games">
+                <td class="clickable" @click="onShowDetail(item.id)">{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.category }}</td>
+                <td>{{ item.developer }}</td>
+                <td>{{ item.platform }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.inchange }}</td>
+                <td>{{ item.outchange }}</td>
+                <td>
+                    <span class="material-symbols-outlined">
+                        edit_note
+                    </span>
+                    <span class="material-symbols-outlined">
+                        delete
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  <br />
+  <el-pagination background layout="prev, pager, next, sizes" 
+      :total="total" 
+      :page-sizes="[12, 24, 50]"
+      style="justify-content: center;"
+      @size-change="onSizeChange" 
+      @current-change="onCurrentChange" 
+      @prev-click="onPrevClick" 
+      @next-click="onNextClick"
+      v-model:current-page="currentPage" 
+      v-model:page-size="pageSize" />
+	<!-- 新增遊戲的對話盒 -->
+	<div class="form" v-if="showAddGameModal">
+		<div class="title">新增遊戲資料</div>
+		<div class="input-container ic1">
+			<input id="firstname" class="input" type="text" v-model="newGameData.name" placeholder=" " />
+			<div class="cut"></div>
+			<label for="firstname" class="placeholder">遊戲名稱</label>
+		</div>
+		<div class="input-container ic2">
+			<input id="email" class="input" type="text" v-model="newGameData.category" placeholder=" " />
+			<div class="cut cut-short"></div>
+			<label for="email" class="placeholder">種類</label>
+		</div>
+
+		<div class="input-container ic2">
+			<input id="email" class="input" type="text" v-model="newGameData.developer" placeholder=" " />
+			<div class="cut cut-short"></div>
+			<label for="email" class="placeholder">開發商</label>
+		</div>
+		<div class="btn-group">
+			<div class="input-container ic2">
+				<input id="email" class="input" type="number" v-model="newGameData.price" placeholder=" " />
+				<div class="cut cut-short"></div>
+				<label for="email" class="placeholder">價格</label>
+			</div>
+			<div class="input-container ic2">
+				<input id="email" class="input" type="number" v-model="newGameData.quantity" placeholder=" " />
+				<div class="cut cut-short"></div>
+				<label for="email" class="placeholder">庫存數量</label>
+			</div>
+		</div>
+		<div class="input-container ic2">
+			<span class="add-game-title">平台&nbsp;&nbsp;</span>
+			<el-select v-model="newGameData.platform" class="m-2" placeholder="Select" size="large">
+				<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+			</el-select>
+		</div>
+
+		<div class="input-container ic2">
+			<span class="add-game-title">最新進貨日&nbsp;&nbsp;</span>
+			<el-date-picker v-model="newGameData.inchange" type="date" placeholder="Pick a day" :size="size" />
+		</div>
+		<div class="input-container ic2">
+			<span class="add-game-title">最後出貨日&nbsp;&nbsp;</span>
+			<el-date-picker v-model="newGameData.outchange" type="date" placeholder="Pick a day" :size="size" />
+		</div>
+
+		<div class="btn-group">
+			<button type="text" class="submit" @click="showAddGameModal = false">取消</button>
+			<button type="text" class="submit" @click="onAdd">送出</button>
+		</div>
+	</div>
+
+</body>
+
+<script type="module">
+
+  // Vue初始化
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      // 網頁要使用的變數放這裡
+      return {
+        message: 'Hello Vue!',
+        foods: [],
+        currentPage: 1,
+        pageSize: 12,
+        total: 0,
+      }
+    },
+    watch: {
+      currentPage(newVal, oldVal) {
+        // alert(newVal);
+      },
+      pageSize(newVal, oldVal) {
+        // alert(newVal);
+      },
+    },
+    // 當網頁載入完成後會被Vue框架呼叫
+    mounted() {
+      this.fetch();
+    },
+    // 網頁要用的方法寫在這裡
+    methods: {
+			
+			//新增資料
+			onAdd() {
+
+				// 將新增資料的對話盒顯示出來
+				console.log(JSON.stringify(this.newGameData));
+
+				// 打API將資料送到後端
+				axios.post('/game', this.newGameData)
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							this.$message.success('新增成功');
+							this.showAddGameModal = false;
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+						// 新增失敗
+						
+						this.$message.error('新增失敗');
+					});
+			},
+			onShowDetail(id) {
+				// 顯示食品詳細資訊的對話盒
+				this.showDetail = true;
+
+				axios.get("/gameDetail?id=" + id)
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							this.gameDetail = response.data.data;
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			},
+
+			onSizeChange(size) {
+        	this.currentPage = 1;
+       		this.fetch();
+      		},
+      		onCurrentChange(page) {
+        	this.fetch();
+    		  },
+     		 // 分頁被點擊了上一頁
+      		onPrevClick(page) {
+
+      		},
+     		 // 分頁被點擊了下一頁
+      		onNextClick(page) {
+
+     		 },
+     		 fetch() {
+       		 // 打API
+        	axios.get('/demo/foods?page=' + this.currentPage + '&count=' + this.pageSize)
+         	 .then((response) => {
+            // get完成後收到的資料可以在這裡處理
+            console.log(response);
+            // 將API的商品資料存到Vue建立的products變數
+            if (response.data.code == 0) {
+              // 將API拿到的data存到Vue變數
+              this.total = response.data.data.total;
+              this.foods = response.data.data.foods;
+            }
+         	 })
+          .catch((error) => {
+            console.log(error);
+         	 });
+      		}
+		}
+  }).use(ElementPlus).mount('#app')
+</script>
+
+</html>
