@@ -136,7 +136,7 @@
 
 	<el-pagination background layout="prev, pager, next, sizes" 
 	:total="total" 
-	:page-sizes="[5, 10, 20]"
+	:page-sizes="[ 10, 20]"
 	style="justify-content: center;margin-bottom: 25px;"
 	@size-change="onSizeChange" 
 	@current-change="onCurrentChange" 
@@ -277,7 +277,7 @@
 					id:'',
 				},
 				currentPage: 1,
-        		pageSize: 5,
+        		pageSize: 10,
        			total: 0,
 				priceArrowMode:0
 			}
