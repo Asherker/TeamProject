@@ -10,6 +10,7 @@ public class GameResponse extends BaseResponse{
 
     public GameResponse(int code,String message,ArrayList<GameEntity> data) {
         super(code,message);
-        this.data = data;
+        this.data =data;
+
     }
 }

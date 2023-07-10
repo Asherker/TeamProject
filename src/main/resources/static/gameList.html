@@ -61,7 +61,9 @@
 				<th>種類</th>
 				<th>開發商</th>
 				<th>平台</th>
-				<th>價格</th>
+				<th style="display: flex; align-items: center; justify-content: center;" @click="onChangeMode">
+					價格<div v-if="priceArrowMode != 0" :class="[priceArrowMode == 1 ? '':'arrow-down']">▲</div>
+				</th>
 				<th>庫存數量</th>
 				<th>最新進貨日期</th>
 				<th>最後出貨日期</th>
@@ -131,6 +133,18 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<el-pagination background layout="prev, pager, next, sizes" 
+	:total="total" 
+	:page-sizes="[5, 10, 20]"
+	style="justify-content: center;margin-bottom: 25px;"
+	@size-change="onSizeChange" 
+	@current-change="onCurrentChange" 
+	@prev-click="onPrevClick" 
+	@next-click="onNextClick"
+	v-model:current-page="currentPage" 
+	v-model:page-size="pageSize" />
+
 </div>
 
 
@@ -261,29 +275,67 @@
 
 				deleteDataIndex: {
 					id:'',
-				}
+				},
+				currentPage: 1,
+        		pageSize: 5,
+       			total: 0
 			}
+		},
+		watch: {
+			currentPage(newVal,oldVal) {
+
+			},
+			pageSize(newVal, oldVal) {
+
+			},
 		},
 		// 當網頁載入完成後會被Vue框架呼叫
 		mounted() {
-			this.refresh();
+			this.fetch();
 		},
 		// 網頁要用的方法寫在這裡
 		methods: {
-			refresh() {
-				//打API
-				axios.get("/games")
+			onChangeMode(){
+				this.currentPage = 1;
+
+			if(this.ArrowMode == 0) this.ArrowMode = 1;        
+        	else if(this.ArrowMode == 1) this.ArrowMode = 2;
+        	else
+         	this.ArrowMode = 0;
+			// 重新打API排序
+        	this.fetch();
+			},
+			onSizeChange(size) {
+				this.currentPage = 1;
+				this.fetch();
+			},
+			onCurrentChange() {
+				this.fetch();
+			},
+			//分頁被點擊了上一頁
+			onPrevClick(page) {
+
+			},
+			//分頁被點擊了下一頁
+			onNextClick(page) {
+
+			},
+			fetch() {
+				//API去跟後端做資料
+				axios.get('/list/games?page=' + this.currentPage + '&count=' + this.pageSize + "&SortMode=" + this.ArrowMode)
 				.then((response) => {
+					//get完成後收到的資料可在這裡處理
 					console.log(response);
-					// 將API的商品資料存到Vue建立的products變數
-					if (response.data.code == 0) {
-						// 將API拿到的data存到Vue變數
-						this.games = response.data.data;
+					//將API商品資料存到Vue所建立的products變數內
+					if(response.data.code == 0) {
+					//再將API拿到的Data存到Vue變數
+					this.total = response.data.data.total;
+					this.games = response.data.data.games;
 					}
 				})
 				.catch((error) => {
 					console.log(error);
-				})
+				});
 			},
 			//新增資料
 			onAdd() {
@@ -318,7 +370,7 @@
 						console.log(response);
 						if (response.data.code == 0) {
 							this.$message.success('刪除成功');
-							this.refresh();
+							this.fetch();
 						}
 					})
 					.catch((error) => {
@@ -355,7 +407,7 @@
 						if (response.data.code == 0) {
 							this.$message.success('更新成功');
 							this.showEditMode[index] = false;
-							this.refresh();
+							this.fetch();
 						}
 					})
 					.catch((error) => {

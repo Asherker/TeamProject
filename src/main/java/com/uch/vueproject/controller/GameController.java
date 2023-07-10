@@ -22,9 +22,10 @@ import com.uch.vueproject.model.StringArrayResponse;
 @RestController
 public class GameController {
     @RequestMapping(value = "/games", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public GameResponse games(){
+    public GameResponse games() {
         return getGameList();
     }
+
 
     //資料新增
     @RequestMapping(value = "/gameInList", method = RequestMethod.POST,
