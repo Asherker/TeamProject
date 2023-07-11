@@ -67,7 +67,7 @@
 				<th>庫存數量</th>
 				<th>最新進貨日期</th>
 				<th>最後出貨日期</th>
-				<th>功能</th>
+				<th class="func">功能</th>
 			</tr>
 		</thead>
 		<!-- 清單 -->
@@ -125,7 +125,7 @@
 				</span>
 				<span @click="onUpdate(index)" v-if="showEditMode[index]" class="material-symbols-outlined">
 					done
-				</span>
+				</span>&nbsp;
 				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
 					Close
 				</span>

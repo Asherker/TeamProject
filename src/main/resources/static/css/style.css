@@ -83,6 +83,10 @@ body {
   width: 70%
 }
 
+.func{
+  text-align: center;
+  width: 90px;
+}
 
 table {
   width: 100%;
