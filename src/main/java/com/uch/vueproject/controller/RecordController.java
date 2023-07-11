@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,13 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.BaseResponse;
+<<<<<<< Updated upstream
 import com.uch.vueproject.model.GameDetailResponse;
+=======
+import com.uch.vueproject.model.GameEntity;
+import com.uch.vueproject.model.GameResponse;
+>>>>>>> Stashed changes
 import com.uch.vueproject.model.RecordEntity;
 import com.uch.vueproject.model.RecordResponse;
 
 @RestController
 public class RecordController {
+    @Autowired
+    private MySQLConfigBean mysqlb;
 
     @RequestMapping(value = "/record", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public BaseResponse recordEntity(@RequestBody RecordEntity data) {
@@ -40,9 +49,9 @@ public class RecordController {
         ResultSet rs = null;
 
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(mysqlb.getDriverClassName());
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
 
             stmt = conn.createStatement();
 
@@ -72,12 +81,13 @@ public class RecordController {
     private BaseResponse record(RecordEntity data){
         Connection conn = null;
         PreparedStatement stmt = null;
+        PreparedStatement stmt2 = null;
 
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(mysqlb.getDriverClassName());
             
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
-            
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+
             stmt = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, ?, ?, ?)");
             stmt.setInt(1, data.getId());
             stmt.setString(2, data.getName());
@@ -85,6 +95,39 @@ public class RecordController {
             stmt.setDate(4, data.getUpdateTime());
 
             stmt.executeUpdate();
+
+            return new BaseResponse(0, "已新增至歷史資料表");
+            
+            }catch(SQLException e) {
+                return new BaseResponse(e.getErrorCode(), e.getMessage());
+            }catch(ClassNotFoundException e) {
+                return new BaseResponse(5,"歷史紀錄新增失敗");
+        }
+    }
+
+    private BaseResponse recordold(GameEntity data){
+        Connection conn = null;
+        // PreparedStatement stmt = null;
+        PreparedStatement stmt2 = null;
+
+        try{
+            Class.forName(mysqlb.getDriverClassName());
+            
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+            stmt2 = conn.createStatement();
+
+            stmt2 = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt2.setString(1, data.getId());
+            stmt2.setString(2, data.getName());
+            stmt2.setString(3, data.getPlatform());
+            stmt2.setString(4, data.getCategory());
+            stmt2.setString(5, data.getDeveloper());
+            stmt2.setInt(6, data.getPrice());
+            stmt2.setInt(7, data.getQuantity());
+            stmt2.setDate(8, data.getInchange());
+            stmt2.setDate(9, data.getOutchange());
+
+            stmt2.executeUpdate();
 
             return new BaseResponse(0, "已新增至歷史資料表");
             
