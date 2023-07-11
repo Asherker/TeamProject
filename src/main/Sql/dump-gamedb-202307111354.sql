@@ -99,28 +99,29 @@ INSERT INTO `gameinfo` VALUES ('G002','零～濡鴉之巫女～','PlayStation4/5
 UNLOCK TABLES;
 
 --
--- Table structure for table `trackinghisoty`
+-- Table structure for table `trackinghistory`
 --
 
-DROP TABLE IF EXISTS `trackinghisoty`;
+DROP TABLE IF EXISTS `trackinghistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `trackinghisoty` (
+CREATE TABLE `trackinghistory` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `movement` varchar(100) DEFAULT NULL,
   `updatetime` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `trackinghisoty`
+-- Dumping data for table `trackinghistory`
 --
 
-LOCK TABLES `trackinghisoty` WRITE;
-/*!40000 ALTER TABLE `trackinghisoty` DISABLE KEYS */;
-/*!40000 ALTER TABLE `trackinghisoty` ENABLE KEYS */;
+LOCK TABLES `trackinghistory` WRITE;
+/*!40000 ALTER TABLE `trackinghistory` DISABLE KEYS */;
+INSERT INTO `trackinghistory` VALUES (2,'jack','修改二筆資料',NULL);
+/*!40000 ALTER TABLE `trackinghistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -136,4 +137,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-11 11:46:46
+-- Dump completed on 2023-07-11 13:54:28

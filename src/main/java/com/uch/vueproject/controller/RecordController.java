@@ -33,7 +33,7 @@ public class RecordController {
             
             conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
 
-            stmt = conn.prepareStatement("INSERT INTO trackinghisoty VALUES(?, ?, ?, ?)");
+            stmt = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, ?, ?, ?)");
             stmt.setInt(1, data.getId());
             stmt.setString(2, data.getName());
             stmt.setString(3, data.getMovement());
