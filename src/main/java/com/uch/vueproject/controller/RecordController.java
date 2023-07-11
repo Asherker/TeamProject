@@ -17,12 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.BaseResponse;
-<<<<<<< Updated upstream
-import com.uch.vueproject.model.GameDetailResponse;
-=======
 import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameResponse;
->>>>>>> Stashed changes
+
 import com.uch.vueproject.model.RecordEntity;
 import com.uch.vueproject.model.RecordResponse;
 
@@ -39,11 +36,8 @@ public class RecordController {
     @RequestMapping(value = "/showrecord", method = RequestMethod.GET,
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public RecordResponse Record(@RequestBody RecordEntity data) {
-        return showRecord(data);
-    }
 
-    public RecordResponse showRecord(RecordEntity data){
+    public RecordResponse showRecord(@RequestBody RecordEntity data){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -95,39 +89,6 @@ public class RecordController {
             stmt.setDate(4, data.getUpdateTime());
 
             stmt.executeUpdate();
-
-            return new BaseResponse(0, "已新增至歷史資料表");
-            
-            }catch(SQLException e) {
-                return new BaseResponse(e.getErrorCode(), e.getMessage());
-            }catch(ClassNotFoundException e) {
-                return new BaseResponse(5,"歷史紀錄新增失敗");
-        }
-    }
-
-    private BaseResponse recordold(GameEntity data){
-        Connection conn = null;
-        // PreparedStatement stmt = null;
-        PreparedStatement stmt2 = null;
-
-        try{
-            Class.forName(mysqlb.getDriverClassName());
-            
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
-            stmt2 = conn.createStatement();
-
-            stmt2 = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            stmt2.setString(1, data.getId());
-            stmt2.setString(2, data.getName());
-            stmt2.setString(3, data.getPlatform());
-            stmt2.setString(4, data.getCategory());
-            stmt2.setString(5, data.getDeveloper());
-            stmt2.setInt(6, data.getPrice());
-            stmt2.setInt(7, data.getQuantity());
-            stmt2.setDate(8, data.getInchange());
-            stmt2.setDate(9, data.getOutchange());
-
-            stmt2.executeUpdate();
 
             return new BaseResponse(0, "已新增至歷史資料表");
             
