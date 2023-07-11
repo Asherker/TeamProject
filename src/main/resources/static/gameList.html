@@ -67,7 +67,7 @@
 				<th>庫存數量</th>
 				<th>最新進貨日期</th>
 				<th>最後出貨日期</th>
-				<th>功能</th>
+				<th class="func">功能</th>
 			</tr>
 		</thead>
 		<!-- 清單 -->
@@ -75,7 +75,7 @@
 			<tr v-for="(item , index) in games">
 				<td>
 					<div v-if="!showEditMode[index]">{{ item.id }}</div>
-					<el-input v-else v-model="games[index].id" placeholder="Please input" />
+					<input class="idinput" v-else v-model="games[index].id" placeholder="Please input" />
 				</td>
 				<td>
 					<div v-if="!showEditMode[index]">{{ item.name }}</div>
@@ -125,7 +125,7 @@
 				</span>
 				<span @click="onUpdate(index)" v-if="showEditMode[index]" class="material-symbols-outlined">
 					done
-				</span>
+				</span>&nbsp;
 				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
 					Close
 				</span>
