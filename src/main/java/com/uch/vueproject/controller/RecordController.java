@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uch.vueproject.model.BaseResponse;
+import com.uch.vueproject.model.GameDetailResponse;
 import com.uch.vueproject.model.RecordEntity;
 import com.uch.vueproject.model.RecordResponse;
 
@@ -29,8 +30,11 @@ public class RecordController {
     @RequestMapping(value = "/showrecord", method = RequestMethod.GET,
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
+    public RecordResponse Record(@RequestBody RecordEntity data) {
+        return showRecord(data);
+    }
 
-    public RecordResponse showRecord(@RequestBody RecordEntity data){
+    public RecordResponse showRecord(RecordEntity data){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
