@@ -8,12 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.BaseResponse;
 import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameResponse;
@@ -21,6 +23,9 @@ import com.uch.vueproject.model.StringArrayResponse;
 
 @RestController
 public class GameController {
+    @Autowired
+    private MySQLConfigBean mysqlb;
+
     @RequestMapping(value = "/games", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public GameResponse games() {
         return getGameList();
@@ -36,8 +41,8 @@ public class GameController {
         PreparedStatement stmt = null;
         
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            Class.forName(mysqlb.getDriverClassName());
+            conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
         
             stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, data.getId());
@@ -70,8 +75,8 @@ public class GameController {
         PreparedStatement stmt = null;
 
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            Class.forName(mysqlb.getDriverClassName());
+            conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
 
             stmt = conn.prepareStatement("UPDATE gameinfo SET name=?, category=?, developer=?, platform=?, price=?, quantity=?, inchange=?, outchange=? WHERE id=?");
             stmt.setString(1, data.getName());
@@ -103,8 +108,8 @@ public class GameController {
         PreparedStatement stmt = null;
 
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            Class.forName(mysqlb.getDriverClassName());
+            conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
 
             stmt = conn.prepareStatement("DELETE FROM gameinfo where id=?");
             stmt.setString(1, data.getId());
@@ -127,9 +132,9 @@ public class GameController {
             ResultSet rs = null;
 
             try{
-                Class.forName("com.mysql.cj.jdbc.Driver");
+                Class.forName(mysqlb.getDriverClassName());
 
-                conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+                conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
                 stmt = conn.createStatement();
 
                 // ToDo: 改query:  select name, category, buy_date, exp_date, quantity  from foods f join food_detail fd where f.food_id = fd.id;
@@ -157,7 +162,7 @@ public class GameController {
         ResultSet rs = null;
 
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from gameinfo" );//這裡後續要修改資料庫路徑以及要修改的項目
