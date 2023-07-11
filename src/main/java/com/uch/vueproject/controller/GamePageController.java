@@ -7,17 +7,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameListResponse;
 
 @RestController
 @RequestMapping("/list")
 public class GamePageController {
+    @Autowired
+    private MySQLConfigBean mysqlb;
+
     @RequestMapping(value = "/games", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public GameListResponse games(int page, int count ,int SortMode) {
         return getProductList(page, count,SortMode);
@@ -29,9 +34,9 @@ public class GamePageController {
         ResultSet rs = null;
 
     try {
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        Class.forName(mysqlb.getDriverClassName());
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+            conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
 
             stmt = conn.createStatement();
 

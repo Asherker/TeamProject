@@ -6,16 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.GameDetailEntity;
 import com.uch.vueproject.model.GameDetailResponse;
 
 @RestController
 public class GameDetailController {
+    @Autowired
+    private MySQLConfigBean mysqlb;
+
     @RequestMapping(value = "/gameDetail", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public GameDetailResponse gamesDetail(String value) {
         return getGameDetail(value);
@@ -27,9 +32,9 @@ public class GameDetailController {
         ResultSet rs = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(mysqlb.getDriverClassName());
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+            conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
 
             stmt = conn.createStatement();
 
