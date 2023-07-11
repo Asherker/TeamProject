@@ -60,8 +60,6 @@ public class LoginController {
                 return new LoginResponse(3,"密碼錯誤");
             }
             return new LoginResponse(0,"登入成功");
-
-            //return c == 0 ? new LoginResponse(2,"帳號不存在") : new LoginResponse(0,"帳號登入成功");
             
         }catch (ClassNotFoundException e){
             //無法註冊(錯誤代碼1)
