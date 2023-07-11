@@ -75,7 +75,7 @@
 			<tr v-for="(item , index) in games">
 				<td>
 					<div v-if="!showEditMode[index]">{{ item.id }}</div>
-					<el-input v-else v-model="games[index].id" placeholder="Please input" />
+					<input class="idinput" v-else v-model="games[index].id" placeholder="Please input" />
 				</td>
 				<td>
 					<div v-if="!showEditMode[index]">{{ item.name }}</div>
