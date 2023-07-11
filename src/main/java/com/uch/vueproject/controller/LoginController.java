@@ -6,13 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.LoginResponse;
 
 @RestController
 public class LoginController {
+    @Autowired
+    private MySQLConfigBean mysqlb;
+
     @RequestMapping(value="/login", method = RequestMethod.GET,produces = "application/json")
     public LoginResponse login(String username,String password) {
         return checkAccount(username, password);
@@ -25,9 +31,9 @@ public class LoginController {
 
         //註冊mySQL資料庫驅動程式
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName(mysqlb.getDriverClassName());
             //連線資料庫
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/demo?user=root&password=4581196");
+            conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
             //取得Statement物件
             stmt = conn.createStatement();
             //查詢該帳號是否存在
