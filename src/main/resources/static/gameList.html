@@ -117,7 +117,7 @@
 					<el-date-picker v-else v-model="games[index].outchange" type="date" placeholder="Pick a day" :size="size" />
 				</td>
 				<td>
-				<span @click="showEditMode[index] = true" v-if="!showEditMode[index]" class="material-symbols-outlined">
+				<span @click="showEditMode[index] = true, onRecord(index)" v-if="!showEditMode[index]" class="material-symbols-outlined">
 				edit_note
 				</span>&nbsp;
 				<span @click="onDelete(item.id)" v-if="!showEditMode[index]" class="material-symbols-outlined">
@@ -239,8 +239,6 @@
 				showDetail: false,
 				gameDetail: {},
 				showAddGameModal: false,
-				// showInsertGameModal:false,
-
 				platformOptions: [
 					{
 						value: "PlayStation4/5",
@@ -397,7 +395,7 @@
 					});
 			},
 
-			onRecord(){
+			onRecord(index){
 
 				console.log(JSON.stringify(this.games[index]));
 
@@ -415,7 +413,7 @@
 
 						this.$message.error('歷史紀錄更新失敗');
 					});
-					onUpdate(index);
+
 			},
 
 			//資料修改
