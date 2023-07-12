@@ -399,7 +399,7 @@
 
 				console.log(JSON.stringify(this.games[index]));
 
-				axios.put('/recordOld', this.games[index])
+				axios.post('/recordOld', this.games[index])
 					.then((response) => {
 						console.log(response);
 						if (response.data.code == 0) {
