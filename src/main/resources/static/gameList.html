@@ -49,7 +49,7 @@
     </div>
 
   <div class="container">
-	<!-- <el-button type="primary" class="add-btn" @click="showAddGameModal = true">新增資料</el-button> -->
+
 	<span @click="showAddGameModal = true" class="material-symbols-outlined">
 		add
 	</span>
@@ -396,6 +396,28 @@
 						console.log(error);
 					});
 			},
+
+			onRecord(){
+
+				console.log(JSON.stringify(this.games[index]));
+
+				axios.put('/recordOld', this.games[index])
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							this.$message.success('歷史紀錄更新成功');
+							this.fetch();
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+						// 新增失敗
+
+						this.$message.error('歷史紀錄更新失敗');
+					});
+					onUpdate(index);
+			},
+
 			//資料修改
 			onUpdate(index) {
 				// 將新增資料的對話盒顯示出來
@@ -419,10 +441,7 @@
 					});
 			},
 
-			onRecord(){
-
-			},
-
+		
 			//動態選項功能
 			onShow(message) {
 			},

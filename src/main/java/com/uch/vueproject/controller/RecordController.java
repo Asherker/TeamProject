@@ -21,6 +21,7 @@ import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameResponse;
 
 import com.uch.vueproject.model.RecordEntity;
+import com.uch.vueproject.model.RecordOldEntity;
 import com.uch.vueproject.model.RecordResponse;
 
 @RestController
@@ -101,7 +102,7 @@ public class RecordController {
     @RequestMapping(value = "/recordOld", method = RequestMethod.POST,
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse recordOld(@RequestBody GameEntity data){
+    public BaseResponse recordOld(@RequestBody RecordOldEntity data){
         Connection conn = null;
         PreparedStatement stmt2 = null;
         try{
@@ -111,7 +112,7 @@ public class RecordController {
 
             stmt2 = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, null, null, null, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt2.setString(1, data.getId());
-            stmt2.setString(2, data.getName());
+            stmt2.setString(2, data.getGamename());
             stmt2.setString(3, data.getPlatform());
             stmt2.setString(4, data.getCategory());
             stmt2.setString(5, data.getDeveloper());
@@ -119,8 +120,7 @@ public class RecordController {
             stmt2.setInt(7, data.getQuantity());
             stmt2.setDate(8, data.getInchange());
             stmt2.setDate(9, data.getOutchange());
-            // stmt2.setString(9, data.getId());
-            
+
             stmt2.executeUpdate();
 
             return new BaseResponse(0, "已新增舊有資料至歷史資料表");
