@@ -66,11 +66,11 @@ public class RecordController {
                 showEntity.setPlatform(rs.getString("platform"));
                 show.add(showEntity);
             }
-            return new ShowRecordResponse(0,"成功",show);
+            return new ShowRecordResponse(0,"歷史資料抓取成功",show);
         }catch(SQLException e) {
             return new ShowRecordResponse(e.getErrorCode(), e.getMessage(), null);
         }catch(ClassNotFoundException e) {
-            return new ShowRecordResponse(1,"無法註冊驅動程式",null);
+            return new ShowRecordResponse(1,"歷史資料抓取失敗",null);
         }
 
     }
