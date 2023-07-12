@@ -73,7 +73,10 @@
                 showWarning2: false, //密碼錯
                 showWarning3: false, //有隱碼
                 username:'', //存放帳號的變數
-                password:''
+                password:'',
+                data:{
+                    username:'',
+                }
             }
         },
         watch: {
@@ -83,6 +86,14 @@
                     //帳號名稱不再有上述文字時則隱藏警告
                     this.showWarning3 = false;
                 }
+            },
+
+            data: {
+                handler(newVal) {
+                    //將資料寫入localStroage
+                    localStorage.setItem('users',JSON.stringfy(this.data));
+                },
+                deep:true
             }
         },
         //Vue的方法寫在這裡

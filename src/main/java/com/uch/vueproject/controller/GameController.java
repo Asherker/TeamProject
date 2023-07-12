@@ -163,7 +163,7 @@ public class GameController {
 
         try{
             Class.forName(mysqlb.getDriverClassName());
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from gameinfo" );//這裡後續要修改資料庫路徑以及要修改的項目
 
