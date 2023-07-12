@@ -58,7 +58,7 @@ public class RecordController {
             }else{
                 RecordEntity recordentity = new RecordEntity();
                 recordentity.setId(rs.getInt("id"));
-                recordentity.setName(rs.getString("name"));
+                recordentity.setUser(rs.getString("name"));
                 recordentity.setMovement(rs.getString("movement"));
                 recordentity.setUpdateTime(rs.getDate("updatetime"));
 
@@ -75,22 +75,55 @@ public class RecordController {
     private BaseResponse record(RecordEntity data){
         Connection conn = null;
         PreparedStatement stmt = null;
-        PreparedStatement stmt2 = null;
 
         try{
             Class.forName(mysqlb.getDriverClassName());
             
             conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
 
-            stmt = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, ?, ?, ?)");
-            stmt.setInt(1, data.getId());
-            stmt.setString(2, data.getName());
-            stmt.setString(3, data.getMovement());
-            stmt.setDate(4, data.getUpdateTime());
+            stmt = conn.prepareStatement("INSERT INTO trackinghistory VALUES(null, ?, ?, ?, null, null, null, null, null, null, null, null)");
+
+            stmt.setString(1, data.getUser());
+            stmt.setString(2, data.getMovement());
+            stmt.setDate(3, data.getUpdateTime());
 
             stmt.executeUpdate();
 
             return new BaseResponse(0, "已新增至歷史資料表");
+            
+            }catch(SQLException e) {
+                return new BaseResponse(e.getErrorCode(), e.getMessage());
+            }catch(ClassNotFoundException e) {
+                return new BaseResponse(5,"歷史紀錄新增失敗");
+        }
+    }
+
+    @RequestMapping(value = "/recordOld", method = RequestMethod.POST,
+    consumes = MediaType.APPLICATION_JSON_VALUE, 
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public BaseResponse recordOld(@RequestBody GameEntity data){
+        Connection conn = null;
+        PreparedStatement stmt2 = null;
+        try{
+            Class.forName(mysqlb.getDriverClassName());
+            
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+
+            stmt2 = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, null, null, null, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt2.setString(1, data.getId());
+            stmt2.setString(2, data.getName());
+            stmt2.setString(3, data.getPlatform());
+            stmt2.setString(4, data.getCategory());
+            stmt2.setString(5, data.getDeveloper());
+            stmt2.setInt(6, data.getPrice());
+            stmt2.setInt(7, data.getQuantity());
+            stmt2.setDate(8, data.getInchange());
+            stmt2.setDate(9, data.getOutchange());
+            // stmt2.setString(9, data.getId());
+            
+            stmt2.executeUpdate();
+
+            return new BaseResponse(0, "已新增舊有資料至歷史資料表");
             
             }catch(SQLException e) {
                 return new BaseResponse(e.getErrorCode(), e.getMessage());

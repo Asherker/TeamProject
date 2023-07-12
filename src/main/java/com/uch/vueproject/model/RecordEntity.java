@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class RecordEntity {
     int id;
-    String name;
+    String user;
     String movement;
     Date updateTime;
     
