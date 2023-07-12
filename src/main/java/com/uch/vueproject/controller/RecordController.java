@@ -110,7 +110,7 @@ public class RecordController {
     @RequestMapping(value = "/recordOld", method = RequestMethod.POST,
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse recordOld(@RequestBody ShowRecordEntity data){
+    public BaseResponse recordOld(@RequestBody GameEntity data){
         Connection conn = null;
         PreparedStatement stmt2 = null;
         try{
@@ -120,7 +120,7 @@ public class RecordController {
 
             stmt2 = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, null, null, null, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt2.setString(1, data.getId());
-            stmt2.setString(2, data.getGamename());
+            stmt2.setString(2, data.getName());
             stmt2.setString(3, data.getPlatform());
             stmt2.setString(4, data.getCategory());
             stmt2.setString(5, data.getDeveloper());
