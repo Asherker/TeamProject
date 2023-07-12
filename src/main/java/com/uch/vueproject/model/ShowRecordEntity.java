@@ -5,8 +5,11 @@ import java.sql.Date;
 import lombok.Data;
 
 @Data
-public class RecordOldEntity {
+public class ShowRecordEntity {
     String id;
+    String user;
+    String movement;
+    Date updateTime;
     String gamename;
     String category;
     int price;

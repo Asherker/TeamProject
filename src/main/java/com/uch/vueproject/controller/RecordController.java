@@ -21,7 +21,7 @@ import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameResponse;
 
 import com.uch.vueproject.model.RecordEntity;
-import com.uch.vueproject.model.RecordOldEntity;
+import com.uch.vueproject.model.ShowRecordEntity;
 import com.uch.vueproject.model.RecordResponse;
 
 @RestController
@@ -38,7 +38,7 @@ public class RecordController {
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public RecordResponse showRecord(@RequestBody RecordEntity data){
+    public RecordResponse showRecord(@RequestBody ShowRecordEntity data){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -46,7 +46,7 @@ public class RecordController {
         try{
             Class.forName(mysqlb.getDriverClassName());
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
 
             stmt = conn.createStatement();
 
@@ -57,11 +57,19 @@ public class RecordController {
             if(!isDataExist){
                 return new RecordResponse(0, "無此資料, name=" + data, null);
             }else{
-                RecordEntity recordentity = new RecordEntity();
-                recordentity.setId(rs.getInt("id"));
+                ShowRecordEntity recordentity = new ShowRecordEntity();
+                recordentity.setId(rs.getString("id"));
                 recordentity.setUser(rs.getString("name"));
                 recordentity.setMovement(rs.getString("movement"));
                 recordentity.setUpdateTime(rs.getDate("updatetime"));
+                recordentity.setGamename(rs.getString("gamename"));
+                recordentity.setCategory(rs.getString("category"));
+                recordentity.setPrice(rs.getInt("price"));
+                recordentity.setInchange(rs.getDate("inchange"));
+                recordentity.setOutchange(rs.getDate("outchange"));
+                recordentity.setQuantity(rs.getInt("quantity"));
+                recordentity.setDeveloper(rs.getString("developer"));
+                recordentity.setPlatform(rs.getString("platform"));
 
                 return new RecordResponse(0, "成功", recordentity);
             }
@@ -80,7 +88,7 @@ public class RecordController {
         try{
             Class.forName(mysqlb.getDriverClassName());
             
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
 
             stmt = conn.prepareStatement("INSERT INTO trackinghistory VALUES(null, ?, ?, ?, null, null, null, null, null, null, null, null)");
 
@@ -102,13 +110,13 @@ public class RecordController {
     @RequestMapping(value = "/recordOld", method = RequestMethod.POST,
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse recordOld(@RequestBody RecordOldEntity data){
+    public BaseResponse recordOld(@RequestBody ShowRecordEntity data){
         Connection conn = null;
         PreparedStatement stmt2 = null;
         try{
             Class.forName(mysqlb.getDriverClassName());
             
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
 
             stmt2 = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, null, null, null, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt2.setString(1, data.getId());
