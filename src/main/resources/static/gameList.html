@@ -277,7 +277,8 @@
 				currentPage: 1,
         		pageSize: 10,
        			total: 0,
-				priceArrowMode:0
+				priceArrowMode:0,
+				data:{},
 			}
 		},
 		watch: {
@@ -291,6 +292,8 @@
 		// 當網頁載入完成後會被Vue框架呼叫
 		mounted() {
 			this.fetch();
+			let users = localStorage.getItem('users');
+			this.data = JSON.parse(users);
 		},
 		// 網頁要用的方法寫在這裡
 		methods: {
@@ -422,7 +425,7 @@
 				console.log(JSON.stringify(this.games[index]));
 
 				// 打API將資料送到後端
-				axios.put('/updategames', this.games[index])
+				axios.put('/updategames', this.games[index],this.data.users)
 					.then((response) => {
 						console.log(response);
 						if (response.data.code == 0) {

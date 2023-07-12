@@ -88,7 +88,7 @@ public class RecordController {
         try{
             Class.forName(mysqlb.getDriverClassName());
             
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
 
             stmt = conn.prepareStatement("INSERT INTO trackinghistory VALUES(null, ?, ?, ?, null, null, null, null, null, null, null, null)");
 
