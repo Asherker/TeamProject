@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -22,6 +23,7 @@ import com.uch.vueproject.model.GameResponse;
 
 import com.uch.vueproject.model.RecordEntity;
 import com.uch.vueproject.model.ShowRecordEntity;
+import com.uch.vueproject.model.ShowRecordResponse;
 import com.uch.vueproject.model.RecordResponse;
 
 @RestController
@@ -35,48 +37,40 @@ public class RecordController {
     }
 
     @RequestMapping(value = "/showrecord", method = RequestMethod.GET,
-        consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public RecordResponse showRecord(@RequestBody ShowRecordEntity data){
+    public ShowRecordResponse showRecord(){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
 
         try{
             Class.forName(mysqlb.getDriverClassName());
-
             conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
-
             stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from trackinghistory ORDER BY updatetime" );//這裡後續要修改資料庫路徑以及要修改的項目
 
-            rs = stmt.executeQuery("SELECT * FROM trackinghistory ORDER BY updatetime DESC");
-
-            boolean isDataExist = rs.next();
-
-            if(!isDataExist){
-                return new RecordResponse(0, "無此資料, name=" + data, null);
-            }else{
-                ShowRecordEntity recordentity = new ShowRecordEntity();
-                recordentity.setId(rs.getString("id"));
-                recordentity.setUser(rs.getString("name"));
-                recordentity.setMovement(rs.getString("movement"));
-                recordentity.setUpdateTime(rs.getDate("updatetime"));
-                recordentity.setGamename(rs.getString("gamename"));
-                recordentity.setCategory(rs.getString("category"));
-                recordentity.setPrice(rs.getInt("price"));
-                recordentity.setInchange(rs.getDate("inchange"));
-                recordentity.setOutchange(rs.getDate("outchange"));
-                recordentity.setQuantity(rs.getInt("quantity"));
-                recordentity.setDeveloper(rs.getString("developer"));
-                recordentity.setPlatform(rs.getString("platform"));
-
-                return new RecordResponse(0, "成功", recordentity);
+            ArrayList<ShowRecordEntity> show = new ArrayList<>();
+            while(rs.next()){
+                ShowRecordEntity showEntity = new ShowRecordEntity();
+                showEntity.setId(rs.getString("id"));
+                showEntity.setUser(rs.getString("user"));
+                showEntity.setMovement(rs.getString("movement"));
+                showEntity.setUpdateTime(rs.getDate("updatetime"));
+                showEntity.setCategory(rs.getString("category"));
+                showEntity.setPrice(rs.getInt("price"));
+                showEntity.setQuantity(rs.getInt("quantity"));
+                showEntity.setDeveloper(rs.getString("developer"));
+                showEntity.setInchange(rs.getDate("inchange"));
+                showEntity.setOutchange(rs.getDate("outchange"));
+                showEntity.setPlatform(rs.getString("platform"));
+                show.add(showEntity);
             }
+            return new ShowRecordResponse(0,"歷史資料抓取成功",show);
         }catch(SQLException e) {
-            return new RecordResponse(e.getErrorCode(), e.getMessage(), null);
-        } catch(ClassNotFoundException e) {
-            return new RecordResponse(1, "歷史紀錄抓取失敗", null);
+            return new ShowRecordResponse(e.getErrorCode(), e.getMessage(), null);
+        }catch(ClassNotFoundException e) {
+            return new ShowRecordResponse(1,"歷史資料抓取失敗",null);
         }
 
     }
