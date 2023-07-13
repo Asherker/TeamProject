@@ -123,7 +123,7 @@
 				<span @click="onDelete(item.id) ,this.discription = 3, onRecordInsert(item.id)" v-if="!showEditMode[index]" class="material-symbols-outlined">
 				delete
 				</span>
-				<span @click="onUpdate(index), this.discription = 1,onRecordInsert(item.id) " v-if="showEditMode[index]" class="material-symbols-outlined">
+				<span @click="onUpdate(index), this.discription = 1, onRecordInsert(item.id) " v-if="showEditMode[index]" class="material-symbols-outlined">
 					done
 				</span>&nbsp;
 				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
@@ -279,11 +279,11 @@
        			total: 0,
 				priceArrowMode:0,
 				userdata:{
-					id:0,
+					id:null,
 					gameid:'',
 					user: '',
 					movement:'',
-					updatetime:'2023-01-01',
+					updatetime:'',
 				},
 				discription: 0,
 				
@@ -410,38 +410,21 @@
 					});
 			},
 
-			// onRecordOld(index){
-
-			// 	console.log(JSON.stringify(this.games[index]));
-
-			// 	axios.post('/recordOld', this.games[index])
-			// 		.then((response) => {
-			// 			console.log(response);
-			// 			if (response.data.code == 0) {
-			// 				this.$message.success('歷史紀錄更新成功');
-			// 				this.fetch();
-			// 			}
-			// 		})
-			// 		.catch((error) => {
-			// 			console.log(error);
-			// 			// 新增失敗
-
-			// 			this.$message.error('歷史紀錄更新失敗');
-			// 		});
-
-			// },
 
 			//立刻傳新的歷史紀錄通知
 			onRecordInsert(id){
 				// 將新增資料的對話盒顯示出來
-				this.userdata.id = id;
+				this.userdata.gameid = id;
+				this.userdata.updatetime = new Date();
+				console.log(this.userdata.updatetime);
 				if (this.discription == 1) {
-							this.userdata.movement='修改了一筆資料';
-						} else if (this.discription == 2) {
-							this.userdata.movement='新增了一筆資料';
-						} else if (this.discription == 3) {
-							this.userdata.movement='刪除了一筆資料';
-						}
+						this.userdata.movement='修改了一筆資料';
+					} else if (this.discription == 2) {
+						this.userdata.movement='新增了一筆資料';
+					} else if (this.discription == 3) {
+						this.userdata.movement='刪除了一筆資料';
+					}
+				
 				console.log(JSON.stringify(this.userdata));
 
 				// 打API將資料送到後端
