@@ -6,17 +6,9 @@ import lombok.Data;
 
 @Data
 public class ShowRecordEntity {
-    String id;
+    int id;
+    String gameid;
     String user;
     String movement;
-    Date updateTime;
-    String gamename;
-    String category;
-    int price;
-    Date inchange;
-    Date outchange;
-    int quantity;
-    String developer;
-    String platform;
-    
+    Date updateTime;    
 }

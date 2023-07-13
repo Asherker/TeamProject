@@ -46,24 +46,19 @@ public class RecordController {
 
         try{
             Class.forName(mysqlb.getDriverClassName());
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=maxkuo625");
+            conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from trackinghistory ORDER BY updatetime" );//這裡後續要修改資料庫路徑以及要修改的項目
 
             ArrayList<ShowRecordEntity> show = new ArrayList<>();
             while(rs.next()){
                 ShowRecordEntity showEntity = new ShowRecordEntity();
-                showEntity.setId(rs.getString("id"));
+                showEntity.setId(rs.getInt("id"));
+                showEntity.setGameid(rs.getString("gameid"));
                 showEntity.setUser(rs.getString("user"));
                 showEntity.setMovement(rs.getString("movement"));
                 showEntity.setUpdateTime(rs.getDate("updatetime"));
-                showEntity.setCategory(rs.getString("category"));
-                showEntity.setPrice(rs.getInt("price"));
-                showEntity.setQuantity(rs.getInt("quantity"));
-                showEntity.setDeveloper(rs.getString("developer"));
-                showEntity.setInchange(rs.getDate("inchange"));
-                showEntity.setOutchange(rs.getDate("outchange"));
-                showEntity.setPlatform(rs.getString("platform"));
+
                 show.add(showEntity);
             }
             return new ShowRecordResponse(0,"歷史資料抓取成功",show);
@@ -101,38 +96,5 @@ public class RecordController {
                 return new BaseResponse(5,"歷史紀錄新增失敗");
         }
     }
-
-    // @RequestMapping(value = "/recordOld", method = RequestMethod.POST,
-    // consumes = MediaType.APPLICATION_JSON_VALUE, 
-    // produces = MediaType.APPLICATION_JSON_VALUE)
-    // public BaseResponse recordOld(@RequestBody GameEntity data){
-    //     Connection conn = null;
-    //     PreparedStatement stmt2 = null;
-    //     try{
-    //         Class.forName(mysqlb.getDriverClassName());
-            
-    //         conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
-
-    //         stmt2 = conn.prepareStatement("INSERT INTO trackinghistory VALUES(?, null, null, null, ?, ?, ?, ?, ?, ?, ?, ?)");
-    //         stmt2.setString(1, data.getId());
-    //         stmt2.setString(2, data.getName());
-    //         stmt2.setString(3, data.getPlatform());
-    //         stmt2.setString(4, data.getCategory());
-    //         stmt2.setString(5, data.getDeveloper());
-    //         stmt2.setInt(6, data.getPrice());
-    //         stmt2.setInt(7, data.getQuantity());
-    //         stmt2.setDate(8, data.getInchange());
-    //         stmt2.setDate(9, data.getOutchange());
-
-    //         stmt2.executeUpdate();
-
-    //         return new BaseResponse(0, "已新增舊有資料至歷史資料表");
-            
-    //         }catch(SQLException e) {
-    //             return new BaseResponse(e.getErrorCode(), e.getMessage());
-    //         }catch(ClassNotFoundException e) {
-    //             return new BaseResponse(5,"歷史紀錄新增失敗");
-    //     }
-    // }
     
 }
