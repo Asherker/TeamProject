@@ -6,7 +6,8 @@ import lombok.Data;
 
 @Data
 public class RecordEntity {
-    //int id;
+    int id;
+    String gameid;
     String user;
     String movement;
     Date updateTime;

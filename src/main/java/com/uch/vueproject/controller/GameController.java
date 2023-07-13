@@ -137,8 +137,7 @@ public class GameController {
                 conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
                 stmt = conn.createStatement();
 
-                // ToDo: 改query:  select name, category, buy_date, exp_date, quantity  from foods f join food_detail fd where f.food_id = fd.id;
-            rs = stmt.executeQuery("select name from gameinfo where name like '%" + keyword + "%'");
+                rs = stmt.executeQuery("select name from gameinfo where name like '%" + keyword + "%'");
 
             ArrayList<String> data = new ArrayList<>();
             while(rs.next()){
@@ -163,7 +162,7 @@ public class GameController {
 
         try{
             Class.forName(mysqlb.getDriverClassName());
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/gamedb?user=root&password=4581196");
+            conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from gameinfo" );//這裡後續要修改資料庫路徑以及要修改的項目
 

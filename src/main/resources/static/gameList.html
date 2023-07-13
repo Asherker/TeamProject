@@ -50,9 +50,9 @@
 
   <div class="container">
 
-	<span @click="showAddGameModal = true" class="material-symbols-outlined">
+	<div @click="showAddGameModal = true, this.discription = 2, onRecordInsert(newGameData.id)" class="material-symbols-outlined">
 		add
-	</span>
+	</div>
 	<table>
 		<thead>
 			<tr>
@@ -117,13 +117,13 @@
 					<el-date-picker v-else v-model="games[index].outchange" type="date" placeholder="Pick a day" :size="size" />
 				</td>
 				<td>
-				<span @click="showEditMode[index] = true, onRecord(index)" v-if="!showEditMode[index]" class="material-symbols-outlined">
+				<span @click="showEditMode[index] = true" v-if="!showEditMode[index]" class="material-symbols-outlined">
 				edit_note
 				</span>&nbsp;
-				<span @click="onDelete(item.id)" v-if="!showEditMode[index]" class="material-symbols-outlined">
+				<span @click="onDelete(item.id) ,this.discription = 3, onRecordInsert(item.id)" v-if="!showEditMode[index]" class="material-symbols-outlined">
 				delete
 				</span>
-				<span @click="onUpdate(index)" v-if="showEditMode[index]" class="material-symbols-outlined">
+				<span @click="onUpdate(index), this.discription = 1,onRecordInsert(item.id) " v-if="showEditMode[index]" class="material-symbols-outlined">
 					done
 				</span>&nbsp;
 				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
@@ -279,11 +279,13 @@
        			total: 0,
 				priceArrowMode:0,
 				userdata:{
+					id:0,
+					gameid:'',
 					user: '',
 					movement:'',
-					date:'',
+					updatetime:'2023-01-01',
 				},
-
+				discription: 0,
 				
 			}
 		},
@@ -298,8 +300,12 @@
 		// 當網頁載入完成後會被Vue框架呼叫
 		mounted() {
 			this.fetch();
-			this.userdata.user = localStorage.getItem('users');
-			// this.data = JSON.parse(users);
+			let ud = localStorage.getItem('user');
+			this.userdata.user = JSON.parse(ud);
+
+			// this.userdata = JSON.parse(user);
+			// this.userdata.user = localStorage.getItem('user');
+
 		},
 		// 網頁要用的方法寫在這裡
 		methods: {
@@ -426,16 +432,25 @@
 			// },
 
 			//立刻傳新的歷史紀錄通知
-			onRecordInsert(){
+			onRecordInsert(id){
 				// 將新增資料的對話盒顯示出來
+				this.userdata.id = id;
+				if (this.discription == 1) {
+							this.userdata.movement='修改了一筆資料';
+						} else if (this.discription == 2) {
+							this.userdata.movement='新增了一筆資料';
+						} else if (this.discription == 3) {
+							this.userdata.movement='刪除了一筆資料';
+						}
 				console.log(JSON.stringify(this.userdata));
 
 				// 打API將資料送到後端
 				axios.post('/record', this.userdata)
 					.then((response) => {
 						console.log(response);
-						if (response.data.code == 0) {
-							this.$message.success('更新成功');
+						
+						if(response.data.code == 0) {
+							this.$message.success('歷史紀錄更新成功');
 							this.fetch();
 						}
 					})
@@ -443,7 +458,7 @@
 						console.log(error);
 						// 新增失敗
 
-						this.$message.error('更新失敗');
+						this.$message.error('歷史紀錄更新失敗');
 					});
 
 			},

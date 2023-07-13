@@ -74,9 +74,6 @@
                 showWarning3: false, //有隱碼
                 username:'', //存放帳號的變數
                 password:'',
-                data:{
-                    username:'',
-                }
             }
         },
         watch: {
@@ -88,13 +85,7 @@
                 }
             },
 
-            data: {
-                handler(newVal) {
-                    //將資料寫入localStroage
-                    localStorage.setItem('users',JSON.stringfy(this.data));
-                },
-                deep:true
-            }
+
         },
         //Vue的方法寫在這裡
         methods: {
@@ -113,10 +104,11 @@
                 .then( (response) =>{
                     //get完成後收到的資料在這裡處理
                     console.log(response);
+                    localStorage.setItem('user',JSON.stringify(this.username));
 
-                    if(response.data.code == 0)
+                    if(response.data.code == 0) {
                     location.href = '/gameList.html';
-                    else if(response.data.code == 2)
+                    } else if(response.data.code == 2)
                     this.showWarning1 = true;
                     else if(response.data.code == 3)
                     this.showWarning2 = true;
