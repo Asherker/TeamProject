@@ -89,7 +89,7 @@ public class RecordController {
             stmt.setString(2, data.getGameid());
             stmt.setString(3, data.getUser());
             stmt.setString(4, data.getMovement());
-            stmt.setDate(5, data.getUpdateTime());
+            stmt.setDate(5, data.getUpdatetime());
 
             stmt.executeUpdate();
 

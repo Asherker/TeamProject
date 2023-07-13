@@ -50,7 +50,7 @@
 
   <div class="container">
 
-	<div @click="showAddGameModal = true, this.discription = 2, onRecordInsert(newGameData.id)" class="material-symbols-outlined">
+	<div @click="showAddGameModal = true" class="material-symbols-outlined">
 		add
 	</div>
 	<table>
@@ -217,7 +217,7 @@
 
 		<div class="btn-group">
 			<button type="text" class="submit" @click="showAddGameModal = false">取消</button>
-			<button type="text" class="submit" @click="onAdd">送出</button>
+			<button type="text" class="submit" @click="onAdd(), this.discription = 2, onRecordInsert(newGameData.id)">送出</button>
 		</div>
 	</div>
 
@@ -259,6 +259,7 @@
 				categoryValue: '種類',
 
 				newGameData: {
+					id:'',
 					name: '',
 					category: '',
 					developer: '',
@@ -302,9 +303,6 @@
 			this.fetch();
 			let ud = localStorage.getItem('user');
 			this.userdata.user = JSON.parse(ud);
-
-			// this.userdata = JSON.parse(user);
-			// this.userdata.user = localStorage.getItem('user');
 
 		},
 		// 網頁要用的方法寫在這裡

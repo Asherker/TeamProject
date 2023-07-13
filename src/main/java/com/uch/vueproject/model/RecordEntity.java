@@ -10,6 +10,6 @@ public class RecordEntity {
     String gameid;
     String user;
     String movement;
-    Date updateTime;
+    Date updatetime;
     
 }
