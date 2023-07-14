@@ -57,7 +57,7 @@ public class RecordController {
                 showEntity.setGameid(rs.getString("gameid"));
                 showEntity.setUser(rs.getString("user"));
                 showEntity.setMovement(rs.getString("movement"));
-                showEntity.setUpdateTime(rs.getDate("updatetime"));
+                showEntity.setUpdatetime(rs.getDate("updatetime"));
 
                 show.add(showEntity);
             }

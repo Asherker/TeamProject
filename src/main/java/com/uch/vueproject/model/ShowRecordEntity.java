@@ -10,5 +10,5 @@ public class ShowRecordEntity {
     String gameid;
     String user;
     String movement;
-    Date updateTime;    
+    Date updatetime;    
 }

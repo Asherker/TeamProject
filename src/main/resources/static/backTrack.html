@@ -5,63 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>資料回溯功能</title>
     <link rel="stylesheet" href="css/track.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/searchIcon.css">
+
 
     <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 	<!-- 引入Vue.js -->
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- 引入Element UI介面庫-->
+	<!-- Import style -->
+	<link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+	<!-- Import Vue 3 -->
+	<script src="//unpkg.com/vue@3"></script>
+	<!-- Import component library -->
+	<script src="//unpkg.com/element-plus"></script>
+
 </head>
-<body>
+<body id="app">
     
+    <div class="contain">
+        <input type="text" placeholder="請鍵入您想要搜尋的項目">
+        <div class="search"></div>
+    </div>&nbsp;
+
     <div class="container">
         <h2>資料異動回溯系統</h2>
-        <ul v-for="(record, index) in games" class="responsive-table">
+        <ul class="responsive-table">
           <li class="table-header">
             <div class="col col-1">次序</div>
             <div class="col col-2">產品編號</div>
             <div class="col col-3">使用者</div>
             <div class="col col-4">紀錄描述</div>
-            <div class="col col-4">紀錄日期</div>
+            <div class="col col-3">紀錄日期</div>
           </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="numbers" v-model="games[index].id">{{ record.id }}</div>
-            <div class="col col-2" data-label="ID" v-model="games[index].gameid">{{record.gameid }}</div>
-            <div class="col col-3" data-label="user" v-model="games[index].user">{{ record.user }}</div>
-            <div class="col col-4" data-label="discription" v-model="games[index].movement">{{ record.movement }}</div>
-            <div class="col col-4" data-label="datetime" v-model="games[index].updatetime">{{ record.updatetime }}</div>
+          <li v-for="(item, index) in record" class="table-row">
+            <div class="col col-1" data-label="numbers">{{ item.id }}</div>
+            <div class="col col-2" data-label="ID">{{ item.gameid }}</div>
+            <div class="col col-3" data-label="user">{{ item.user }}</div>
+            <div class="col col-4" data-label="discription">{{ item.movement }}</div>
+            <div class="col col-3" data-label="datetime">{{ item.updatetime }}</div>
           </li>
-
 
         </ul>
       </div>
 
 </body>
 <script>
+    //Vue初始化
+    const { createApp } = Vue
+
     createApp({
         data() {
             //Vue變數放這裡
             return {
-                games:[],
+                message: 'HEYO!',
+                record:[],
+                total:0,
             }
         },
-        mounted(){
+        watch: {
 
         },
-        methods(){
+        mounted(){
+            this.fetch();
+        },
+        methods: {
             fetch() {
                 //跟API拿資料
                 axios.get('/showrecord')
                 .then((response) => {
                     console.log(response);
                     if(response.data.code == 0) {
-                        this.games = response.data.data.record;
+                        this.record = response.data.data;
+                        // this.total = response.data.data.total;
                     }
                 })
+                .catch((error) => {
+                    console.log(error);
+                    
+                });
             }
 
-        },
+        }
     }).use(ElementPlus).mount('#app')
 </script>
 </html>

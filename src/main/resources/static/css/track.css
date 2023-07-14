@@ -35,9 +35,9 @@ h2 small {
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  background-image: -moz-linear-gradient(top, #53455b 0%, #2b2f70 70%);
-  background-image: -webkit-linear-gradient(top, #414765 0%, #521d75 70%);
-  background-image: linear-gradient(to bottom, #53455b 0%, #2d1d54 70%);
+  background-image: -moz-linear-gradient(top, #274c52 0%, #484956 70%);
+  background-image: -webkit-linear-gradient(top, #5665b1 0%, #0f1143 70%);
+  background-image: linear-gradient(circle to bottom, #316552 0%, #11105f 70%);
 
 }
 .responsive-table .table-row {
@@ -49,18 +49,22 @@ h2 small {
 .responsive-table .col-1 {
   flex-basis: 10%;
   font-size: large;
+  text-align:center;
 }
 .responsive-table .col-2 {
   flex-basis: 20%;
   font-size: large;
+  text-align:center;
 }
 .responsive-table .col-3 {
   flex-basis: 25%;
   font-size: large;
+  text-align:center;
 }
 .responsive-table .col-4 {
   flex-basis: 25%;
   font-size: large;
+  text-align:center;
 }
 @media all and (max-width: 767px) {
   .responsive-table .table-header {
