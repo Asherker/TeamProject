@@ -1,0 +1,72 @@
+a {
+    text-decoration: none;
+    font-size: 30px;
+    color: black;
+    margin: 50px;
+}
+
+.modal-header h3 {
+    font-size: 30px;
+    color: black;
+    /* 置中 */
+    position: absolute;
+    top: 9%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-content {
+    background-color: rgb(241, 240, 237);
+}
+
+
+
+.main {
+    width: 100%;
+    margin: 20px auto;
+}
+
+table {
+    border-spacing: 0;
+    width: 100%;
+}
+
+tr {
+    text-align: center;
+}
+
+th {
+    padding: 10px;
+}
+
+table thead {
+    background-color: blue;
+    color: white;
+}
+
+table thead th:first-child {
+    border-radius: 5px 0 0 0;
+}
+
+table thead th:last-child {
+    border-radius: 0 5px 0 0;
+}
+
+table tbody tr:last-child td:first-child {
+    border-radius: 0 0 0 5px;
+}
+
+table tbody tr:last-child td:last-child {
+    border-radius: 0 0 5px 0;
+}
+
+
+
+.material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 48
+}
+
