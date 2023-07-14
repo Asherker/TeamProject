@@ -21,11 +21,17 @@ import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameResponse;
 import com.uch.vueproject.model.StringArrayResponse;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@OpenAPIDefinition(info = @Info(title = "Java課程API系統", version = "1.0.9"))
 @RestController
 public class GameController {
     @Autowired
     private MySQLConfigBean mysqlb;
 
+    @Tag(name = "抓取後端資料庫的相關資料")
     @RequestMapping(value = "/games", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public GameResponse games() {
         return getGameList();
