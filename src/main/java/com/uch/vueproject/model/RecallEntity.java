@@ -8,6 +8,7 @@ import lombok.Data;
 public class RecallEntity {
     String id;
     String name;
+    String gamename;
     String platform;
     String category;
     String developer;

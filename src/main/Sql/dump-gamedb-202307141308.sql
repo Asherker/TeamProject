@@ -108,7 +108,8 @@ DROP TABLE IF EXISTS `recall`;
 CREATE TABLE `recall` (
   `ID` varchar(32) NOT NULL,
   `Name` varchar(32) NOT NULL,
-  `Plateform` varchar(32) NOT NULL,
+  `gamename` varchar(100) DEFAULT NULL,
+  `Platform` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Category` varchar(32) NOT NULL,
   `Developer` varchar(32) NOT NULL,
   `Price` int(11) DEFAULT NULL,
@@ -126,6 +127,7 @@ CREATE TABLE `recall` (
 
 LOCK TABLES `recall` WRITE;
 /*!40000 ALTER TABLE `recall` DISABLE KEYS */;
+INSERT INTO `recall` VALUES ('001','jeff','破曉傳奇豪華版','Bandai Namco','Playstation4/5','動作角色扮演',1990,25,'2022-07-25','2022-08-12','2023-04-20'),('002','jack','臥龍：蒼天隕落','KOEI TECMO Games','Playstation4/5','角色扮演',1300,35,'2022-07-20','2022-08-15','2023-04-30'),('003','jacky','寶可夢 朱／紫','GAME FREAK','Nintendo Switch','角色扮演',1490,30,'2022-12-20','2023-01-03','2023-03-25');
 /*!40000 ALTER TABLE `recall` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-14 10:42:00
+-- Dump completed on 2023-07-14 13:08:00
