@@ -32,7 +32,7 @@ public class RecallController {
     try{
         Class.forName(mysqlb.getDriverClassName());
             
-        conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=maxkuo625");
+        conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getKuo());
 
         stmt = conn.prepareStatement("INSERT INTO recall VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         stmt.setString(1, data.getId());

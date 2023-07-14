@@ -31,7 +31,7 @@ public class RewriteController {
     try{
         Class.forName(mysqlb.getDriverClassName());
 
-        conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=maxkuo625");
+        conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getKuo());
 
         stmt = conn.prepareStatement("UPDATE recall SET Name=?, gamename=?, platform=?, category=?, developer=?, price=?, quantity=?, inchange=?, outchange=?, finalupdate=? WHERE id=?");
         stmt.setString(1, data.getName());
