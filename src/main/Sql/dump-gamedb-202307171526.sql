@@ -36,7 +36,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES (1,'jeff','12345'),(2,'john','67890'),(3,'ken','77777'),(4,'jason','66666'),(5,'bay','99887');
+INSERT INTO `account` VALUES (1,'jeff','1111'),(2,'john','2222'),(3,'ken','3333'),(4,'jason','4444'),(5,'gloria','5555');
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,41 +94,8 @@ CREATE TABLE `gameinfo` (
 
 LOCK TABLES `gameinfo` WRITE;
 /*!40000 ALTER TABLE `gameinfo` DISABLE KEYS */;
-INSERT INTO `gameinfo` VALUES ('G001','臥龍：蒼天隕落','PlayStation4/5','角色扮演','KOEI TECMO Games',1250,35,'2022-05-25','2023-04-26'),('G002','零～濡鴉之巫女～','PlayStation4/5','冒險','KOEI TECMO Games',1190,20,'2023-04-09','2023-04-20'),('G003','隻狼：暗影雙死','PlayStation4/5','動作','Form Software',1790,20,'2022-06-02','2022-07-01'),('G004','暗黑破壞神 4 ','PlayStation4/5','角色扮演','Blizzard Entertainment',2219,20,'2023-04-09','2023-04-28'),('G005','霍格華茲的傳承 ','PlayStation4/5','角色扮演','Avalanche',1890,20,'2023-01-06','2023-01-28'),('G006','惡靈古堡 4 重製版 ','PlayStation4/5','動作','CAPCOM',1590,20,'2023-02-09','2023-03-02'),('G007','零～月蝕的假面～','PlayStation4/5','冒險','KOEI TECMO Games',1590,20,'2022-08-08','2022-08-21'),('G008','閃電風暴 大型電玩年表 ','PlayStation4/5','射擊','TAITO',1590,20,'2023-01-09','2023-02-28'),('G009','雷電 III x MIKADO MANIAX ','PlayStation4/5','射擊','Game Center MIKADO',1590,20,'2023-01-06','2023-01-20'),('G010','人中之龍 維新！極 ','PlayStation4/5','動作','SEGA',1590,20,'2023-02-09','2023-02-28'),('G011','航海王 時光旅詩','PlayStation4/5','角色扮演','BANDAI NAMCO Entertainment',1590,20,'2023-05-04','2023-05-16'),('G012','西部魔域','PlayStation4/5','動作','Focus Home Interactive',1890,20,'2022-11-15','2022-12-16'),('G013','戰神：諸神黃昏','PlayStation4/5','動作','Sony interactive Entertainment',1790,20,'2022-11-26','2022-12-20'),('G014','索尼克 未知邊境','PlayStation4/5','動作','SEGA',1290,20,'2022-12-26','2023-01-20'),('G015','世界越野冠軍賽 Generations','PlayStation4/5','策略模擬','Nacon',1290,20,'2022-10-26','2022-11-05'),('G016','惡靈古堡 8：村莊 黃金版','PlayStation4/5','動作','SQUARE ENIX',1490,20,'2022-10-04','2022-10-16'),('G017','決勝時刻：現代戰爭 II ','PlayStation4/5','射擊','Activision',1590,20,'2022-12-01','2022-12-12'),('G018','英雄傳說 黎之軌跡 II ','PlayStation4/5','角色扮演','Falcom',1790,20,'2023-01-25','2023-02-05'),('G019','星海遊俠 6：神授之力','PlayStation4/5','角色扮演','SQUARE ENIX',1790,20,'2023-01-03','2023-01-30'),('G020','女神戰記 極樂淨土','PlayStation4/5','角色扮演','SQUARE ENIX',1790,20,'2023-01-19','2023-01-28'),('G021','瑪利歐賽車8 豪華版','Nintendo Switch','競速','任天堂情報開發本部',1350,20,'2022-08-17','2022-09-01'),('G022','集合啦！動物森友會','Nintendo Switch','生活模擬','任天堂企畫製作本部',1450,20,'2023-01-06','2023-01-11'),('G023','任天堂明星大亂鬥 特別版','Nintendo Switch','動作、格鬥','Sora萬代南夢宮工作室',1290,20,'2023-01-12','2023-01-30'),('G024','薩爾達傳說 曠野之息','Nintendo Switch','動作冒險、動作角色扮演','任天堂企畫製作本部',1650,20,'2023-04-05','2023-04-26'),('G025','寶可夢 劍／盾','Nintendo Switch','角色扮演','GAME FREAK',1390,20,'2023-03-09','2023-03-30'),('G026','超級瑪利歐 奧德賽','Nintendo Switch','平台動作冒險','1-UP工作室任天堂企劃製作本部',1290,20,'2023-02-15','2023-02-28'),('G027','寶可夢 朱／紫','Nintendo Switch','角色扮演','GAME FREAK',1390,20,'2023-03-14','2023-04-01'),('G028','超級瑪利歐派對','Nintendo Switch','聚會','NDcube',1490,20,'2022-12-12','2023-01-23'),('G029','薩爾達無雙 災厄啟示錄','Nintendo Switch','無雙、角色扮演','光榮特庫摩、Omega Force',1650,20,'2023-02-12','2023-03-02'),('G030','健身環大冒險','Nintendo Switch','體育健身、角色扮演','任天堂企畫製作本部',1790,20,'2023-03-06','2023-03-30'),('G031','精靈寶可夢 Let\'s Go！皮卡丘／Let\'s Go！伊布','Nintendo Switch','角色扮演','GAME FREAK',1390,20,'2022-09-09','2022-10-10'),('G032','寶可夢 晶燦鑽石／明亮珍珠','Nintendo Switch','角色扮演','ILCA',1290,20,'2022-05-15','2022-05-20'),('G033','寶可夢傳說 阿爾宙斯','Nintendo Switch','動作角色扮演','GAME FREAK',1590,20,'2023-01-12','2023-01-20'),('G034','斯普拉遁2','Nintendo Switch','第三人稱射擊','任天堂企劃製作本部',1490,20,'2023-02-02','2023-02-14'),('G035','路易吉洋樓3','Nintendo Switch','動作冒險','Next Level Games 任天堂企劃製作本部',1390,20,'2022-07-07','2022-07-30'),('G036','薩爾達傳說 王國之淚','Nintendo Switch','動作冒險、動作角色扮演','Grezzo 任天堂企劃製作本部',1650,20,'2023-05-15','2023-05-16'),('G037','斯普拉遁3','Nintendo Switch','第三人稱射擊','任天堂企劃製作本部',1380,20,'2023-02-10','2023-02-20'),('G038','瑪利歐派對 超級巨星','Nintendo Switch','聚會','NDcube',1290,20,'2022-12-25','2023-01-20'),('G039','Nintendo Switch 運動','Nintendo Switch','體育','任天堂企劃製作本部',1490,20,'2023-01-09','2023-01-20'),('G040','魔物獵人 崛起','Nintendo Switch','動作角色扮演','CAPCOM',1690,20,'2023-02-08','2023-02-21');
+INSERT INTO `gameinfo` VALUES ('G001','臥龍：蒼天隕落','PlayStation4/5','角色扮演','KOEI TECMO Games',1350,30,'2022-05-25','2023-04-26'),('G002','零～濡鴉之巫女～','PlayStation4/5','冒險、驚悚','KOEI TECMO Games',1200,30,'2023-04-09','2023-04-20'),('G003','隻狼：暗影雙死','PlayStation4/5','動作','Form Software',1795,20,'2022-06-02','2022-07-01'),('G004','暗黑破壞神 4 ','PlayStation4/5','角色扮演','Blizzard Entertainment',1790,20,'2023-04-09','2023-04-28'),('G005','霍格華茲的傳承 ','PlayStation4/5','角色扮演','Avalanche',1850,25,'2023-01-06','2023-01-28'),('G006','惡靈古堡 4 重製版 ','PlayStation4/5','動作、角色扮演','CAPCOM',1190,45,'2023-02-09','2023-03-02'),('G007','零～月蝕的假面～','PlayStation4/5','驚悚','KOEI TECMO Games',1520,40,'2022-08-08','2022-08-21'),('G008','閃電風暴 大型電玩年表 ','PlayStation4/5','射擊','TAITO',1590,40,'2023-01-09','2023-02-28'),('G009','雷電 III x MIKADO MANIAX ','PlayStation4/5','射擊','Game Center MIKADO',1490,25,'2023-01-06','2023-01-20'),('G010','人中之龍 維新！極 ','PlayStation4/5','動作','SEGA',1690,20,'2023-02-09','2023-02-28'),('G011','航海王 時光旅詩','PlayStation4/5','角色扮演','BANDAI NAMCO Entertainment',1590,20,'2023-05-04','2023-05-16'),('G012','西部魔域','PlayStation4/5','動作','Focus Home Interactive',1890,20,'2022-11-15','2022-12-16'),('G013','戰神：諸神黃昏','PlayStation4/5','動作、角色扮演','Sony interactive Entertainment',1790,20,'2022-11-26','2022-12-20'),('G014','索尼克 未知邊境','PlayStation4/5','動作','SEGA',1290,20,'2022-12-26','2023-01-20'),('G015','世界越野冠軍賽 Generations','PlayStation4/5','策略模擬','Nacon',1290,20,'2022-10-26','2022-11-05'),('G016','惡靈古堡 8：村莊 黃金版','PlayStation4/5','角色扮演、射擊','SQUARE ENIX',1490,30,'2022-10-04','2022-10-16'),('G017','決勝時刻：現代戰爭 II ','PlayStation4/5','射擊、即時戰略','Activision',1590,20,'2022-12-01','2022-12-12'),('G018','英雄傳說 黎之軌跡 II ','PlayStation4/5','角色扮演','Falcom',1790,25,'2023-01-25','2023-02-05'),('G019','星海遊俠 6：神授之力','PlayStation4/5','角色扮演','SQUARE ENIX',1790,20,'2023-01-03','2023-01-30'),('G020','女神戰記 極樂淨土','PlayStation4/5','角色扮演','SQUARE ENIX',1790,25,'2023-01-19','2023-01-28'),('G021','瑪利歐賽車8 豪華版','Nintendo Switch','競速','任天堂情報開發本部',1350,20,'2022-08-17','2022-09-01'),('G022','集合啦！動物森友會','Nintendo Switch','生活模擬','任天堂企畫製作本部',1450,25,'2023-01-06','2023-01-11'),('G023','任天堂明星大亂鬥 特別版','Nintendo Switch','動作、格鬥','Sora萬代南夢宮工作室',1290,20,'2023-01-12','2023-01-30'),('G024','薩爾達傳說 曠野之息','Nintendo Switch','動作冒險、動作角色扮演','任天堂企畫製作本部',1650,25,'2023-04-05','2023-04-26'),('G025','寶可夢 劍／盾','Nintendo Switch','角色扮演','GAME FREAK',1390,20,'2023-03-09','2023-03-30'),('G026','超級瑪利歐 奧德賽','Nintendo Switch','平台動作冒險','1-UP工作室任天堂企劃製作本部',1290,36,'2023-02-15','2023-02-28'),('G027','寶可夢 朱／紫','Nintendo Switch','角色扮演','GAME FREAK',1390,30,'2023-03-14','2023-04-01'),('G028','超級瑪利歐派對','Nintendo Switch','聚會','NDcube',1490,30,'2022-12-12','2023-01-23'),('G029','薩爾達無雙 災厄啟示錄','Nintendo Switch','無雙、角色扮演','光榮特庫摩、Omega Force',1250,30,'2023-02-12','2023-08-01'),('G030','健身環大冒險','Nintendo Switch','體育健身、角色扮演','任天堂企畫製作本部',1790,20,'2023-03-06','2023-03-30'),('G031','精靈寶可夢 Let\'s Go！皮卡丘／Let\'s Go！伊布','Nintendo Switch','角色扮演','GAME FREAK',1390,20,'2022-09-09','2022-10-10'),('G032','寶可夢 晶燦鑽石／明亮珍珠','Nintendo Switch','角色扮演','ILCA',1290,20,'2022-05-15','2022-05-20'),('G033','寶可夢傳說 阿爾宙斯','Nintendo Switch','動作角色扮演','GAME FREAK',1590,20,'2023-01-12','2023-01-20'),('G034','斯普拉遁2','Nintendo Switch','第三人稱射擊','任天堂企劃製作本部',1490,20,'2023-02-02','2023-02-14'),('G035','路易吉洋樓3','Nintendo Switch','動作冒險','Next Level Games 任天堂企劃製作本部',1390,20,'2022-07-07','2022-07-30'),('G036','薩爾達傳說 王國之淚','Nintendo Switch','動作冒險、動作角色扮演','Grezzo 任天堂企劃製作本部',1650,20,'2023-05-15','2023-05-16'),('G037','斯普拉遁3','Nintendo Switch','第三人稱射擊','任天堂企劃製作本部',1380,50,'2023-02-10','2023-02-20'),('G038','瑪利歐派對 超級巨星','Nintendo Switch','聚會、多人','NDcube',1290,20,'2022-12-25','2023-01-20'),('G039','Nintendo Switch 運動','Nintendo Switch','體育','任天堂企劃製作本部',1490,20,'2023-01-09','2023-01-20'),('G040','魔物獵人 崛起','Nintendo Switch','動作、角色扮演','CAPCOM',1690,20,'2023-02-08','2023-02-21'),('G041','仁王2','PlayStation4/5','角色扮演、動作','Team Ninja',1790,60,'2023-07-10','2023-07-14'),('G042','勇者鬥惡龍XI S 尋覓逝去的時光','Nintendo Switch','角色扮演','史克威爾艾尼克斯',1450,50,'2023-05-29','2023-06-27');
 /*!40000 ALTER TABLE `gameinfo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `recall`
---
-
-DROP TABLE IF EXISTS `recall`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `recall` (
-  `ID` varchar(32) NOT NULL,
-  `Name` varchar(32) NOT NULL,
-  `gamename` varchar(100) DEFAULT NULL,
-  `Platform` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `Category` varchar(32) NOT NULL,
-  `Developer` varchar(32) NOT NULL,
-  `Price` int(11) DEFAULT NULL,
-  `Quantity` int(11) DEFAULT NULL,
-  `Inchange` date DEFAULT NULL,
-  `Outchange` date DEFAULT NULL,
-  `Finalupdate` date DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `recall`
---
-
-LOCK TABLES `recall` WRITE;
-/*!40000 ALTER TABLE `recall` DISABLE KEYS */;
-INSERT INTO `recall` VALUES ('001','jeff','破曉傳奇豪華版','Bandai Namco','Playstation4/5','動作角色扮演',1990,25,'2022-07-25','2022-08-12','2023-04-20'),('002','jack','臥龍：蒼天隕落','KOEI TECMO Games','Playstation4/5','角色扮演',1300,35,'2022-07-20','2022-08-15','2023-04-30'),('003','jacky','寶可夢 朱／紫','GAME FREAK','Nintendo Switch','角色扮演',1490,30,'2022-12-20','2023-01-03','2023-03-25');
-/*!40000 ALTER TABLE `recall` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -139,20 +106,13 @@ DROP TABLE IF EXISTS `trackinghistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `trackinghistory` (
-  `id` varchar(30) NOT NULL,
-  `user` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `movement` varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `gameid` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `user` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `movement` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `updatetime` date DEFAULT NULL,
-  `gamename` varchar(50) DEFAULT NULL,
-  `platform` varchar(30) DEFAULT NULL,
-  `category` varchar(30) DEFAULT NULL,
-  `developer` varchar(60) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `inchange` date DEFAULT NULL,
-  `outchange` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,7 +121,7 @@ CREATE TABLE `trackinghistory` (
 
 LOCK TABLES `trackinghistory` WRITE;
 /*!40000 ALTER TABLE `trackinghistory` DISABLE KEYS */;
-INSERT INTO `trackinghistory` VALUES ('222',NULL,NULL,NULL,NULL,'PS5','隨便','AAA',555,555,'2022-02-02','2020-02-02'),('G001',NULL,NULL,NULL,NULL,'PlayStation4/5','角色扮演','KOEI TECMO Games',1250,35,'2022-05-25','2023-04-26');
+INSERT INTO `trackinghistory` VALUES (16,'G005','gloria','修改了一筆資料','2023-07-13'),(17,'G026','gloria','修改了一筆資料','2023-07-14'),(18,'G029','gloria','修改了一筆資料','2023-07-14'),(19,'G006','gloria','修改了一筆資料','2023-07-14'),(20,'G028','jeff','修改了一筆資料','2023-07-14'),(21,'G041','jeff','新增了一筆資料','2023-07-14'),(22,'G042','jeff','新增了一筆資料','2023-07-14'),(23,'G016','john','修改了一筆資料','2023-07-14'),(24,'G006','ken','修改了一筆資料','2023-07-17'),(25,'G002','ken','修改了一筆資料','2023-07-17'),(26,'G017','ken','修改了一筆資料','2023-07-17'),(27,'G013','ken','修改了一筆資料','2023-07-17'),(28,'G042','ken','修改了一筆資料','2023-07-17'),(29,'G038','ken','修改了一筆資料','2023-07-17'),(30,'G040','ken','修改了一筆資料','2023-07-17'),(31,'G007','ken','修改了一筆資料','2023-07-17');
 /*!40000 ALTER TABLE `trackinghistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,4 +138,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-14 13:08:00
+-- Dump completed on 2023-07-17 15:26:01

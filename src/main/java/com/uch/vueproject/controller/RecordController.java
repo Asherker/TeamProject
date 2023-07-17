@@ -40,8 +40,11 @@ public class RecordController {
 
     @RequestMapping(value = "/showrecord", method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
+    public ShowRecordListResponse showRecordA(int page, int count, int sortMode){
+        return showRecordB(page , count, sortMode);
+    }
+    private ShowRecordListResponse showRecordB(int page, int count, int sortMode) {
 
-    public ShowRecordListResponse showRecord(int page, int count, int sortMode){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -50,7 +53,8 @@ public class RecordController {
             Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from trackinghistory"+(sortMode == 0 ? "" : (sortMode == 1 ? "order by updatetime ASC":"order by updatetime DESC")));//這裡後續要修改資料庫路徑以及要修改的項目
+            rs = stmt.executeQuery("select * from trackinghistory " + (sortMode == 0 ? "" : (sortMode == 1 ? "order by gameid ASC":"order by gameid DESC"))+
+            " limit " + count + " offset " + ((page-1) * count));
 
             ArrayList<ShowRecordEntity> show = new ArrayList<>();
             while(rs.next()){
@@ -70,7 +74,8 @@ public class RecordController {
 
             return new ShowRecordListResponse(0,"歷史資料抓取成功",show, total);
         }catch(SQLException e) {
-            return new ShowRecordListResponse(e.getErrorCode(), e.getMessage(), null,0);
+            return new ShowRecordListResponse(e.getErrorCode(), "select * from trackinghistory"+(sortMode == 0 ? "" : (sortMode == 1 ? "order by updatetime ASC":"order by updatetime DESC"))+
+            " limit " + count + " offset " + ((page-1) * count), null,0);
         }catch(ClassNotFoundException e) {
             return new ShowRecordListResponse(1,"歷史資料抓取失敗",null,0);
         }
