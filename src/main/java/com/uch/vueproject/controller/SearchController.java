@@ -29,15 +29,15 @@ public class SearchController extends BaseController {
             connect(mysqlb.getUrl());
             stmt = conn.createStatement();
 
-            String queryString = "select gameid, user,update from trackinghistory" + (SortMode == 0 ? "" : (SortMode == 1 ? "order by price ASC":"order by price DESC") ) + 
+            String queryString = "select gameid, user,updatetime from trackinghistory" + (SortMode == 0 ? "" : (SortMode == 1 ? "order by price ASC":"order by price DESC") ) + 
             " where " + columnName + " like '%" + keyword + "%'" + " limit " + count + " offset " + ((page-1) * count);
 
             if(keyvalue.length() == 0) {
-                queryString = "select gameid, user,update from trackinghistory" + (SortMode == 0 ? "" : (SortMode == 1 ? "order by price ASC":"order by price DESC") ) + 
+                queryString = "select gameid, user,updatetime from trackinghistory" + (SortMode == 0 ? "" : (SortMode == 1 ? "order by price ASC":"order by price DESC") ) + 
                     " where " + columnName + " like '%" + keyword + "%'" + " limit " + count + " offset " + ((page-1) * count);
             } else {
                 // 數字搜尋
-                queryString = "select gameid, user,update from trackinghistory"+ (SortMode == 0 ? "" : (SortMode == 1 ? "order by price ASC":"order by price DESC") ) + 
+                queryString = "select gameid, user,updatetime from trackinghistory"+ (SortMode == 0 ? "" : (SortMode == 1 ? "order by price ASC":"order by price DESC") ) + 
                     " where " + columnName + " = " + keyvalue + " limit " + count + " offset " + ((page-1) * count);
             }
 
