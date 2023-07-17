@@ -39,26 +39,26 @@ public class SearchController extends BaseController {
             String queryString = "select gameid, user,updatetime from trackinghistory" + (SortMode == 0 ? "" : (SortMode == 1 ? "order by updatetime ASC":"order by updatetime DESC") ) + 
             " where " + whereToken + " limit " + count + " offset " + ((page-1) * count);
 
-            return new SearchListResponse(0, queryString, null, 0);
-
-            // rs = stmt.executeQuery(queryString);
-
-            // ArrayList<SearchEntity> shows = new ArrayList<>();
-            // while(rs.next()) {
-            //     SearchEntity searchEntity = new SearchEntity();
-            //     searchEntity.setGameid(rs.getString("gameid"));
-            //     searchEntity.setUser(rs.getString("user"));
-            //     searchEntity.setUpdatetime(rs.getDate("updatetime"));
             
-            //     shows.add(searchEntity);
-            // }
 
-            // // 取得全部數量
-            // rs = stmt.executeQuery("select count(*) as c from trackinghistory where " + whereToken);
-            // rs.next();
-            // int total = rs.getInt("c");
+            rs = stmt.executeQuery(queryString);
 
-            // return new SearchListResponse(0, "搜尋成功", shows, total);
+            ArrayList<SearchEntity> shows = new ArrayList<>();
+            while(rs.next()) {
+                SearchEntity searchEntity = new SearchEntity();
+                searchEntity.setGameid(rs.getString("gameid"));
+                searchEntity.setUser(rs.getString("user"));
+                searchEntity.setUpdatetime(rs.getDate("updatetime"));
+            
+                shows.add(searchEntity);
+            }
+
+            // 取得全部數量
+            rs = stmt.executeQuery("select count(*) as c from trackinghistory where " + whereToken);
+            rs.next();
+            int total = rs.getInt("c");
+
+            return new SearchListResponse(0, "搜尋成功", shows, total);
         } catch (ClassNotFoundException e) {
             return new SearchListResponse(1, "找不到驅動程式", null, 0);
         } catch (SQLException e) {

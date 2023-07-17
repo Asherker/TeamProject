@@ -20,7 +20,7 @@ public class MySQLConfigBean {
     @Value("${spring.datasource.password}")
     private String password;
 
-    @Value("${spring.datasource.password.kuo}")
+    @Value("${spring.datasource.kuo.password}")
     private String kuo;
 
     @Value("${spring.datasource.driver-class-name}")
