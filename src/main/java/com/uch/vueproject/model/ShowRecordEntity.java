@@ -1,6 +1,7 @@
 package com.uch.vueproject.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 import lombok.Data;
 

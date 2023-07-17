@@ -10,17 +10,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uch.vueproject.model.GameDetailEntity;
-import com.uch.vueproject.model.GameDetailListResponse;
+import com.uch.vueproject.model.ShowRecordListResponse;
+import com.uch.vueproject.model.ShowRecordEntity;
+import com.uch.vueproject.model.ShowRecordListEntity;
 
 @RestController
 @RequestMapping("/v1")
 public class SearchController extends BaseController {
     @RequestMapping(value = "/food/{columnName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public GameDetailListResponse searchGame(@PathVariable String columnName, String keyword, String keyvalue, int page, int count, int SortMode) {
+    public ShowRecordListResponse searchGame(@PathVariable String columnName, String keyword, String keyvalue, int page, int count, int SortMode) {
         return search(columnName, keyword, keyvalue, page, count, SortMode);
     }
 
-    private GameDetailListResponse search(String columnName, String keyword, String keyvalue, int page, int count, int SortMode){
+    private ShowRecordListResponse search(String columnName, String keyword, String keyvalue, int page, int count, int SortMode){
 
         try {
             // 連線資料料庫
@@ -41,28 +43,26 @@ public class SearchController extends BaseController {
 
             rs = stmt.executeQuery(queryString);
 
-            ArrayList<ShowRecordEntity> games = new ArrayList<>();
+            ArrayList<ShowRecordEntity> shows = new ArrayList<>();
             while(rs.next()) {
-                GameDetailEntity gameDetailEntity = new GameDetailEntity();
-                gameDetailEntity.setGameid(rs.getInt("food_id"));
-                gameDetailEntity.setName(rs.getString("name"));
-                gameDetailEntity.setCategory(rs.getString("category"));
+                ShowRecordEntity showEntity = new ShowRecordEntity();
+                showEntity.setGameid(rs.getString("gameid"));
+                showEntity.setUser(rs.getString("user"));
+                showEntity.setUpdatetime(rs.getDate("category"));
             
-                games.add(gameDetailEntity);
-            }
-
+                shows.add(showEntity);
             }
 
             // 取得全部數量
-            rs = stmt.executeQuery("select count(*) as c from food_detail where " + columnName + " like '%" + keyword + "%'");
+            rs = stmt.executeQuery("select count(*) as c from trackinghistory where " + columnName + " like '%" + keyword + "%'");
             rs.next();
             int total = rs.getInt("c");
 
-            return new FoodDetailListResponse(0, "搜尋成功", foods, total);
+            return new ShowRecordListResponse(0, "搜尋成功", shows, total);
         } catch (ClassNotFoundException e) {
-            return new FoodDetailListResponse(1, "找不到驅動程式", null, 0);
+            return new ShowRecordListResponse(1, "找不到驅動程式", null, 0);
         } catch (SQLException e) {
-            return new FoodDetailListResponse(e.getErrorCode(), e.getMessage(), null, 0);
+            return new ShowRecordListResponse(e.getErrorCode(), e.getMessage(), null, 0);
         } 
 
     }
