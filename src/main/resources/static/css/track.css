@@ -4,6 +4,11 @@ body {
 
 }
 
+.arrow-down {
+  transform: rotate(180deg);
+  font-size: 22px;
+}
+
 .container {
 
   max-width: 1000px;
@@ -52,7 +57,7 @@ h2 small {
   text-align:center;
 }
 .responsive-table .col-2 {
-  flex-basis: 20%;
+  flex-basis: 25%;
   font-size: large;
   text-align:center;
 }
@@ -78,7 +83,7 @@ h2 small {
   }
   .responsive-table .col {
     display: flex;
-    padding: 10px 0;
+    padding: 5px 0;
   }
   .responsive-table .col:before {
     color: #6C7A89;

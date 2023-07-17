@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.BaseResponse;
 import com.uch.vueproject.model.GameEntity;
+import com.uch.vueproject.model.GameListResponse;
 import com.uch.vueproject.model.GameResponse;
 
 import com.uch.vueproject.model.RecordEntity;
 import com.uch.vueproject.model.ShowRecordEntity;
+import com.uch.vueproject.model.ShowRecordListResponse;
 import com.uch.vueproject.model.ShowRecordResponse;
 import com.uch.vueproject.model.RecordResponse;
 
@@ -39,7 +41,7 @@ public class RecordController {
     @RequestMapping(value = "/showrecord", method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public ShowRecordResponse showRecord(){
+    public ShowRecordListResponse showRecord(int page, int count, int sortMode){
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -48,7 +50,7 @@ public class RecordController {
             Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from trackinghistory ORDER BY updatetime" );//這裡後續要修改資料庫路徑以及要修改的項目
+            rs = stmt.executeQuery("select * from trackinghistory"+(sortMode == 0 ? "" : (sortMode == 1 ? "order by updatetime ASC":"order by updatetime DESC")));//這裡後續要修改資料庫路徑以及要修改的項目
 
             ArrayList<ShowRecordEntity> show = new ArrayList<>();
             while(rs.next()){
@@ -61,11 +63,16 @@ public class RecordController {
 
                 show.add(showEntity);
             }
-            return new ShowRecordResponse(0,"歷史資料抓取成功",show);
+            //取得全部數量
+            rs = stmt.executeQuery("select count(*) as c from trackinghistory");
+            rs.next();
+            int total = rs.getInt("c");
+
+            return new ShowRecordListResponse(0,"歷史資料抓取成功",show, total);
         }catch(SQLException e) {
-            return new ShowRecordResponse(e.getErrorCode(), e.getMessage(), null);
+            return new ShowRecordListResponse(e.getErrorCode(), e.getMessage(), null,0);
         }catch(ClassNotFoundException e) {
-            return new ShowRecordResponse(1,"歷史資料抓取失敗",null);
+            return new ShowRecordListResponse(1,"歷史資料抓取失敗",null,0);
         }
 
     }

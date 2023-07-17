@@ -26,7 +26,7 @@
 <body id="app">
     
     <div class="contain">
-        <input type="text" placeholder="請鍵入您想要搜尋的項目" v-model="keyword">
+        <input type="search" placeholder="請鍵入您想要搜尋的項目" v-model="keyword">
         <div class="search"></div>
     </div>&nbsp;
 
@@ -34,8 +34,9 @@
         <h2>資料異動回溯系統</h2>
         <ul class="responsive-table">
           <li class="table-header">
-            <div class="col col-1">次序</div>
-            <div class="col col-2">產品編號</div>
+            <div class="col col-1">次序</div>  
+            <!-- style="display:flex ; height: 60px; align-items: center; justify-content: center;" -->
+            <div @click="onChangeOrderMode" class="col col-2">產品編號</div><div v-if="arrowMode != 0" :class="[arrowMode == 1 ? '':'arrow-down']" style="font-size: 22px;">⯅</div>
             <div class="col col-3">使用者</div>
             <div class="col col-4">紀錄描述</div>
             <div class="col col-3">紀錄日期</div>
@@ -63,7 +64,7 @@
       v-model:page-size="pageSize" />
 
 </body>
-<script>
+<script type="module">
     //Vue初始化
     const { createApp } = Vue
 
@@ -74,23 +75,85 @@
                 message: 'HEYO!',
                 record:[],
                 total:0,
+                currentPage:1,
+                pageSize:10,
+                total:0,
+                arrowMode:0, //0=不排序,1=由大到小,2=由小到大
+                keyword:'',
             }
         },
         watch: {
+            currentPage(newVal, oldVal) {
+
+            },
+            pageSize(newVal, oldVal) {
+
+            },
 
         },
         mounted(){
             this.fetch();
         },
         methods: {
+            onSearch() {
+                //打API要搜尋資料
+                axios.get('/v1/record/column=gameid, user, updatetime&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode)
+                .then((reponse) => {
+                    //get完成後收到的資料可以在此處理
+                    console.log(response);
+                    //將API商品資料存到Vue建立的變數之中
+                    if(response.data.code == 0) {
+                        //將API拿到的data存到Vue變數
+                        this.record = response.data.data;
+                        this.total = response.data.total;
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            },
+            //這裡是用來改變排序的方法
+            onChangeOrderMode() {
+                this.currentPage = 1;
+                if(this.arrowMode == 0) this.arrowMode =1;
+                else if (this.arrowMode == 1) this.arrowMode=2;
+                else
+                this.arrowMode = 0;
+
+                //重新打API排序頁面上的顯示資料
+                if(this.keyword.length > 0) {
+                    this.onSearch();
+                } else
+                    this.fetch();
+            },
+            onSizeChange(size) {
+                this.currentPage = 1;
+                if(this.keyword.length > 0) {
+                    this.onSearch();
+                } else
+                this.fetch();
+            },
+            onCurrentChange() {
+                if(this.keyword.length > 0) {
+                    this.onSearch();
+                } else
+                this.fetch();
+            },
+            onPrevClick(page) {
+
+            },
+            onNextClick(page) {
+
+            },
+
             fetch() {
                 //跟API拿資料
-                axios.get('/showrecord')
+                axios.get('/showrecord?page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode)
                 .then((response) => {
                     console.log(response);
                     if(response.data.code == 0) {
                         this.record = response.data.data;
-                        // this.total = response.data.data.total;
+                        this.total = response.data.total;
                     }
                 })
                 .catch((error) => {
