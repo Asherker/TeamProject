@@ -14,50 +14,51 @@ import com.uch.vueproject.model.SearchListResponse;
 
 
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/tracking")
 public class SearchController extends BaseController {
-    @RequestMapping(value = "/record/{columnName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public SearchListResponse searchGame(@PathVariable String columnName, String keyword, String keyvalue, int page, int count, int SortMode) {
-        return search(columnName, keyword, keyvalue, page, count, SortMode);
+    @RequestMapping(value = "/record", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public SearchListResponse searchGame(String[] column, String keyword, String keyvalue, int page, int count, int SortMode) {
+        
+        return search(column, keyword, keyvalue, page, count, SortMode);
     }
 
-    private SearchListResponse search(String columnName, String keyword, String keyvalue, int page, int count, int SortMode){
+    private SearchListResponse search(String[] column, String keyword, String keyvalue, int page, int count, int SortMode){
 
         try {
             // 連線資料料庫
-            connect(mysqlb.getUrl());
+            connect(mysqlb.getSearchurl());
             stmt = conn.createStatement();
 
-            String queryString = "select gameid, user,updatetime from trackinghistory" + (SortMode == 0 ? "" : (SortMode == 1 ? "order by price ASC":"order by price DESC") ) + 
-            " where " + columnName + " like '%" + keyword + "%'" + " limit " + count + " offset " + ((page-1) * count);
+            String whereToken = "";
+            for(int i = 0 ; i < column.length ; i++) {
+                whereToken += column[i] + " like '%" + keyword + "%'";
 
-            if(keyvalue.length() == 0) {
-                queryString = "select gameid, user,updatetime from trackinghistory" + (SortMode == 0 ? "" : (SortMode == 1 ? "order by price ASC":"order by price DESC") ) + 
-                    " where " + columnName + " like '%" + keyword + "%'" + " limit " + count + " offset " + ((page-1) * count);
-            } else {
-                // 數字搜尋
-                queryString = "select gameid, user,updatetime from trackinghistory"+ (SortMode == 0 ? "" : (SortMode == 1 ? "order by price ASC":"order by price DESC") ) + 
-                    " where " + columnName + " = " + keyvalue + " limit " + count + " offset " + ((page-1) * count);
+                if(i != column.length - 1) whereToken += " or ";
             }
 
-            rs = stmt.executeQuery(queryString);
+            String queryString = "select gameid, user,updatetime from trackinghistory" + (SortMode == 0 ? "" : (SortMode == 1 ? "order by updatetime ASC":"order by updatetime DESC") ) + 
+            " where " + whereToken + " limit " + count + " offset " + ((page-1) * count);
 
-            ArrayList<SearchEntity> shows = new ArrayList<>();
-            while(rs.next()) {
-                SearchEntity searchEntity = new SearchEntity();
-                searchEntity.setGameid(rs.getString("gameid"));
-                searchEntity.setUser(rs.getString("user"));
-                searchEntity.setUpdatetime(rs.getDate("updatetime"));
+            return new SearchListResponse(0, queryString, null, 0);
+
+            // rs = stmt.executeQuery(queryString);
+
+            // ArrayList<SearchEntity> shows = new ArrayList<>();
+            // while(rs.next()) {
+            //     SearchEntity searchEntity = new SearchEntity();
+            //     searchEntity.setGameid(rs.getString("gameid"));
+            //     searchEntity.setUser(rs.getString("user"));
+            //     searchEntity.setUpdatetime(rs.getDate("updatetime"));
             
-                shows.add(searchEntity);
-            }
+            //     shows.add(searchEntity);
+            // }
 
-            // 取得全部數量
-            rs = stmt.executeQuery("select count(*) as c from trackinghistory where " + columnName + " like '%" + keyword + "%'");
-            rs.next();
-            int total = rs.getInt("c");
+            // // 取得全部數量
+            // rs = stmt.executeQuery("select count(*) as c from trackinghistory where " + whereToken);
+            // rs.next();
+            // int total = rs.getInt("c");
 
-            return new SearchListResponse(0, "搜尋成功", shows, total);
+            // return new SearchListResponse(0, "搜尋成功", shows, total);
         } catch (ClassNotFoundException e) {
             return new SearchListResponse(1, "找不到驅動程式", null, 0);
         } catch (SQLException e) {

@@ -11,6 +11,9 @@ public class MySQLConfigBean {
     @Value("${spring.datasource.url}")
     private String url;
 
+    @Value("${spring.datasource.searchurl}")
+    private String searchurl;
+
     @Value("${spring.datasource.username}")
     private String username;
 

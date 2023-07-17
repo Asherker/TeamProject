@@ -38,14 +38,13 @@
         <span></span>
         送出查詢
     </div>
-    <!-- <div class="send"><el-button type="danger" round @click="onShowDetail(value)">送出</el-button></div> -->
+
 
     <div class="container">
         <h2>資料異動回溯系統</h2>
         <ul class="responsive-table">
           <li class="table-header">
             <div class="col col-1">次序</div>  
-            <!-- style="display:flex ; height: 60px; align-items: center; justify-content: center;" -->
             <div style="cursor: pointer;" @click="onChangeOrderMode" class="col col-2">產品編號</div><div v-if="arrowMode != 0" :class="[arrowMode == 1 ? '':'arrow-down']" style="font-size: 22px;">⯅</div>
             <div class="col col-3">使用者</div>
             <div class="col col-4">紀錄描述</div>
@@ -74,7 +73,7 @@
       v-model:page-size="pageSize" />
 
 </body>
-<script type="module">
+<script>
     //Vue初始化
     const { createApp } = Vue
 
@@ -105,8 +104,11 @@
         },
         methods: {
             onSearch() {
+                // "Optional int parameter 'page' is present but cannot be translated into a null value due to being 
+                // declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type."
                 //打API要搜尋資料
-                axios.get('/v1/record/column=gameid, user, updatetime&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode)
+                console.log('/tracking/record/column=gameid, user, updatetime&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode);
+                axios.get('/tracking/record/column=gameid,user,updatetime&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode)
                 .then((reponse) => {
                     //get完成後收到的資料可以在此處理
                     console.log(response);
