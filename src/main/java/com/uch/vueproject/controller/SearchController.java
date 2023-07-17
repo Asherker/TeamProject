@@ -48,7 +48,7 @@ public class SearchController extends BaseController {
                 ShowRecordEntity showEntity = new ShowRecordEntity();
                 showEntity.setGameid(rs.getString("gameid"));
                 showEntity.setUser(rs.getString("user"));
-                showEntity.setUpdatetime(rs.getDate("category"));
+                showEntity.setUpdatetime(rs.getDate("updatetime"));
             
                 shows.add(showEntity);
             }
