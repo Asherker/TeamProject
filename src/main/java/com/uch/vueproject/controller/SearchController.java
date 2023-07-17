@@ -17,7 +17,7 @@ import com.uch.vueproject.model.ShowRecordListEntity;
 @RestController
 @RequestMapping("/v1")
 public class SearchController extends BaseController {
-    @RequestMapping(value = "/food/{columnName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/games/{columnName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ShowRecordListResponse searchGame(@PathVariable String columnName, String keyword, String keyvalue, int page, int count, int SortMode) {
         return search(columnName, keyword, keyvalue, page, count, SortMode);
     }
