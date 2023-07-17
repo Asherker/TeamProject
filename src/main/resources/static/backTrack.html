@@ -104,8 +104,8 @@
                     //將API商品資料存到Vue建立的變數之中
                     if(response.data.code == 0) {
                         //將API拿到的data存到Vue變數
-                        this.record = response.data.data;
-                        this.total = response.data.total;
+                        this.record = response.data.data.show;
+                        this.total = response.data.data.total;
                     }
                 })
                 .catch((error) => {
@@ -152,8 +152,8 @@
                 .then((response) => {
                     console.log(response);
                     if(response.data.code == 0) {
-                        this.record = response.data.data;
-                        this.total = response.data.total;
+                        this.record = response.data.data.show;
+                        this.total = response.data.data.total;
                     }
                 })
                 .catch((error) => {
