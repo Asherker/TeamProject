@@ -9,20 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.uch.vueproject.model.GameDetailEntity;
-import com.uch.vueproject.model.ShowRecordListResponse;
-import com.uch.vueproject.model.ShowRecordEntity;
-import com.uch.vueproject.model.ShowRecordListEntity;
+import com.uch.vueproject.model.SearchEntity;
+import com.uch.vueproject.model.SearchListResponse;
+
 
 @RestController
 @RequestMapping("/v1")
 public class SearchController extends BaseController {
     @RequestMapping(value = "/record/{columnName}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ShowRecordListResponse searchGame(@PathVariable String columnName, String keyword, String keyvalue, int page, int count, int SortMode) {
+    public SearchListResponse searchGame(@PathVariable String columnName, String keyword, String keyvalue, int page, int count, int SortMode) {
         return search(columnName, keyword, keyvalue, page, count, SortMode);
     }
 
-    private ShowRecordListResponse search(String columnName, String keyword, String keyvalue, int page, int count, int SortMode){
+    private SearchListResponse search(String columnName, String keyword, String keyvalue, int page, int count, int SortMode){
 
         try {
             // 連線資料料庫
@@ -43,14 +42,14 @@ public class SearchController extends BaseController {
 
             rs = stmt.executeQuery(queryString);
 
-            ArrayList<ShowRecordEntity> shows = new ArrayList<>();
+            ArrayList<SearchEntity> shows = new ArrayList<>();
             while(rs.next()) {
-                ShowRecordEntity showEntity = new ShowRecordEntity();
-                showEntity.setGameid(rs.getString("gameid"));
-                showEntity.setUser(rs.getString("user"));
-                showEntity.setUpdatetime(rs.getDate("updatetime"));
+                SearchEntity searchEntity = new SearchEntity();
+                searchEntity.setGameid(rs.getString("gameid"));
+                searchEntity.setUser(rs.getString("user"));
+                searchEntity.setUpdatetime(rs.getDate("updatetime"));
             
-                shows.add(showEntity);
+                shows.add(searchEntity);
             }
 
             // 取得全部數量
@@ -58,11 +57,11 @@ public class SearchController extends BaseController {
             rs.next();
             int total = rs.getInt("c");
 
-            return new ShowRecordListResponse(0, "搜尋成功", shows, total);
+            return new SearchListResponse(0, "搜尋成功", shows, total);
         } catch (ClassNotFoundException e) {
-            return new ShowRecordListResponse(1, "找不到驅動程式", null, 0);
+            return new SearchListResponse(1, "找不到驅動程式", null, 0);
         } catch (SQLException e) {
-            return new ShowRecordListResponse(e.getErrorCode(), e.getMessage(), null, 0);
+            return new SearchListResponse(e.getErrorCode(), e.getMessage(), null, 0);
         } 
 
     }

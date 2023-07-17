@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,15 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.BaseResponse;
-import com.uch.vueproject.model.GameEntity;
-import com.uch.vueproject.model.GameListResponse;
-import com.uch.vueproject.model.GameResponse;
 
 import com.uch.vueproject.model.RecordEntity;
 import com.uch.vueproject.model.ShowRecordEntity;
 import com.uch.vueproject.model.ShowRecordListResponse;
-import com.uch.vueproject.model.ShowRecordResponse;
-import com.uch.vueproject.model.RecordResponse;
+
 
 @RestController
 public class RecordController {
