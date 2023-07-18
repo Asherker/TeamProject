@@ -34,7 +34,7 @@ of Simple CSS Waves-->
 		<div class="inner-header flex">
 		<!--Just the logo.. Don't mind this-->
 		<svg version="1.1" class="logo" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-		xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 500 500" xml:space="preserve">
+		xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 0 0" xml:space="preserve">
 		<path fill="#FFFFFF" stroke="#000000" stroke-width="10" stroke-miterlimit="10" d="M57,283" />
 		<g><path fill="#fff"
 		d="M250.4,0.8C112.7,0.8,1,112.4,1,250.2c0,137.7,111.7,249.4,249.4,249.4c137.7,0,249.4-111.7,249.4-249.4
@@ -77,7 +77,7 @@ of Simple CSS Waves-->
 		  <div class="explainer"><span>★</span></div>
 		  <div class="text">Frontend Development</div>
 		  </div>
-		<div class="right">
+		<div class="right" @click="toRecord()">
 		  <div class="text">資料備份與回溯</div>
 		</div>
 		<div class="righter">
@@ -85,7 +85,7 @@ of Simple CSS Waves-->
 		</div>
 	</div>
 		
-	<!-- <a href="https://jouanmarcel.com" target="_blank" class="ref">🔗 Jouan Marcel</a> -->
+
 	
 
 
@@ -115,9 +115,6 @@ of Simple CSS Waves-->
 	<div @click="showAddGameModal = true" class="material-symbols-outlined">
 		add
 	</div>&nbsp;&nbsp;
-	<div @click="toRecord" class="material-symbols-outlined">
-		browse_activity
-	</div>
 	<table>
 		<thead>
 			<tr>
