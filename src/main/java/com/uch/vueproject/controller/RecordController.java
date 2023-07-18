@@ -48,7 +48,7 @@ public class RecordController {
             Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from trackinghistory " + (sortMode == 0 ? "" : (sortMode == 1 ? "order by gameid ASC":"order by gameid DESC"))+
+            rs = stmt.executeQuery("select * from trackinghistory " + (sortMode == 0 ? "order by id DESC" : (sortMode == 1 ? "order by gameid ASC":"order by gameid DESC"))+
             " limit " + count + " offset " + ((page-1) * count));
 
             ArrayList<ShowRecordEntity> show = new ArrayList<>();

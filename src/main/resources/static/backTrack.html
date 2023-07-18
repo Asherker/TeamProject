@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/track.css">
     <link rel="stylesheet" href="css/searchIcon.css">
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -104,12 +105,10 @@
         },
         methods: {
             onSearch() {
-                // "Optional int parameter 'page' is present but cannot be translated into a null value due to being 
-                // declared as a primitive type. Consider declaring it as object wrapper for the corresponding primitive type."
                 //打API要搜尋資料
-                console.log('/tracking/record/column=gameid, user, updatetime&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode);
-                axios.get('/tracking/record/column=gameid,user,updatetime&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode)
-                .then((reponse) => {
+                // console.log('/tracking/record/column=gameid, user, updatetime&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode);
+                axios.get('/tracking/record?column=gameid,user&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode)
+                .then((response) => {
                     //get完成後收到的資料可以在此處理
                     console.log(response);
                     //將API商品資料存到Vue建立的變數之中

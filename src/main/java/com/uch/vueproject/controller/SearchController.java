@@ -17,16 +17,16 @@ import com.uch.vueproject.model.SearchListResponse;
 @RequestMapping("/tracking")
 public class SearchController extends BaseController {
     @RequestMapping(value = "/record", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public SearchListResponse searchGame(String[] column, String keyword, String keyvalue, int page, int count, int SortMode) {
+    public SearchListResponse searchGame(String[] column, String keyword, String keyvalue, int page, int count, int sortMode) {
         
-        return search(column, keyword, keyvalue, page, count, SortMode);
+        return search(column, keyword, keyvalue, page, count, sortMode);
     }
 
-    private SearchListResponse search(String[] column, String keyword, String keyvalue, int page, int count, int SortMode){
+    private SearchListResponse search(String[] column, String keyword, String keyvalue, int page, int count, int sortMode){
 
         try {
             // 連線資料料庫
-            connect(mysqlb.getSearchurl());
+            connect(mysqlb.getUrl());
             stmt = conn.createStatement();
 
             String whereToken = "";
@@ -36,18 +36,19 @@ public class SearchController extends BaseController {
                 if(i != column.length - 1) whereToken += " or ";
             }
 
-            String queryString = "select gameid, user,updatetime from trackinghistory" + (SortMode == 0 ? "" : (SortMode == 1 ? "order by updatetime ASC":"order by updatetime DESC") ) + 
+            String queryString = "select id,gameid,user,movement,updatetime from trackinghistory" + (sortMode == 0 ? "order by id DESC" : (sortMode == 1 ? "order by gameid DESC":"order by gameid ASC") ) + 
             " where " + whereToken + " limit " + count + " offset " + ((page-1) * count);
 
-            
 
             rs = stmt.executeQuery(queryString);
 
             ArrayList<SearchEntity> shows = new ArrayList<>();
             while(rs.next()) {
                 SearchEntity searchEntity = new SearchEntity();
+                searchEntity.setId(rs.getInt("id"));
                 searchEntity.setGameid(rs.getString("gameid"));
                 searchEntity.setUser(rs.getString("user"));
+                searchEntity.setMovement(rs.getString("movement"));
                 searchEntity.setUpdatetime(rs.getDate("updatetime"));
             
                 shows.add(searchEntity);

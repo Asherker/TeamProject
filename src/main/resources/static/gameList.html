@@ -52,6 +52,9 @@
 
 	<div @click="showAddGameModal = true" class="material-symbols-outlined">
 		add
+	</div>&nbsp;&nbsp;
+	<div @click="toRecord" class="material-symbols-outlined">
+		browse_activity
 	</div>
 	<table>
 		<thead>
@@ -408,7 +411,10 @@
 					});
 			},
 
+			toRecord(){
 
+			},
+			
 			//立刻傳新的歷史紀錄通知
 			onRecordInsert(id){
 				// 將新增資料的對話盒顯示出來

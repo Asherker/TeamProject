@@ -7,9 +7,10 @@ import lombok.Data;
 @Data
 public class SearchEntity {
 
-    // int id;
+    int id;
     String gameid;
     String user;
+    String movement;
     Date updatetime;
     
 }

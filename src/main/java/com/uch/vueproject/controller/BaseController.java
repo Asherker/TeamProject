@@ -21,7 +21,7 @@ public class BaseController {
     protected void connect(String connectionString) throws ClassNotFoundException, SQLException{
         Class.forName(mysqlb.getDriverClassName());
 
-        conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getKuo());
+        conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
     }
 
     
