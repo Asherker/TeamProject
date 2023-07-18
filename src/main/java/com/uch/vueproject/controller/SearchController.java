@@ -36,9 +36,11 @@ public class SearchController extends BaseController {
                 if(i != column.length - 1) whereToken += " or ";
             }
 
-            String queryString = "select id,gameid,user,movement,updatetime from trackinghistory" + (sortMode == 0 ? "order by id DESC" : (sortMode == 1 ? "order by gameid DESC":"order by gameid ASC") ) + 
-            " where " + whereToken + " limit " + count + " offset " + ((page-1) * count);
+            String queryString = "select id,gameid,user,movement,updatetime from trackinghistory " +
+            " where " + whereToken + (sortMode == 0 ? "order by id DESC" : (sortMode == 1 ? "order by gameid DESC":"order by gameid ASC") )
+             + " limit " + count + " offset " + ((page-1) * count);
 
+            System.out.println(queryString);
 
             rs = stmt.executeQuery(queryString);
 

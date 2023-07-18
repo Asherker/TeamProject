@@ -39,10 +39,17 @@
         <span></span>
         送出查詢
     </div>
+    
 
 
     <div class="container">
         <h2>資料異動回溯系統</h2>
+        <div @click="toList" class="material-symbols-outlined">
+            home
+        </div>&nbsp;
+        <div class="material-symbols-outlined">
+            rebase_edit
+        </div>
         <ul class="responsive-table">
           <li class="table-header">
             <div class="col col-1">次序</div>  
@@ -104,9 +111,15 @@
             this.fetch();
         },
         methods: {
+            toList() {
+                location.href = '/gameList.html';
+            },
             onSearch() {
                 //打API要搜尋資料
-                // console.log('/tracking/record/column=gameid, user, updatetime&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode);
+                if (this.keyword || this.keyword.length == 0) {
+                    this.$message.error("不能為空");
+                    return;    
+                }
                 axios.get('/tracking/record?column=gameid,user&keyword=' + this.keyword + '&keyvalue=&page=' + this.currentPage + '&count=' + this.pageSize + "&sortMode=" + this.arrowMode)
                 .then((response) => {
                     //get完成後收到的資料可以在此處理
@@ -121,6 +134,7 @@
                 .catch((error) => {
                     console.log(error);
                 });
+                
             },
             //這裡是用來改變排序的方法
             onChangeOrderMode() {
@@ -164,7 +178,9 @@
                     if(response.data.code == 0) {
                         this.record = response.data.data.shows;
                         this.total = response.data.data.total;
-                    }
+                    } else if(response.data.code == 9) {
+						location.href = "/index.html"
+					}
                 })
                 .catch((error) => {
                     console.log(error);

@@ -17,6 +17,8 @@ import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameListResponse;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/list")
 public class GamePageController {
@@ -24,8 +26,11 @@ public class GamePageController {
     private MySQLConfigBean mysqlb;
 
     @RequestMapping(value = "/games", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public GameListResponse games(int page, int count ,int SortMode) {
-        return getProductList(page, count,SortMode);
+    public GameListResponse games(int page, int count ,int SortMode, HttpSession httpSession) {
+        // if(httpSession.getAttribute("loginStatus") == null) // 未登入
+        //     return new GameListResponse(9, "未登入", null, 0);
+        // else
+            return getProductList(page, count,SortMode);
     }
 
     private GameListResponse getProductList(int page, int count,int SortMode) {

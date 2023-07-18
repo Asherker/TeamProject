@@ -14,14 +14,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.LoginResponse;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class LoginController {
     @Autowired
     private MySQLConfigBean mysqlb;
 
     @RequestMapping(value="/login", method = RequestMethod.GET,produces = "application/json")
-    public LoginResponse login(String username,String password) {
-        return checkAccount(username, password);
+    public LoginResponse login(String username,String password, HttpSession httpSession) {
+        LoginResponse response = checkAccount(username, password);
+
+        if(response.getCode() == 0) {// 登入成功
+            httpSession.setAttribute("loginStatus", username + "已登入");
+        } else 
+            httpSession.removeAttribute("loginStatus");  // 清除登入狀態
+
+        return response;
 
     }
         private LoginResponse checkAccount(String username, String password) {

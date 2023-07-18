@@ -93,3 +93,23 @@ h2 small {
     text-align: right;
   }
 }
+
+.material-symbols-outlined {
+  margin-bottom: 8px;
+	cursor: pointer;
+	border: 2px solid #55608f;	
+  background-color:  #55608f;
+  border-radius: 20%;
+  color: white; 
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 600,
+  'GRAD' 200,
+  'opsz' 48
+	}
+
+.material-symbols-outlined:hover {
+  border: 2px solid #681dad60;
+  background-color: #681dad60;
+  color: white;
+}
