@@ -116,7 +116,7 @@
             },
             onSearch() {
                 //打API要搜尋資料
-                if (this.keyword || this.keyword.length == 0) {
+                if (this.keyword.length == 0) {
                     this.$message.error("不能為空");
                     return;    
                 }
