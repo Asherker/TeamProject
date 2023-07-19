@@ -19,6 +19,7 @@ import com.uch.vueproject.bean.MySQLConfigBean;
 import com.uch.vueproject.model.BaseResponse;
 import com.uch.vueproject.model.GameEntity;
 import com.uch.vueproject.model.GameResponse;
+import com.uch.vueproject.model.SearchResultEntity;
 import com.uch.vueproject.model.StringArrayResponse;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -50,16 +51,19 @@ public class GameController {
             Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
         
-            stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, data.getId());
-            stmt.setString(2, data.getName());
-            stmt.setString(3, data.getPlatform());
-            stmt.setString(4, data.getCategory());
-            stmt.setString(5, data.getDeveloper());
-            stmt.setInt(6, data.getPrice());
-            stmt.setInt(7, data.getQuantity());
-            stmt.setDate(8, data.getInchange());
-            stmt.setDate(9, data.getOutchange());
+            stmt.setString(2, data.getChname());
+            stmt.setString(3, data.getEnname());
+            stmt.setString(4, data.getPlatform());
+            stmt.setString(5, data.getCategory());
+            stmt.setString(6, data.getDeveloper());
+            stmt.setInt(7, data.getDevyear());
+            stmt.setInt(8, data.getPrice());
+            stmt.setInt(9, data.getQuantity());
+            stmt.setDate(10, data.getInchange());
+            stmt.setDate(11, data.getOutchange());
+            stmt.setString(12, data.getDescription());
 
             stmt.executeUpdate();
 
@@ -84,16 +88,19 @@ public class GameController {
             Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
 
-            stmt = conn.prepareStatement("UPDATE gameinfo SET name=?, category=?, developer=?, platform=?, price=?, quantity=?, inchange=?, outchange=? WHERE id=?");
-            stmt.setString(1, data.getName());
-            stmt.setString(2, data.getCategory());
-            stmt.setString(3, data.getDeveloper());
-            stmt.setString(4, data.getPlatform());
-            stmt.setInt(5, data.getPrice());
-            stmt.setInt(6, data.getQuantity());
-            stmt.setDate(7, data.getInchange());
-            stmt.setDate(8, data.getOutchange());
-            stmt.setString(9, data.getId());
+            stmt = conn.prepareStatement("UPDATE gameinfo SET ch_name=?, en_name=?, category=?, developer=?, platform=?, dev_year=?, price=?, quantity=?, inchange=?, outchange=?, description=? WHERE id=?");
+            stmt.setString(1, data.getChname());
+            stmt.setString(2, data.getEnname());
+            stmt.setString(3, data.getCategory());
+            stmt.setString(4, data.getDeveloper());
+            stmt.setString(5, data.getPlatform());
+            stmt.setInt(6, data.getDevyear());
+            stmt.setInt(7, data.getPrice());
+            stmt.setInt(8, data.getQuantity());
+            stmt.setDate(9, data.getInchange());
+            stmt.setDate(10, data.getOutchange());
+            stmt.setString(11, data.getDescription());
+            stmt.setString(12, data.getId());
 
             stmt.executeUpdate();
 
@@ -143,11 +150,14 @@ public class GameController {
                 conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
                 stmt = conn.createStatement();
 
-                rs = stmt.executeQuery("select name from gameinfo where name like '%" + keyword + "%'");
+                rs = stmt.executeQuery("select ch_name, en_name from gameinfo where ch_name like '%" + keyword + "%' or en_name like '%" + keyword + "%'");
 
-            ArrayList<String> data = new ArrayList<>();
+            ArrayList<SearchResultEntity> data = new ArrayList<>();
             while(rs.next()){
-                data.add(rs.getString("name"));
+                SearchResultEntity searchResultEntity = new SearchResultEntity();
+                searchResultEntity.setChname(rs.getString("ch_name"));
+                searchResultEntity.setEnname(rs.getString("en_name"));
+                data.add(searchResultEntity);
             }
 
             return new StringArrayResponse(0, "搜尋成功", data);
@@ -176,14 +186,17 @@ public class GameController {
             while(rs.next()){
                 GameEntity gameEntity = new GameEntity();
                 gameEntity.setId(rs.getString("id"));
-                gameEntity.setName(rs.getString("name"));
+                gameEntity.setChname(rs.getString("ch_name"));
+                gameEntity.setEnname(rs.getString("en_name"));
+                gameEntity.setPlatform(rs.getString("platform"));
                 gameEntity.setCategory(rs.getString("category"));
-                gameEntity.setPrice(rs.getInt("price"));
-                gameEntity.setQuantity(rs.getInt("quantity"));
                 gameEntity.setDeveloper(rs.getString("developer"));
+                gameEntity.setDevyear(rs.getInt("dev_year"));
+                gameEntity.setQuantity(rs.getInt("quantity"));
+                gameEntity.setPrice(rs.getInt("price"));
                 gameEntity.setInchange(rs.getDate("inchange"));
                 gameEntity.setOutchange(rs.getDate("outchange"));
-                gameEntity.setPlatform(rs.getString("platform"));
+                gameEntity.setDescription(rs.getString("description"));
                 games.add(gameEntity);
             }
             return new GameResponse(0,"成功",games);

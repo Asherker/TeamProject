@@ -6,13 +6,19 @@ import lombok.Data;
 @Data
 public class GameEntity {
     String id;
-    String name;
+    String chname;
+    String enname;
+    String platform;
     String category;
+    String developer;
+    int devyear;
     int price;
+    int quantity;
     Date inchange;
     Date outchange;
-    int quantity;
-    String developer;
-    String platform;
+    String description;
+   
+    
+    
     
 }
