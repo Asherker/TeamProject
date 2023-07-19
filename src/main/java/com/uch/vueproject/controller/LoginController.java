@@ -33,6 +33,16 @@ public class LoginController {
         return response;
 
     }
+
+    @RequestMapping(value="/logout", method = RequestMethod.POST,produces = "application/json")
+    public LoginResponse logout (HttpSession httpSession) {
+
+        httpSession.removeAttribute("loginStatus");  // 清除登入狀態
+
+        return new LoginResponse(0, "已登出");
+
+    }
+
         private LoginResponse checkAccount(String username, String password) {
         Connection conn = null;
         Statement stmt = null;

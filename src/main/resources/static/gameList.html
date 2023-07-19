@@ -67,8 +67,8 @@ of Simple CSS Waves-->
 	
 	<!-- 選單 -->
 	<div class="all">
-		<div class="lefter" @click="onLogin()">
-		  <div class="text">登入</div>
+		<div class="lefter" @click="onLogout()">
+		  <div class="text">登出</div>
 		</div>
 		<div class="left">
 		  <div class="text">功能預留</div>
@@ -114,7 +114,10 @@ of Simple CSS Waves-->
 
 	<div @click="showAddGameModal = true" class="material-symbols-outlined">
 		add
-	</div>&nbsp;&nbsp;
+	</div>&nbsp;
+	<div @click="showDescriptionModal = true" class="material-symbols-outlined">
+		file_open
+	</div>
 	<table>
 		<thead>
 			<tr>
@@ -283,6 +286,47 @@ of Simple CSS Waves-->
 		</div>
 	</div>
 
+	<!-- 描述彈窗 -->
+	<div class="form" v-if="showDescriptionModal">
+		<div class="title">新增遊戲產品描述</div>
+		<div class="input-container ic2">
+			<input id="email" class="input" type="text" v-model="newDescription.id" placeholder=" " />
+			<div class="cut cut-short"></div>
+			<label for="email" class="placeholder">產品編號</label>
+		</div>
+		<div class="input-container ic1">
+			<input id="firstname" class="input" type="text" v-model="newDescription.ch_name" placeholder=" " />
+			<div class="cut"></div>
+			<label for="firstname" class="placeholder">遊戲中文名稱</label>
+		</div>
+		<div class="input-container ic2">
+			<input id="email" class="input" type="text" v-model="newDescription.en_name" placeholder=" " />
+			<div class="cut cut-short"></div>
+			<label for="email" class="placeholder">遊戲英文名稱</label>
+		</div>
+		
+		<div class="btn-group">
+			<div class="input-container ic2">
+				<input id="email" class="input" type="number" v-model="newDescription.dev_year" placeholder=" " />
+				<div class="cut cut-short"></div>
+				<label for="email" class="placeholder">發行年</label>
+			</div>
+
+		</div>
+
+		&nbsp;<el-input
+  			type="textarea"
+  			:rows="3"
+  			placeholder="請輸入簡單產品描述(100字內)"
+  			v-model="newDescription.description">
+		</el-input>
+
+		<div class="btn-group">
+			<button type="text" class="submit" @click="showDescriptionModal = false">取消</button>
+			<button type="text" class="submit" @click="onAddDescription(), this.discription = 2, onRecordInsert(newGameData.id)">送出</button>
+		</div>
+	</div>
+
 </body>
 
 </html>
@@ -301,6 +345,14 @@ of Simple CSS Waves-->
 				showDetail: false,
 				gameDetail: {},
 				showAddGameModal: false,
+				showDescriptionModal:false,
+				newDescription:{
+					id:'',
+					ch_name:'',
+					en_name:'',
+					dev_year:0,
+					description:''
+				},
 				platformOptions: [
 					{
 						value: "PlayStation4/5",
@@ -369,8 +421,21 @@ of Simple CSS Waves-->
 		},
 		// 網頁要用的方法寫在這裡
 		methods: {
-			onLogin() {
-				location.href = "/index.html";
+			onLogout() {
+				axios.post('/logout')
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							console.log(response.data.message);
+							this.$message.success('成功');
+							location.href="/index.html";
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+
+						this.$message.error('失敗');
+					})
 			},
 			onChangeMode(){
 				this.currentPage = 1;
@@ -435,6 +500,22 @@ of Simple CSS Waves-->
 
 						this.$message.error('新增失敗');
 					})
+			},
+			onAddDescription() {
+				// 將新增資料的對話盒顯示出來
+				console.log(JSON.stringify(this.newDescription));
+				//打API將資料送到後端
+				axios.post('/adddescribe',this.newDescription)
+				.then((response) => {
+					console.log(response);
+					if (response.data.code == 0) {
+						this.$message.success('產品描述新增成功');
+					}
+				})
+				.catch((error) =>{
+					console.log(error);
+					this.$message.error('產品描述新增失敗');
+				})
 			},
 
 			onDelete(id) {

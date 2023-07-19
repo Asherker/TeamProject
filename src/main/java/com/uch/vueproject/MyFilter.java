@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
 @WebFilter(urlPatterns = "/*", filterName = "myFilter")
 public class MyFilter extends OncePerRequestFilter {
     // 白名單
-    Set<String> ALLOW_LIST = new HashSet<>(Arrays.asList("/login", "/ok"));
+    Set<String> ALLOW_LIST = new HashSet<>(Arrays.asList("/login", "/logout"));
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
