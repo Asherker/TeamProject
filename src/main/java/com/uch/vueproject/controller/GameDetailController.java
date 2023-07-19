@@ -2,12 +2,14 @@ package com.uch.vueproject.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,6 +64,36 @@ public class GameDetailController {
             return new GameDetailResponse(e.getErrorCode(), e.getMessage(), null);
         } catch(ClassNotFoundException e) {
             return new GameDetailResponse(1, "無法註冊驅動程式", null);
+        }
+    }
+
+    @RequestMapping(value = "/adddescribe", method = RequestMethod.POST,
+        consumes = MediaType.APPLICATION_JSON_VALUE,  // 傳入的資料格式
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public GameDetailResponse adddescribe(@RequestBody GameDetailEntity data) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try{
+            Class.forName(mysqlb.getDriverClassName());
+            conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
+        
+            stmt = conn.prepareStatement("INSERT INTO game_description VALUES(?, ?, ?, ?, ?)");
+            stmt.setString(1, data.getId());
+            stmt.setString(2, data.getChname());
+            stmt.setString(3, data.getEnname());
+            stmt.setInt(4, data.getDevyear());
+            stmt.setString(5, data.getDescription());
+            
+
+            stmt.executeUpdate();
+
+            return new GameDetailResponse(0, "資料新增成功", data);
+
+        }catch(SQLException e) {
+            return new GameDetailResponse(e.getErrorCode(), e.getMessage(), data);
+        }catch(ClassNotFoundException e) {
+            return new GameDetailResponse(9,"資料新增失敗", data);
         }
     }
 
