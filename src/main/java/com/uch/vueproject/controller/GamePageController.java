@@ -54,17 +54,17 @@ public class GamePageController {
             while(rs.next()) {
                 GameEntity gameEntity = new GameEntity();
                 gameEntity.setId(rs.getString("id"));
-                gameEntity.setChname(rs.getString("chname"));
-                gameEntity.setEnname(rs.getString("enname"));
+                // gameEntity.setChname(rs.getString("chname"));
+                // gameEntity.setEnname(rs.getString("enname"));
                 gameEntity.setPlatform(rs.getString("platform"));
                 gameEntity.setCategory(rs.getString("category"));
                 gameEntity.setDeveloper(rs.getString("developer"));
-                gameEntity.setDevyear(rs.getInt("devyear"));
+                // gameEntity.setDevyear(rs.getInt("devyear"));
                 gameEntity.setQuantity(rs.getInt("quantity"));
                 gameEntity.setPrice(rs.getInt("price"));
                 gameEntity.setInchange(rs.getDate("inchange"));
                 gameEntity.setOutchange(rs.getDate("outchange"));
-                gameEntity.setDescription(rs.getString("description"));
+                // gameEntity.setDescription(rs.getString("description"));
 
                 games.add(gameEntity);
             }

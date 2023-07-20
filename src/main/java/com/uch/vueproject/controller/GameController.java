@@ -53,17 +53,17 @@ public class GameController {
         
             stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             stmt.setString(1, data.getId());
-            stmt.setString(2, data.getChname());
-            stmt.setString(3, data.getEnname());
+            // stmt.setString(2, data.getChname());
+            // stmt.setString(3, data.getEnname());
             stmt.setString(4, data.getPlatform());
             stmt.setString(5, data.getCategory());
             stmt.setString(6, data.getDeveloper());
-            stmt.setInt(7, data.getDevyear());
+            // stmt.setInt(7, data.getDevyear());
             stmt.setInt(8, data.getPrice());
             stmt.setInt(9, data.getQuantity());
             stmt.setDate(10, data.getInchange());
             stmt.setDate(11, data.getOutchange());
-            stmt.setString(12, data.getDescription());
+            // stmt.setString(12, data.getDescription());
 
             stmt.executeUpdate();
 
@@ -88,18 +88,19 @@ public class GameController {
             Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
 
-            stmt = conn.prepareStatement("UPDATE gameinfo SET ch_name=?, en_name=?, category=?, developer=?, platform=?, dev_year=?, price=?, quantity=?, inchange=?, outchange=?, description=? WHERE id=?");
-            stmt.setString(1, data.getChname());
-            stmt.setString(2, data.getEnname());
+            stmt = conn.prepareStatement("UPDATE gameinfo SET name=? ,category=?, developer=?, platform=?, price=?, quantity=?, inchange=?, outchange=?, description=? WHERE id=?");
+            // stmt.setString(1, data.getChname());
+            // stmt.setString(2, data.getEnname());
+            // stmt.setString(1, data.getName());
             stmt.setString(3, data.getCategory());
             stmt.setString(4, data.getDeveloper());
             stmt.setString(5, data.getPlatform());
-            stmt.setInt(6, data.getDevyear());
+            // stmt.setInt(6, data.getDevyear());
             stmt.setInt(7, data.getPrice());
             stmt.setInt(8, data.getQuantity());
             stmt.setDate(9, data.getInchange());
             stmt.setDate(10, data.getOutchange());
-            stmt.setString(11, data.getDescription());
+            // stmt.setString(11, data.getDescription());
             stmt.setString(12, data.getId());
 
             stmt.executeUpdate();
@@ -186,17 +187,17 @@ public class GameController {
             while(rs.next()){
                 GameEntity gameEntity = new GameEntity();
                 gameEntity.setId(rs.getString("id"));
-                gameEntity.setChname(rs.getString("ch_name"));
-                gameEntity.setEnname(rs.getString("en_name"));
+                // gameEntity.setChname(rs.getString("ch_name"));
+                // gameEntity.setEnname(rs.getString("en_name"));
                 gameEntity.setPlatform(rs.getString("platform"));
                 gameEntity.setCategory(rs.getString("category"));
                 gameEntity.setDeveloper(rs.getString("developer"));
-                gameEntity.setDevyear(rs.getInt("dev_year"));
+                // gameEntity.setDevyear(rs.getInt("dev_year"));
                 gameEntity.setQuantity(rs.getInt("quantity"));
                 gameEntity.setPrice(rs.getInt("price"));
                 gameEntity.setInchange(rs.getDate("inchange"));
                 gameEntity.setOutchange(rs.getDate("outchange"));
-                gameEntity.setDescription(rs.getString("description"));
+                // gameEntity.setDescription(rs.getString("description"));
                 games.add(gameEntity);
             }
             return new GameResponse(0,"成功",games);
