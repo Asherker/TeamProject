@@ -115,9 +115,7 @@ of Simple CSS Waves-->
 	<div @click="showAddGameModal = true" class="material-symbols-outlined">
 		add
 	</div>&nbsp;
-	<div @click="showDescriptionModal = true" class="material-symbols-outlined">
-		file_open
-	</div>
+
 	<table>
 		<thead>
 			<tr>
@@ -143,7 +141,7 @@ of Simple CSS Waves-->
 					<input class="idinput" v-else v-model="games[index].id" placeholder="Please input" />
 				</td>
 				<td>
-					<div v-if="!showEditMode[index]">{{ item.name }}</div>
+					<div v-if="!showEditMode[index]">{{ item.chname }}</div>
 					<el-input v-else v-model="games[index].name" placeholder="Please input" />
 				</td>
 				<td>
@@ -194,6 +192,9 @@ of Simple CSS Waves-->
 				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
 					Close
 				</span>
+				<div @click="showDescriptionModal = true" class="material-symbols-outlined">
+					file_open
+				</div>
 				</td>
 			</tr>
 		</tbody>
@@ -202,7 +203,7 @@ of Simple CSS Waves-->
 	<el-pagination background layout="prev, pager, next, sizes" 
 	:total="total" 
 	:page-sizes="[ 10, 20]"
-	style="justify-content: center;margin-bottom: 25px;"
+	style="justify-content: center;margin-bottom: 30px;display: flex;min-height: 10vh;"
 	@size-change="onSizeChange" 
 	@current-change="onCurrentChange" 
 	@prev-click="onPrevClick" 
@@ -213,7 +214,7 @@ of Simple CSS Waves-->
 </div>
 
 
-	<!-- 新增遊戲的對話盒 -->
+	<!-- 新增遊戲的彈窗對話盒 -->
 	<div class="form" v-if="showAddGameModal">
 		<div class="title">新增遊戲資料</div>
 		<div class="input-container ic2">
@@ -222,7 +223,7 @@ of Simple CSS Waves-->
 			<label for="email" class="placeholder">產品編號</label>
 		</div>
 		<div class="input-container ic1">
-			<input id="firstname" class="input" type="text" v-model="newGameData.name" placeholder=" " />
+			<input id="firstname" class="input" type="text" v-model="newGameData.chname" placeholder=" " />
 			<div class="cut"></div>
 			<label for="firstname" class="placeholder">遊戲名稱</label>
 		</div>
@@ -289,11 +290,11 @@ of Simple CSS Waves-->
 	<!-- 描述彈窗 -->
 	<div class="form" v-if="showDescriptionModal">
 		<div class="title">新增遊戲產品描述</div>
-		<div class="input-container ic2">
+		<!-- <div class="input-container ic2">
 			<input id="email" class="input" type="text" v-model="newDescription.id" placeholder=" " />
 			<div class="cut cut-short"></div>
 			<label for="email" class="placeholder">產品編號</label>
-		</div>
+		</div> -->
 		<div class="input-container ic1">
 			<input id="firstname" class="input" type="text" v-model="newDescription.ch_name" placeholder=" " />
 			<div class="cut"></div>
@@ -323,7 +324,7 @@ of Simple CSS Waves-->
 
 		<div class="btn-group">
 			<button type="text" class="submit" @click="showDescriptionModal = false">取消</button>
-			<button type="text" class="submit" @click="onAddDescription(), this.discription = 2, onRecordInsert(newGameData.id)">送出</button>
+			<button type="text" class="submit" @click="onAddDescription(), this.discription = 2,searchid = games[index].id , onRecordInsert(newGameData.id)">送出</button>
 		</div>
 	</div>
 
@@ -347,7 +348,7 @@ of Simple CSS Waves-->
 				showAddGameModal: false,
 				showDescriptionModal:false,
 				newDescription:{
-					id:'',
+					// id:'',
 					ch_name:'',
 					en_name:'',
 					dev_year:0,
@@ -374,7 +375,7 @@ of Simple CSS Waves-->
 
 				newGameData: {
 					id:'',
-					name: '',
+					chname: '',
 					category: '',
 					developer: '',
 					platform: '',
@@ -401,7 +402,7 @@ of Simple CSS Waves-->
 					updatetime:'',
 				},
 				discription: 0,
-				
+				searchid:'',
 			}
 		},
 		watch: {
@@ -503,9 +504,9 @@ of Simple CSS Waves-->
 			},
 			onAddDescription() {
 				// 將新增資料的對話盒顯示出來
-				console.log(JSON.stringify(this.newDescription));
+				console.log(JSON.stringify(this.newDescription,this.searchid));
 				//打API將資料送到後端
-				axios.post('/adddescribe',this.newDescription)
+				axios.post('/adddescribe',this.newDescription,this.searchid)
 				.then((response) => {
 					console.log(response);
 					if (response.data.code == 0) {

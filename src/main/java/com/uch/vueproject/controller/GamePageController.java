@@ -54,7 +54,7 @@ public class GamePageController {
             while(rs.next()) {
                 GameEntity gameEntity = new GameEntity();
                 gameEntity.setId(rs.getString("id"));
-                // gameEntity.setChname(rs.getString("chname"));
+                gameEntity.setChname(rs.getString("ch_name"));
                 // gameEntity.setEnname(rs.getString("enname"));
                 gameEntity.setPlatform(rs.getString("platform"));
                 gameEntity.setCategory(rs.getString("category"));

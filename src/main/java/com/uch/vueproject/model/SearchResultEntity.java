@@ -6,6 +6,6 @@ import lombok.Data;
 public class SearchResultEntity {
 
     String chname;
-    String enname; 
+    // String enname; 
     
 }

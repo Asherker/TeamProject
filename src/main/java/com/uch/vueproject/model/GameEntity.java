@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class GameEntity {
     String id;
-    // String chname;
+    String chname;
     // String enname;
     String platform;
     String category;

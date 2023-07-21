@@ -78,7 +78,7 @@ public class GameDetailController {
             Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
         
-            stmt = conn.prepareStatement("INSERT INTO game_description VALUES(?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?) where id =?");
             stmt.setString(1, data.getId());
             stmt.setString(2, data.getChname());
             stmt.setString(3, data.getEnname());
@@ -88,12 +88,12 @@ public class GameDetailController {
 
             stmt.executeUpdate();
 
-            return new GameDetailResponse(0, "資料新增成功", data);
+            return new GameDetailResponse(0, "詳細資料新增成功", data);
 
         }catch(SQLException e) {
             return new GameDetailResponse(e.getErrorCode(), e.getMessage(), data);
         }catch(ClassNotFoundException e) {
-            return new GameDetailResponse(9,"資料新增失敗", data);
+            return new GameDetailResponse(9,"詳細資料新增失敗", data);
         }
     }
 

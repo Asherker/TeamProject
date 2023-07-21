@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 public class StringArrayResponse extends BaseResponse {
-    ArrayList<SearchResultEntity> data;
+    ArrayList<String> data;
 
-    public StringArrayResponse(int code, String message, ArrayList<SearchResultEntity> data) {
+    public StringArrayResponse(int code, String message, ArrayList<String> data) {
         super(code, message);
 
         this.data = data;
