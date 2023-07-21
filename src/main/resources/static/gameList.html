@@ -192,7 +192,7 @@ of Simple CSS Waves-->
 				<span @click="showEditMode[index] = false" v-if="showEditMode[index]" class="material-symbols-outlined">
 					Close
 				</span>
-				<div @click="showDescriptionModal = true" class="material-symbols-outlined">
+				<div @click="showDescriptionModal = true, this.newDescription.id = games[index].id" class="material-symbols-outlined">
 					file_open
 				</div>
 				</td>
@@ -295,20 +295,20 @@ of Simple CSS Waves-->
 			<div class="cut cut-short"></div>
 			<label for="email" class="placeholder">產品編號</label>
 		</div> -->
-		<div class="input-container ic1">
+		<!-- <div class="input-container ic1">
 			<input id="firstname" class="input" type="text" v-model="newDescription.ch_name" placeholder=" " />
 			<div class="cut"></div>
 			<label for="firstname" class="placeholder">遊戲中文名稱</label>
-		</div>
+		</div> -->
 		<div class="input-container ic2">
-			<input id="email" class="input" type="text" v-model="newDescription.en_name" placeholder=" " />
+			<input id="email" class="input" type="text" v-model="newDescription.enname" placeholder=" " />
 			<div class="cut cut-short"></div>
 			<label for="email" class="placeholder">遊戲英文名稱</label>
 		</div>
 		
 		<div class="btn-group">
 			<div class="input-container ic2">
-				<input id="email" class="input" type="number" v-model="newDescription.dev_year" placeholder=" " />
+				<input id="email" class="input" type="number" v-model="newDescription.devyear" placeholder=" " />
 				<div class="cut cut-short"></div>
 				<label for="email" class="placeholder">發行年</label>
 			</div>
@@ -324,7 +324,7 @@ of Simple CSS Waves-->
 
 		<div class="btn-group">
 			<button type="text" class="submit" @click="showDescriptionModal = false">取消</button>
-			<button type="text" class="submit" @click="onAddDescription(), this.discription = 2,searchid = games[index].id , onRecordInsert(newGameData.id)">送出</button>
+			<button type="text" class="submit" @click="onAddDescription(), this.discription = 2, onRecordInsert(newGameData.id)">送出</button>
 		</div>
 	</div>
 
@@ -348,10 +348,10 @@ of Simple CSS Waves-->
 				showAddGameModal: false,
 				showDescriptionModal:false,
 				newDescription:{
-					// id:'',
-					ch_name:'',
-					en_name:'',
-					dev_year:0,
+					id:'',
+					// ch_name:'',
+					enname:'',
+					devyear:0,
 					description:''
 				},
 				platformOptions: [
@@ -504,18 +504,20 @@ of Simple CSS Waves-->
 			},
 			onAddDescription() {
 				// 將新增資料的對話盒顯示出來
-				console.log(JSON.stringify(this.newDescription,this.searchid));
+				console.log(JSON.stringify(this.newDescription));
 				//打API將資料送到後端
-				axios.post('/adddescribe',this.newDescription,this.searchid)
+				axios.put('/adddescribe',this.newDescription)
 				.then((response) => {
 					console.log(response);
 					if (response.data.code == 0) {
-						this.$message.success('產品描述新增成功');
+						this.$message.success('產品描述更新成功');
+						this.showDescriptionModal = false;
+						this.fetch();
 					}
 				})
 				.catch((error) =>{
 					console.log(error);
-					this.$message.error('產品描述新增失敗');
+					this.$message.error('產品描述更新失敗');
 				})
 			},
 

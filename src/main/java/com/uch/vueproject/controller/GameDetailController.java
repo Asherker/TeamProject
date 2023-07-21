@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uch.vueproject.bean.MySQLConfigBean;
+import com.uch.vueproject.model.GameDescriptionResponse;
 import com.uch.vueproject.model.GameDetailEntity;
 import com.uch.vueproject.model.GameDetailResponse;
+import com.uch.vueproject.model.gameDescriptionEntity;
 
 @RestController
 public class GameDetailController {
@@ -41,7 +43,7 @@ public class GameDetailController {
             stmt = conn.createStatement();
 
             // ToDo: 改query:  select name, category, buy_date, exp_date, quantity  from foods f join food_detail fd where f.food_id = fd.id;
-            rs = stmt.executeQuery("select * from game_description where ch_name = '" +  value + "'");//這裡是要加入查的資料庫
+            rs = stmt.executeQuery("select id, ch_name, en_name, dev_year, description from gameinfo where ch_name = '" +  value + "'");//這裡是要加入查的資料庫
 
             boolean isDataExist = rs.next();
 
@@ -53,7 +55,7 @@ public class GameDetailController {
                 gameDetailEntity.setId(rs.getString("id"));
                 gameDetailEntity.setChname(rs.getString("ch_name"));
                 gameDetailEntity.setEnname(rs.getString("en_name"));
-                gameDetailEntity.setDevyear(rs.getInt("dev_yaer"));
+                gameDetailEntity.setDevyear(rs.getInt("dev_year"));
                 gameDetailEntity.setDescription(rs.getString("description"));
 
 
@@ -67,10 +69,10 @@ public class GameDetailController {
         }
     }
 
-    @RequestMapping(value = "/adddescribe", method = RequestMethod.POST,
+    @RequestMapping(value = "/adddescribe", method = RequestMethod.PUT,
         consumes = MediaType.APPLICATION_JSON_VALUE,  // 傳入的資料格式
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public GameDetailResponse adddescribe(@RequestBody GameDetailEntity data) {
+    public GameDescriptionResponse adddescribe(@RequestBody gameDescriptionEntity data) {
         Connection conn = null;
         PreparedStatement stmt = null;
         
@@ -78,22 +80,22 @@ public class GameDetailController {
             Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
         
-            stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?) where id =?");
-            stmt.setString(1, data.getId());
-            stmt.setString(2, data.getChname());
-            stmt.setString(3, data.getEnname());
-            stmt.setInt(4, data.getDevyear());
-            stmt.setString(5, data.getDescription());
-            
+            stmt = conn.prepareStatement("UPDATE gameinfo SET en_name = ?, dev_year = ?, description = ? where id =?");
+            // stmt.setString(1, data.getId());
+            // stmt.setString(2, data.getChname());
+            stmt.setString(1, data.getEnname());
+            stmt.setInt(2, data.getDevyear());
+            stmt.setString(3, data.getDescription());
+            stmt.setString(4, data.getId());
 
             stmt.executeUpdate();
 
-            return new GameDetailResponse(0, "詳細資料新增成功", data);
+            return new GameDescriptionResponse(0, "詳細資料新增成功", data);
 
         }catch(SQLException e) {
-            return new GameDetailResponse(e.getErrorCode(), e.getMessage(), data);
+            return new GameDescriptionResponse(e.getErrorCode(), e.getMessage(), data);
         }catch(ClassNotFoundException e) {
-            return new GameDetailResponse(9,"詳細資料新增失敗", data);
+            return new GameDescriptionResponse(9,"詳細資料新增失敗", data);
         }
     }
 

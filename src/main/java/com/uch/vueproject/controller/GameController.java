@@ -51,7 +51,7 @@ public class GameController {
             Class.forName(mysqlb.getDriverClassName());
             conn = DriverManager.getConnection(mysqlb.getUrl() + mysqlb.getData()+ "?user=" + mysqlb.getUsername() + "&password=" + mysqlb.getPassword());
         
-            stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("INSERT INTO gameinfo VALUES(?, ?, null, ?, ?, ?, null, ?, ?, ?, ?, null)");
             stmt.setString(1, data.getId());
             stmt.setString(2, data.getChname());
             // stmt.setString(3, data.getEnname());
@@ -161,6 +161,7 @@ public class GameController {
             }
 
             return new StringArrayResponse(0, "搜尋成功", data);
+            
             }catch(SQLException e){
                 return new StringArrayResponse(e.getErrorCode(), e.getMessage(), null);
             }catch(ClassNotFoundException e){
