@@ -6,3 +6,14 @@
 　　此外，我們在系統清單介面建置了跳轉的按鈕選鍵功能，可以為日後系統的擴充留有開發餘地，甚至是加入開發的功能介面，也能透過此按鈕選鍵功能進行統整。
 
 ![成品畫面01](https://github.com/Asherker/TeamProject/assets/55643879/93ef55e6-b67d-4e7f-b211-9eaf42633c48)
+上圖為本專案之登入介面
+![成品畫面02](https://github.com/Asherker/TeamProject/assets/55643879/0f6bc9ed-6564-4619-9cf0-2d309d8b16c7)
+上圖為若使用者的帳號或密碼錯誤時系統會跳出提示說"帳號不存在"或"密碼錯誤"
+![成品畫面03](https://github.com/Asherker/TeamProject/assets/55643879/f93f8149-90e5-450f-aaeb-93aa22b388e4)
+上圖為本系統清單介面建置的跳轉的按鈕選鍵功能
+![成品畫面04](https://github.com/Asherker/TeamProject/assets/55643879/112b900b-8fa8-4e22-822f-604634de4dc0)
+上圖為本系統的主要頁面,也是進行商品新增、修改、刪除以及查詢的頁面
+![成品畫面05](https://github.com/Asherker/TeamProject/assets/55643879/540cea22-f733-482c-bff6-0504c8fd962d)
+上圖為使用查詢功能後顯示商品詳細資訊的視窗
+![成品畫面06](https://github.com/Asherker/TeamProject/assets/55643879/e8ee41d0-e2f7-4096-a051-0de35d898ef5)
+上圖為本系統建置的資料異動紀錄子系統,此系統的功能已於上面的說明中提及
